@@ -1,0 +1,4 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>The Way Back Home</title><script>
+var s=location.pathname.split('/').filter(Boolean),m=s[1]&&s[1].match(/^p(\d+)$/);
+location.replace(s[0]&&/^[a-z]{2,3}$/.test(s[0])?'/'+s[0]+'/'+(m?'?p='+m[1]:''):'/');
+</script></head><body></body></html>
