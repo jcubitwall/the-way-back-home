@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="manifest" href="/ko/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="집으로 가는 길">
+<meta name="theme-color" content="#2F7FD9">
+<base href="/">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Way Back Home</title>
+<meta property="og:title" content="The Way Back Home">
+<meta property="og:description" content="A true Bible story for children ages 5–8. Read, listen, or download in 15 languages.">
+<meta property="og:image" content="https://thewaybackhome.net/assets/share.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://thewaybackhome.net/ko/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>">
+<style>
+html,body{height:100%;margin:0;background:#1b1726;font-family:system-ui,sans-serif}
+.book{position:relative;height:100%;overflow:hidden;touch-action:none;overscroll-behavior:none;-webkit-user-select:none;user-select:none}
+.track{position:absolute;left:0;right:0;top:0;height:100%;will-change:transform;transform:translate3d(0,0,0)}
+.track.anim{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+section{position:relative;height:100%;box-sizing:border-box;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);background:var(--bg,#1b1726)}
+section img{width:100%;height:100%;display:block;object-fit:contain}
+.bar{position:fixed;left:10px;right:10px;top:calc(10px + env(safe-area-inset-top,0px));display:flex;gap:8px;align-items:center;pointer-events:none}
+.bar>*{pointer-events:auto}
+.b{font:700 15px system-ui,sans-serif;border:0;border-radius:999px;height:40px;padding:0 14px;background:rgba(255,255,255,.94);color:#2B2233;box-shadow:0 4px 14px rgba(0,0,0,.3);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+.b[aria-pressed="true"]{background:#FFD166}
+.au{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%}
+.au[aria-pressed="true"]{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 4px 14px rgba(0,0,0,.3),0 0 0 0 rgba(255,209,102,.7)}50%{box-shadow:0 4px 14px rgba(0,0,0,.3),0 0 0 8px rgba(255,209,102,0)}}
+.dlx{width:34px;height:34px;padding:0;justify-content:center;border-radius:50%;background:rgba(255,255,255,.45);color:#fff;box-shadow:none}
+.dl:hover{background:rgba(255,255,255,.7);color:#2B2233}
+@media (prefers-reduced-motion:reduce){.au[aria-pressed="true"]{animation:none}}
+.b:focus-visible{outline:3px solid #FFD166;outline-offset:3px}
+.sp{flex:1}
+.langhot{position:absolute;display:block;border-radius:999px;-webkit-tap-highlight-color:rgba(255,209,102,.4)}
+.langhot:focus-visible{outline:3px solid #FFD166;outline-offset:2px}
+.mwrap{position:relative}
+.menu{position:absolute;top:52px;right:0;min-width:210px;background:#FFFDF8;color:#2B2233;border-radius:18px;box-shadow:0 12px 36px rgba(0,0,0,.35);padding:6px;display:flex;flex-direction:column}
+.menu[hidden]{display:none}
+.menu a,.menu button{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;font:600 16px system-ui,sans-serif;color:#2B2233;text-decoration:none;background:none;border:0;cursor:pointer;text-align:start;width:100%}
+.menu a:hover,.menu button:hover,.menu a:focus-visible,.menu button:focus-visible{background:rgba(47,127,217,.12);outline:none}
+.menu .off{opacity:.35;pointer-events:none}
+
+.scenev{position:absolute;object-fit:cover;opacity:0;pointer-events:none;z-index:1;background:transparent}
+.menu small{line-height:1.2}
+#msgMenu{min-width:260px;max-width:calc(100vw - 24px)}
+#msgMenu .note{font:500 12.5px system-ui,sans-serif;opacity:.7;padding:6px 14px 10px;line-height:1.35}
+#msgMenu .emo{width:20px;text-align:center;font-size:17px}
+.apptip{position:fixed;left:50%;top:calc(64px + env(safe-area-inset-top,0px));transform:translateX(-50%);width:min(88vw,380px);box-sizing:border-box;background:#1F1A2E;color:#fff;font:600 15px/1.4 system-ui,sans-serif;padding:14px 18px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35);z-index:50;text-align:center}
+.apptip.bottom{top:auto;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:auto;right:12px;transform:none}
+.apptip.bottom::after{content:'';position:absolute;right:30px;bottom:-9px;border:10px solid transparent;border-bottom:0;border-top-color:#1F1A2E}
+#count.hide{opacity:0;pointer-events:none}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:rgba(20,20,30,.88);color:#fff;font:600 15px system-ui;padding:10px 18px;border-radius:99px;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.on{opacity:1}
+.count{font:600 13px system-ui;color:#fff;background:rgba(0,0,0,.35);padding:6px 10px;border-radius:99px}
+</style>
+</head>
+<body>
+<main class="book" id="book"></main>
+<div class="bar"><span class="count" id="count"></span><span class="sp"></span>
+<button class="b au" id="read" aria-pressed="false" aria-label="Read to me" title="Read to me" hidden><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button>
+<div class="mwrap"><button class="b au" id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-label="More"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="5" cy="12" r="2.2" fill="currentColor"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/><circle cx="19" cy="12" r="2.2" fill="currentColor"/></svg></button>
+<div class="apptip" id="appTip" role="status" hidden></div>
+<div class="menu" id="msgMenu" role="menu" hidden></div>
+<div class="menu" id="menu" role="menu" hidden>
+<a role="menuitem" id="mApp" href="#"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7m-3-3 3 3 3-3"/><path d="M10.5 18.5h3"/></svg><span data-k="app">Download app</span></a>
+<a role="menuitem" id="mVideo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z" fill="currentColor"/></svg><span data-k="video">Video</span></a>
+<button role="menuitem" id="mShare"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4"/><path d="m7 8 5-5 5 5"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></svg><span data-k="share">Share</span></button>
+<button role="menuitem" id="mMsg"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg><span><span id="mMsgT">Message us</span><small id="mMsgS" style="display:block;font-weight:500;font-size:12px;opacity:.6"></small></span></button>
+<a role="menuitem" href="/languages.html"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg><span data-k="langs">Languages</span></a>
+</div></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+// Recorded narration: language code -> file extension, files at audio/<code>/01 … 18
+const VER='20261005175335';
+const RECORDED={en:'mp3',zh:'mp3',hi:'mp3',es:'mp3',ar:'mp3',fr:'mp3',de:'mp3',he:'mp3',bn:'mp3',pt:'mp3',ru:'mp3',ur:'mp3',sw:'mp3',pa:'mp3',ko:'mp3'};
+const player=new Audio();player.preload='auto';
+const q=new URLSearchParams(location.search);const seg=location.pathname.split('/').filter(Boolean)[0]||'';let L=q.get('lang')||(/^[a-z]{2,3}$/.test(seg)?seg:'en');const startPage=Math.max(1,Math.min(18,parseInt(q.get('p')||'1',10)||1));
+const book=document.getElementById('book');let trk=null,B,secs=[],cur=0,reading=false,run=0,audio=null;
+fetch('/assets/book.json?v='+(typeof VER!=='undefined'?VER:'1')).then(r=>r.json()).then(b=>{B=b;if(!B.book[L])L='en';if(B.book[L].ready===false){location.replace('/languages.html');return}const x=B.book[L];
+  document.documentElement.lang=L;document.title=x.title+' · The Way Back Home';
+  const U=L.toUpperCase();
+  const mv=document.getElementById('mVideo');if(RECORDED[L]){mv.href='/video/The-Way-Back-Home_'+U+'.mp4';mv.setAttribute('download','The-Way-Back-Home_'+U+'.mp4')}else{mv.classList.add('off');mv.removeAttribute('href')}
+  const T=LABELS[L]||LABELS.en;document.querySelectorAll('#menu [data-k]').forEach(e=>e.textContent=T[e.dataset.k]);
+  if(x.rtl)document.getElementById('menu').setAttribute('dir','rtl');buildMsg();
+  const BG=['#2F7FD9','#2E7D4F','#2E7D4F','#2E7D4F','#6B3F8C','#6B3F8C','#2A2340','#2A2340','#2A2340','#C8641E','#C8641E','#C8641E','#C8641E','#2F7FD9','#2F7FD9','#2F7FD9','#C8641E','#2E7D4F'];
+  book.innerHTML='<div class="track" id="track">'+Array.from({length:18},(_,i)=>`<section style="--bg:${BG[i]}"><picture><source type="image/webp" sizes="(min-height:900px) 1080px, 720px" srcset="pages/${L}/${String(i+1).padStart(2,'0')}-720.webp?v=${VER} 720w, pages/${L}/${String(i+1).padStart(2,'0')}.webp?v=${VER} 1080w"><img src="pages/${L}/${String(i+1).padStart(2,'0')}.jpg?v=${VER}" alt="Page ${i+1}" draggable="false" decoding="async" ${i>1?'loading="lazy"':''}></picture></section>`).join('')+'</div>';
+  trk=document.getElementById('track');secs=[...trk.children];setCount();const ci=secs[0].querySelector('img');ci.complete?placeLangHot():ci.addEventListener('load',placeLangHot);buildScenes();secs.forEach(s=>{const im=s.querySelector('img');im.addEventListener('load',placeScenes)});
+  goTo(startPage-1,false);
+  if(RECORDED[L])document.getElementById('read').hidden=false;
+});
+
+const LABELS={en:{apptip26:'Tap ••• below, then Share, then “Add to Home Screen”.',app:'Download app',apptip:'Tap Share (or your browser menu ⋮), then “Add to Home Screen”.',video:'Download video',pdf:'PDF',share:'Share',langs:'Languages',copied:'Link copied'},
+zh:{apptip26:'点按下方的 •••，然后点“分享”，再选择“添加到主屏幕”。',app:'下载应用',apptip:'点按“分享”（或浏览器菜单 ⋮），然后选择“添加到主屏幕”。',video:'下载视频',pdf:'PDF',share:'分享',langs:'语言',copied:'链接已复制'},
+hi:{apptip26:'नीचे ••• पर टैप करें, फिर ‘शेयर’, फिर ‘होम स्क्रीन में जोड़ें’।',app:'ऐप डाउनलोड करें',apptip:'‘शेयर’ (या ब्राउज़र मेन्यू ⋮) पर टैप करें, फिर ‘होम स्क्रीन में जोड़ें’ चुनें।',video:'वीडियो डाउनलोड करें',pdf:'PDF',share:'साझा करें',langs:'भाषाएँ',copied:'लिंक कॉपी हो गया'},
+es:{apptip26:'Toca ••• abajo, luego Compartir y después “Agregar a inicio”.',app:'Descargar app',apptip:'Toca Compartir (o el menú del navegador ⋮) y luego “Agregar a inicio”.',video:'Descargar video',pdf:'PDF',share:'Compartir',langs:'Idiomas',copied:'Enlace copiado'},
+fr:{apptip26:'Touchez ••• en bas, puis Partager, puis « Sur l’écran d’accueil ».',app:'Télécharger l’app',apptip:'Touchez Partager (ou le menu du navigateur ⋮), puis « Sur l’écran d’accueil ».',video:'Télécharger la vidéo',pdf:'PDF',share:'Partager',langs:'Langues',copied:'Lien copié'},
+ar:{apptip26:'اضغط على ••• في الأسفل، ثم «مشاركة»، ثم «إضافة إلى الشاشة الرئيسية».',app:'تنزيل التطبيق',apptip:'اضغط على «مشاركة» (أو قائمة المتصفح ⋮)، ثم «إضافة إلى الشاشة الرئيسية».',video:'تنزيل الفيديو',pdf:'PDF',share:'مشاركة',langs:'اللغات',copied:'تم نسخ الرابط'},
+bn:{apptip26:'নিচে ••• চাপুন, তারপর “শেয়ার”, তারপর “হোম স্ক্রিনে যোগ করুন”।',app:'অ্যাপ ডাউনলোড',apptip:'“শেয়ার” (বা ব্রাউজার মেনু ⋮) চাপুন, তারপর “হোম স্ক্রিনে যোগ করুন” বেছে নিন।',video:'ভিডিও ডাউনলোড',pdf:'PDF',share:'শেয়ার করুন',langs:'ভাষা',copied:'লিংক কপি হয়েছে'},
+pt:{apptip26:'Toque em ••• abaixo, depois em Compartilhar e em “Adicionar à Tela de Início”.',app:'Baixar app',apptip:'Toque em Compartilhar (ou no menu do navegador ⋮) e depois em “Adicionar à Tela de Início”.',video:'Baixar vídeo',pdf:'PDF',share:'Compartilhar',langs:'Idiomas',copied:'Link copiado'},
+ru:{apptip26:'Нажмите ••• внизу, затем «Поделиться», затем «На экран „Домой“».',app:'Скачать приложение',apptip:'Нажмите «Поделиться» (или меню браузера ⋮), затем «На экран „Домой“».',video:'Скачать видео',pdf:'PDF',share:'Поделиться',langs:'Языки',copied:'Ссылка скопирована'},
+ur:{apptip26:'نیچے ••• پر ٹیپ کریں، پھر «شیئر»، پھر «ہوم اسکرین میں شامل کریں»۔',app:'ایپ ڈاؤن لوڈ کریں',apptip:'«شیئر» (یا براؤزر مینو ⋮) پر ٹیپ کریں، پھر «ہوم اسکرین میں شامل کریں» چنیں۔',video:'ویڈیو ڈاؤن لوڈ کریں',pdf:'PDF',share:'شیئر کریں',langs:'زبانیں',copied:'لنک کاپی ہو گیا'},
+de:{apptip26:'Tippe unten auf •••, dann auf Teilen und dann auf „Zum Home-Bildschirm“.',app:'App herunterladen',apptip:'Tippe auf Teilen (oder das Browser-Menü ⋮) und dann auf „Zum Home-Bildschirm“.',video:'Video herunterladen',pdf:'PDF',share:'Teilen',langs:'Sprachen',copied:'Link kopiert'},
+he:{apptip26:'הקישו על ••• למטה, אחר כך על שיתוף ואז על „הוספה למסך הבית”.',app:'הורדת האפליקציה',apptip:'הקישו על שיתוף (או על תפריט הדפדפן ⋮) ואז על „הוספה למסך הבית”.',video:'הורדת הסרטון',pdf:'PDF',share:'שיתוף',langs:'שפות',copied:'הקישור הועתק'},
+sw:{apptip26:'Gusa ••• hapo chini, kisha Shiriki, kisha “Ongeza kwenye Skrini ya Mwanzo”.',app:'Pakua programu',apptip:'Gusa Shiriki (au menyu ya kivinjari ⋮), kisha “Ongeza kwenye Skrini ya Mwanzo”.',video:'Pakua video',pdf:'PDF',share:'Shiriki',langs:'Lugha',copied:'Kiungo kimenakiliwa'},
+pa:{apptip26:'ਹੇਠਾਂ ••• ’ਤੇ ਟੈਪ ਕਰੋ, ਫਿਰ “ਸਾਂਝਾ ਕਰੋ”, ਫਿਰ “ਹੋਮ ਸਕ੍ਰੀਨ ’ਤੇ ਸ਼ਾਮਲ ਕਰੋ”।',app:'ਐਪ ਡਾਊਨਲੋਡ ਕਰੋ',apptip:'“ਸਾਂਝਾ ਕਰੋ” (ਜਾਂ ਬ੍ਰਾਊਜ਼ਰ ਮੀਨੂ ⋮) ’ਤੇ ਟੈਪ ਕਰੋ, ਫਿਰ “ਹੋਮ ਸਕ੍ਰੀਨ ’ਤੇ ਸ਼ਾਮਲ ਕਰੋ” ਚੁਣੋ।',video:'ਵੀਡੀਓ ਡਾਊਨਲੋਡ ਕਰੋ',pdf:'PDF',share:'ਸਾਂਝਾ ਕਰੋ',langs:'ਭਾਸ਼ਾਵਾਂ',copied:'ਲਿੰਕ ਕਾਪੀ ਹੋ ਗਿਆ'},
+ko:{apptip26:'아래의 •••를 누르고, 공유를 누른 다음 “홈 화면에 추가”를 선택하세요.',app:'앱 다운로드',apptip:'공유(또는 브라우저 메뉴 ⋮)를 누른 다음 “홈 화면에 추가”를 선택하세요.',video:'동영상 다운로드',pdf:'PDF',share:'공유',langs:'언어',copied:'링크가 복사되었어요'},
+ja:{apptip26:'下の ••• をタップし、「共有」から「ホーム画面に追加」を選んでください。',app:'アプリをダウンロード',apptip:'「共有」（またはブラウザのメニュー ⋮）をタップし、「ホーム画面に追加」を選んでください。',video:'動画をダウンロード',pdf:'PDF',share:'共有',langs:'言語',copied:'リンクをコピーしました'},
+ki:{apptip26:'Gusa ••• hapo chini, kisha Shiriki, kisha “Ongeza kwenye Skrini ya Mwanzo”.',app:'Pakua programu',apptip:'Gusa Shiriki (au menyu ya kivinjari ⋮), kisha “Ongeza kwenye Skrini ya Mwanzo”.',video:'Pakua video',pdf:'PDF',share:'Shiriki',langs:'Lugha',copied:'Kiungo kimenakiliwa'},
+pdt:{apptip26:'Tippe unten auf •••, dann auf Teilen und dann auf „Zum Home-Bildschirm“.',app:'App herunterladen',apptip:'Tippe auf Teilen (oder das Browser-Menü ⋮) und dann auf „Zum Home-Bildschirm“.',video:'Video herunterladen',pdf:'PDF',share:'Teilen',langs:'Sprachen',copied:'Link kopiert'}};
+const menu=document.getElementById('menu'),mb=document.getElementById('menuBtn');
+function openMenu(o){menu.hidden=!o;mb.setAttribute('aria-expanded',o)}
+mb.onclick=e=>{e.stopPropagation();openMenu(menu.hidden);prefetchVideo()};
+document.addEventListener('click',e=>{if(!menu.hidden&&!menu.contains(e.target))openMenu(false)});
+addEventListener('keydown',e=>{if(e.key==='Escape')openMenu(false)});
+menu.addEventListener('click',e=>{if(e.target.closest('a'))setTimeout(()=>openMenu(false),150)});
+
+// ---- video: save to device (Photos/Files) instead of opening a player ----
+let vidFile=null,vidFetching=false;
+function prefetchVideo(){if(vidFile||vidFetching||!RECORDED[L]||!navigator.canShare)return;vidFetching=true;const U=L.toUpperCase();
+  fetch('/video/The-Way-Back-Home_'+U+'.mp4').then(r=>r.blob()).then(b=>{const f=new File([b],'The-Way-Back-Home_'+U+'.mp4',{type:'video/mp4'});if(navigator.canShare({files:[f]}))vidFile=f}).catch(()=>{}).finally(()=>{vidFetching=false})}
+function trackDl(){try{const back=location.pathname;history.pushState(null,'','/dl/'+L+'-video');history.replaceState(null,'',back)}catch(e){}}
+document.getElementById('mVideo').addEventListener('click',async e=>{if(!RECORDED[L]){e.preventDefault();return}trackDl();
+  if(vidFile){e.preventDefault();openMenu(false);try{await navigator.share({files:[vidFile],title:B?B.book[L].title:'The Way Back Home'})}catch(err){}}
+  else{toast((LABELS[L]||LABELS.en).dl||'Downloading…')}});
+const MSG={"en": {"t": "Message us", "s": "for parents", "c": ["Prayer request", "Request a language", "Say thank you", "Share how this book helped"], "n": "Parents or guardians, please write on behalf of your child."}, "zh": {"t": "给我们留言", "s": "家长使用", "c": ["代祷请求", "申请新语言", "表达感谢", "分享这本书带来的帮助"], "n": "请家长或监护人代孩子填写。"}, "hi": {"t": "हमें संदेश भेजें", "s": "माता-पिता के लिए", "c": ["प्रार्थना निवेदन", "नई भाषा का अनुरोध", "धन्यवाद कहें", "बताएँ इस किताब ने कैसे मदद की"], "n": "माता-पिता या अभिभावक, कृपया अपने बच्चे की ओर से लिखें।"}, "es": {"t": "Escríbenos", "s": "para padres", "c": ["Petición de oración", "Pedir un idioma", "Dar las gracias", "Contar cómo ayudó este libro"], "n": "Padres o tutores: por favor escriban en nombre de su hijo."}, "fr": {"t": "Nous écrire", "s": "pour les parents", "c": ["Demande de prière", "Demander une langue", "Dire merci", "Raconter comment ce livre a aidé"], "n": "Parents ou tuteurs : merci d’écrire au nom de votre enfant."}, "ar": {"t": "راسلنا", "s": "للوالدين", "c": ["طلب صلاة", "طلب لغة جديدة", "كلمة شكر", "شارك كيف ساعدك هذا الكتاب"], "n": "أيها الوالدان أو الأوصياء، يُرجى الكتابة نيابةً عن طفلكم."}, "bn": {"t": "আমাদের বার্তা পাঠান", "s": "অভিভাবকদের জন্য", "c": ["প্রার্থনার অনুরোধ", "নতুন ভাষার অনুরোধ", "ধন্যবাদ জানান", "জানান এই বইটি কীভাবে সাহায্য করেছে"], "n": "বাবা-মা বা অভিভাবক, অনুগ্রহ করে আপনার সন্তানের হয়ে লিখুন।"}, "pt": {"t": "Fale conosco", "s": "para os pais", "c": ["Pedido de oração", "Pedir um idioma", "Agradecer", "Contar como este livro ajudou"], "n": "Pais ou responsáveis, por favor escrevam em nome da criança."}, "ru": {"t": "Написать нам", "s": "для родителей", "c": ["Просьба о молитве", "Запросить язык", "Сказать спасибо", "Рассказать, как помогла книга"], "n": "Родители или опекуны, пожалуйста, пишите от имени ребёнка."}, "ur": {"t": "ہمیں پیغام بھیجیں", "s": "والدین کے لیے", "c": ["دعا کی درخواست", "نئی زبان کی درخواست", "شکریہ کہیں", "بتائیں اس کتاب نے کیسے مدد کی"], "n": "والدین یا سرپرست، براہِ کرم اپنے بچے کی طرف سے لکھیں۔"}, "de": {"t": "Schreib uns", "s": "für Eltern", "c": ["Gebetsanliegen", "Sprache anfragen", "Danke sagen", "Erzählen, wie das Buch geholfen hat"], "n": "Eltern oder Erziehungsberechtigte, bitte schreiben Sie im Namen Ihres Kindes."}, "he": {"t": "כתבו לנו", "s": "להורים", "c": ["בקשת תפילה", "בקשה לשפה", "להגיד תודה", "לספר איך הספר עזר"], "n": "הורים או אפוטרופוסים, אנא כתבו בשם הילד."}, "sw": {"t": "Tuandikie", "s": "kwa wazazi", "c": ["Ombi la maombi", "Omba lugha", "Sema asante", "Shiriki jinsi kitabu hiki kilivyosaidia"], "n": "Wazazi au walezi, tafadhali andikeni kwa niaba ya mtoto wenu."}, "pa": {"t": "ਸਾਨੂੰ ਸੁਨੇਹਾ ਭੇਜੋ", "s": "ਮਾਪਿਆਂ ਲਈ", "c": ["ਪ੍ਰਾਰਥਨਾ ਬੇਨਤੀ", "ਨਵੀਂ ਭਾਸ਼ਾ ਦੀ ਬੇਨਤੀ", "ਧੰਨਵਾਦ ਕਹੋ", "ਦੱਸੋ ਇਸ ਕਿਤਾਬ ਨੇ ਕਿਵੇਂ ਮਦਦ ਕੀਤੀ"], "n": "ਮਾਪੇ ਜਾਂ ਸਰਪ੍ਰਸਤ, ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਬੱਚੇ ਵੱਲੋਂ ਲਿਖੋ।"}, "pdt": {"t": "Schreib uns", "s": "für Eltern", "c": ["Gebetsanliegen", "Sprache anfragen", "Danke sagen", "Erzählen, wie das Buch geholfen hat"], "n": "Eltern oder Erziehungsberechtigte, bitte schreiben Sie im Namen Ihres Kindes."}, "ki": {"t": "Tuandikie", "s": "kwa wazazi", "c": ["Ombi la maombi", "Omba lugha", "Sema asante", "Shiriki jinsi kitabu hiki kilivyosaidia"], "n": "Wazazi au walezi, tafadhali andikeni kwa niaba ya mtoto wenu."}, "ko": {"t": "메시지 보내기", "s": "부모님용", "c": ["기도 제목", "언어 요청", "감사 인사", "이 책이 도운 이야기 나누기"], "n": "부모님이나 보호자께서 자녀를 대신해 써 주세요."}, "ja": {"t": "メッセージを送る", "s": "保護者の方へ", "c": ["お祈りのリクエスト", "言語のリクエスト", "感謝のメッセージ", "この本についての体験を伝える"], "n": "保護者の方が、お子さまに代わって書いてください。"}};
+const MAILTO='hello@thewaybackhome.net',EMO=['🙏','🌍','💛','✨'],CAT_EN=['Prayer request','Language request','Thank you','How this book helped'];
+const msgMenu=document.getElementById('msgMenu');
+function buildMsg(){const m=MSG[L]||MSG.en;document.getElementById('mMsgT').textContent=m.t;document.getElementById('mMsgS').textContent=m.s;
+  const lname=(B&&B.book[L]&&B.book[L].name)||L;
+  msgMenu.innerHTML=m.c.map((c,i)=>{const subj=`The Way Back Home – ${CAT_EN[i]} (${lname})`;const body=`\n\n\n—\n${m.n}\n${lname} · ${location.origin}/${L}/`;
+    return `<a role="menuitem" href="mailto:${MAILTO}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}"><span class="emo" aria-hidden="true">${EMO[i]}</span><span>${c}</span></a>`}).join('')+`<div class="note">${m.n}</div>`;
+  if(B&&B.book[L]&&B.book[L].rtl)msgMenu.setAttribute('dir','rtl')}
+document.getElementById('mMsg').onclick=e=>{e.stopPropagation();openMenu(false);buildMsg();msgMenu.hidden=false};
+document.addEventListener('click',e=>{if(!msgMenu.hidden&&!msgMenu.contains(e.target)&&e.target.id!=='mMsg')msgMenu.hidden=true});
+msgMenu.addEventListener('click',e=>{if(e.target.closest('a')){try{const b=location.pathname;history.pushState(null,'','/dl/'+L+'-message');history.replaceState(null,'',b)}catch(_){}setTimeout(()=>msgMenu.hidden=true,200)}});
+
+// ---- install the book as an app (home-screen icon, full screen) ----
+let installEvt=null;addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvt=e});
+const isApp=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+if(isApp){const ma=document.getElementById('mApp');if(ma)ma.hidden=true}
+if('serviceWorker' in navigator){try{navigator.serviceWorker.register('/sw.js')}catch(e){}}
+document.getElementById('mApp').addEventListener('click',async e=>{e.preventDefault();openMenu(false);
+  try{const b=location.pathname;history.pushState(null,'','/dl/'+L+'-app');history.replaceState(null,'',b)}catch(_){}
+  if(installEvt){installEvt.prompt();try{await installEvt.userChoice}catch(_){}installEvt=null;return}
+  const t=document.getElementById('appTip');t.dir=(B&&B.book[L]&&B.book[L].rtl)?'rtl':'ltr';const ua=navigator.userAgent,iph=/iPhone|iPod/.test(ua),v=+((ua.match(/Version\/(\d+)/)||[])[1]||0),T_=LABELS[L]||LABELS.en;const bottom=iph&&v>=26;t.classList.toggle('bottom',bottom);t.textContent=bottom?(T_.apptip26||T_.apptip):T_.apptip;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,7000)});
+document.getElementById('appTip').addEventListener('click',e=>e.currentTarget.hidden=true);
+function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('on');setTimeout(()=>el.classList.remove('on'),1800)}
+document.getElementById('mShare').onclick=async()=>{openMenu(false);
+  const url=location.origin+'/'+L+'/',title=B?B.book[L].title:'The Way Back Home';
+  if(navigator.share){try{await navigator.share({title,url});return}catch(e){if(e.name==='AbortError')return}}
+  try{await navigator.clipboard.writeText(url);toast((LABELS[L]||LABELS.en).copied)}catch(e){location.href='https://wa.me/?text='+encodeURIComponent(title+' '+url)}};
+
+function placeLangHot(){const sec=secs[0];if(!sec)return;const img=sec.querySelector('img');if(!img||!img.naturalWidth)return;
+  let a=sec.querySelector('.langhot');if(!a){a=document.createElement('a');a.className='langhot';a.href='/languages.html';a.setAttribute('aria-label','Languages');sec.appendChild(a)}
+  const r=img.getBoundingClientRect(),sr=sec.getBoundingClientRect(),s=Math.min(r.width/img.naturalWidth,r.height/img.naturalHeight),
+  w=img.naturalWidth*s,h=img.naturalHeight*s,ox=r.left-sr.left+(r.width-w)/2,oy=r.top-sr.top+(r.height-h)/2,
+  u=w/1080,bx=(B.book[L].rtl?1080-380:60)*u,by=60*u;
+  Object.assign(a.style,{left:(ox+bx)+'px',top:(oy+by)+'px',width:(320*u)+'px',height:(100*u)+'px'})}
+addEventListener('resize',placeLangHot);
+let lastTracked='';function track(){const p='/'+L+'/p'+(cur+1);if(p!==lastTracked&&location.pathname!==p){history.pushState({p:cur},'',p);lastTracked=p}}
+addEventListener('popstate',e=>{const m=location.pathname.match(/p(\d+)$/);if(m&&secs.length)goTo(Math.min(17,+m[1]-1))});
+const SCENES={1:[{v:'scenes/s01.mp4',a:'scenes/s01.mp3',y:46.24,sent:3,at:{"en": 12.27, "zh": 11.72, "hi": 12.58, "es": 12.11, "fr": 10.78, "ar": 11.96, "bn": 13.78, "pt": 13.21, "ru": 13.03, "ur": 12.5, "de": 11.8, "he": 11.72, "sw": 14.25, "pa": 13.37, "ko": 12.27}}],2:[{v:'scenes/s02.mp4',a:'scenes/s02.mp3',y:27.65,sent:1,at:{"en": 3.52, "zh": 3.45, "hi": 3.27, "es": 4.89, "fr": 2.94, "ar": 4.55, "bn": 4.1, "pt": 3.87, "ru": 3.49, "ur": 3.88, "de": 2.88, "he": 2.95, "sw": 3.65, "pa": 3.72, "ko": 5.19}}],3:[{v:'scenes/s03.mp4',a:'scenes/s03.mp3',y:12.83,sent:4,at:{"en": 9.63, "zh": 9.25, "hi": 12.95, "es": 10.4, "fr": 10.67, "ar": 11.05, "bn": 12.8, "pt": 11.17, "ru": 10.1, "ur": 12.07, "de": 9.6, "he": 9.38, "sw": 11.82, "pa": 13.06, "ko": 11.79}}],4:[{v:'scenes/s04.mp4',a:'scenes/s04.mp3',y:0.21,sent:4,at:{"en": 5.4, "zh": 4.43, "hi": 5.51, "es": 5.76, "fr": 5.94, "ar": 5.75, "bn": 6.25, "pt": 5.88, "ru": 6.46, "ur": 6.22, "de": 5.54, "he": 5.33, "sw": 5.96, "pa": 6.39, "ko": 7.45}}],5:[{v:'scenes/s05.mp4',a:'scenes/s05.mp3',y:25.74,sent:3,at:{"en": 8.16, "zh": 8.77, "hi": 11.32, "es": 9.27, "fr": 7.37, "ar": 10.12, "bn": 12.44, "pt": 8.5, "ru": 7.86, "ur": 11.41, "de": 7.75, "he": 8.27, "sw": 10.2, "pa": 10.54, "ko": 10.42}}],6:[{v:'scenes/s06.mp4',a:'scenes/s06.mp3',y:0,sent:2,at:{"en": 4.33, "zh": 3.83, "hi": 5.21, "es": 4.44, "fr": 4.2, "ar": 6.03, "bn": 5.41, "pt": 4.36, "ru": 5.17, "ur": 5.61, "de": 3.94, "he": 3.97, "sw": 5.49, "pa": 5.44, "ko": 6.75}}],7:[{v:'scenes/s07.mp4',a:'scenes/s07.mp3',y:51.9,sent:3,at:{"en": 0.77, "zh": 1.32, "hi": 2.52, "es": 2.51, "fr": 1.58, "ar": 3.41, "bn": 2.74, "pt": 1.62, "ru": 1.66, "ur": 2.64, "de": 2.23, "he": 1.17, "sw": 3.05, "pa": 2.88, "ko": 2.11}}],8:[{v:'scenes/s08.mp4',a:'scenes/s08.mp3',y:96.68,sent:4,at:{"en": 10.25, "zh": 9.33, "hi": 11.34, "es": 12.11, "fr": 9.54, "ar": 11.49, "bn": 10.86, "pt": 9.55, "ru": 9.76, "ur": 12.05, "de": 10.46, "he": 8.98, "sw": 9.39, "pa": 12.01, "ko": 11.5}}],9:[{v:'scenes/s09.mp4',a:'scenes/s09.mp3',y:0,sent:4,at:{"en": 3.17, "zh": 2.07, "hi": 5.47, "es": 3.45, "fr": 2.36, "ar": 4.55, "bn": 2.88, "pt": 2.59, "ru": 4.42, "ur": 4.52, "de": 3.77, "he": 2.65, "sw": 3.86, "pa": 6.36, "ko": 3.9}}],10:[{v:'scenes/s10.mp4',a:'scenes/s10.mp3',y:14.6,sent:3,at:{"en": 2.83, "zh": 4.43, "hi": 4.5, "es": 5.66, "fr": 3.24, "ar": 3.35, "bn": 3.12, "pt": 3.31, "ru": 4.26, "ur": 6.05, "de": 3.87, "he": 3.44, "sw": 3.2, "pa": 6.04, "ko": 6.83}}],11:[{v:'scenes/s11.mp4',a:'scenes/s11.mp3',y:27.64,sent:4,at:{"en": 6.18, "zh": 7.41, "hi": 10.37, "es": 8.27, "fr": 5.54, "ar": 6.66, "bn": 11.18, "pt": 6.73, "ru": 6.94, "ur": 7.98, "de": 4.77, "he": 6.69, "sw": 8.18, "pa": 10.99, "ko": 9.59}}],13:[{v:'scenes/s13.mp4',a:'scenes/s13.mp3',y:48.1,sent:3,at:{"en": 3.83, "zh": 3.75, "hi": 5.17, "es": 6.3, "fr": 2.93, "ar": 6.57, "bn": 3.77, "pt": 3.63, "ru": 4.66, "ur": 5.12, "de": 4.56, "he": 3.19, "sw": 4.69, "pa": 5.98, "ko": 9.36}}],14:[{v:'scenes/s14.mp4',a:'scenes/s14.mp3',y:16.46,sent:3,at:{"en": 0.3, "zh": 0.3, "hi": 0.3, "es": 0.3, "fr": 0.3, "ar": 0.3, "bn": 0.3, "pt": 0.3, "ru": 0.3, "ur": 0.3, "de": 0.3, "he": 0.3, "sw": 0.3, "pa": 0.3, "ko": 0.3}}],15:[{v:'scenes/s15.mp4',a:'scenes/s15.mp3',y:64.98,sent:2,at:{"en": 0.1, "zh": 0.1, "hi": 0.1, "es": 0.1, "fr": 0.1, "ar": 0.1, "bn": 0.1, "pt": 0.1, "ru": 0.1, "ur": 0.1, "de": 0.1, "he": 0.1, "sw": 0.1, "pa": 0.1, "ko": 0.1}}]};
+
+// ---- interactive scenes: picture moves, freezes, narration continues ----
+const ART={x:44,y:44,w:992,h:1290,r:46};
+function sceneVids(i){return secs[i]?[...secs[i].querySelectorAll('video.scenev')]:[]}
+function buildScenes(){Object.keys(SCENES).forEach(k=>{const i=+k,sec=secs[i];if(!sec)return;SCENES[k].forEach((sc,j)=>{
+  const v=document.createElement('video');v.className='scenev';v.muted=true;v.defaultMuted=true;v.setAttribute('muted','');v.playsInline=true;v.setAttribute('playsinline','');v.addEventListener('loadeddata',()=>{v.style.opacity=1});v.preload='none';v.dataset.src=sc.v+'?v='+VER;v.style.objectPosition='50% '+sc.y+'%';v.dataset.j=j;sec.appendChild(v)})});placeScenes()}
+function placeScenes(){Object.keys(SCENES).forEach(k=>{const sec=secs[+k];if(!sec)return;const img=sec.querySelector('img');if(!img||!img.naturalWidth)return;
+  const r=img.getBoundingClientRect(),sr=sec.getBoundingClientRect(),s=Math.min(r.width/img.naturalWidth,r.height/img.naturalHeight),
+  w=img.naturalWidth*s,h=img.naturalHeight*s,ox=r.left-sr.left+(r.width-w)/2,oy=r.top-sr.top+(r.height-h)/2,u=w/1080;
+  sceneVids(+k).forEach(v=>Object.assign(v.style,{left:(ox+ART.x*u)+'px',top:(oy+ART.y*u)+'px',width:(ART.w*u)+'px',height:(ART.h*u)+'px',borderRadius:(ART.r*u)+'px'}))})}
+addEventListener('resize',placeScenes);
+addEventListener('pointerdown',()=>{try{ensureAudio()}catch(e){}},{once:true});
+function resetScenes(i){sceneVids(i).forEach(v=>{v._gen=(v._gen||0)+1;v.pause();try{v.currentTime=0}catch(e){}v.style.opacity=v.readyState>=2?1:0;v.dataset.done=''})}
+
+// ---- one audio clock: narration, scene sounds and music all play through the same engine ----
+// (no file swapping between pages, and scenes follow what you actually hear, even after switching headphones/speaker)
+const bufCache=new Map();let narrBus=null,narr=null;
+function loadBuf(url){if(bufCache.has(url))return bufCache.get(url);
+  const p=fetch(url).then(r=>{if(!r.ok)throw new Error('load');return r.arrayBuffer()}).then(ab=>new Promise((res,rej)=>actx.decodeAudioData(ab,res,rej)));
+  bufCache.set(url,p);p.catch(()=>bufCache.delete(url));if(bufCache.size>10)bufCache.delete(bufCache.keys().next().value);return p}
+function narrUrl(i){const p=PAUSE[i]&&SCENES[i]&&SCENES[i][0]&&SCENES[i][0].at&&SCENES[i][0].at[L]!=null;return `audio/${L}/${String(i+1).padStart(2,'0')}${p?'-1':''}.${RECORDED[L]}?v=${VER}`}
+function stopNarr(){if(narr){try{narr.src.onended=null;narr.src.stop()}catch(e){}narr=null}}
+function outLat(){return actx?((actx.outputLatency||0)+(actx.baseLatency||0)):0}
+
+// start a clip reliably on every phone: visible as soon as its first frame is ready (Android won't start
+// invisible videos), one retry, and if a phone still refuses, show the clip's final frame instead
+
+// ---- scene sound is driven by the video itself, so they can never drift apart ----
+// scenes where the narrator pauses: picture starts `lead` s before the sentence ends, narration resumes `rb` s before the clip ends
+const PAUSE={1:{lead:0.2,rb:0.35},3:{lead:0.35,rb:0.4},4:{lead:2.85,rb:0.68}};
+function syncedSound(v,url){
+  if(v._ss){v._ss();v._ss=null}
+  if(!actx||!narrBus)return ()=>{};
+  let src=null,dead=false,buf=null,ctx0=0,off0=0,strikes=0;
+  const stopSrc=()=>{if(src){try{src.onended=null;src.stop()}catch(e){}src=null}};
+  const start=()=>{if(dead||!buf||v.paused||v.ended)return;stopSrc();const pos=v.currentTime+outLat();if(pos>=buf.duration-0.02)return;
+    src=actx.createBufferSource();src.buffer=buf;src.connect(narrBus);ctx0=actx.currentTime;off0=pos;src.start(ctx0,pos)};
+  const check=()=>{if(dead)return;
+    if(src&&!v.paused&&!v.ended){const heard=off0+(actx.currentTime-ctx0)-outLat();if(Math.abs(heard-v.currentTime)>0.08){if(++strikes>=2){strikes=0;start()}}else strikes=0}
+    else if(!src&&buf&&!v.paused&&!v.ended&&v.readyState>=3)start();
+    setTimeout(check,150)};
+  const on=()=>start(),off=()=>stopSrc();
+  v.addEventListener('playing',on);v.addEventListener('seeked',on);v.addEventListener('waiting',off);v.addEventListener('pause',off);v.addEventListener('ended',off);
+  loadBuf(url).then(b=>{buf=b;start();check()}).catch(()=>{});
+  const stop=()=>{dead=true;stopSrc();v.removeEventListener('playing',on);v.removeEventListener('seeked',on);['waiting','pause','ended'].forEach(e=>v.removeEventListener(e,off))};
+  v._ss=stop;return stop}
+function runSyncedClip(i,j,opt={}){const v=sceneVids(i)[j],sc=SCENES[i]&&SCENES[i][j];if(!v||!sc)return Promise.resolve();
+  return new Promise(res=>{let fin=false,nearFired=false;const stopS=opt.sound===false?null:syncedSound(v,sc.a+'?v='+VER);
+    const fireNear=()=>{if(opt.near&&!nearFired){nearFired=true;opt.near.fn()}};
+    const done=()=>{if(fin)return;fin=true;fireNear();clearInterval(poll);res()};
+    const poll=setInterval(()=>{if(opt.near&&v.duration&&isFinite(v.duration)&&v.currentTime>=v.duration-opt.near.rb)fireNear()},50);
+    runClip(v,done);
+    setTimeout(()=>{if(!fin&&v.currentTime<0.2){v._gen=(v._gen||0)+1;v.pause();const last=()=>{try{v.currentTime=Math.max(0,v.duration-0.05)}catch(e){}v.style.opacity=1};if(v.readyState>=1)last();else v.addEventListener('loadedmetadata',last,{once:true})}done()},((v.duration&&isFinite(v.duration))?v.duration:9)*1000+8000)})}
+function runClip(v,onEnd){const g=v._gen||0;const stale=()=>(v._gen||0)!==g;v.addEventListener('playing',function chk(){if(stale())v.pause();v.removeEventListener('playing',chk)});if(!v.src&&v.dataset.src){v.preload='auto';v.src=v.dataset.src}
+  v.dataset.done='1';v.onended=()=>{v.style.opacity=1;onEnd&&onEnd()};
+  const show=()=>{v.style.opacity=1};if(v.readyState>=2)show();else v.addEventListener('loadeddata',show,{once:true});
+  try{v.currentTime=0}catch(e){}
+  const fail=()=>{const last=()=>{try{v.currentTime=Math.max(0,v.duration-0.05)}catch(e){}show()};
+    if(v.readyState>=1)last();else v.addEventListener('loadedmetadata',last,{once:true});onEnd&&onEnd()};
+  v.play().then(show).catch(()=>{v.addEventListener('canplay',()=>{v.play().then(show).catch(fail)},{once:true});if(v.readyState>=3)v.play().then(show).catch(fail)})}
+function startClip(i,j){const v=sceneVids(i)[j];if(v)runClip(v)}
+function playBuf(url,onEnd){return loadBuf(url).then(buf=>{const src=actx.createBufferSource();src.buffer=buf;src.connect(narrBus);const t0=actx.currentTime+0.05;src.start(t0);src.onended=onEnd;return {src,t0,dur:buf.duration}})}
+function playScene(i,j,withSound){return runSyncedClip(i,j,{sound:!!withSound})}
+let scenePhase=false,autoTimer=null,prevCur=0;
+function preloadNear(){[cur,cur+1].forEach(i=>sceneVids(i).forEach(v=>{if(!v.src&&v.dataset.src){v.preload='auto';v.src=v.dataset.src}}));[cur+1,cur+2].forEach(i=>{const im=secs[i]&&secs[i].querySelector('img');if(im&&im.loading==='lazy')im.loading='eager'})}
+function pageChanged(){if(prevCur!==cur){resetScenes(prevCur);prevCur=cur}clearTimeout(autoTimer);preloadNear()}
+function autoPlay(i){if(reading||i!==cur||!SCENES[i])return;const v0=sceneVids(i)[0];if(!v0||v0.dataset.done)return;
+  const snd=!!(navigator.userActivation&&navigator.userActivation.hasBeenActive);
+  (async()=>{for(let j=0;j<SCENES[i].length;j++){if(cur!==i||reading)return;await playScene(i,j,snd)}})()}
+
+// ---- page turning: one swipe = one page, eased settle ----
+let animating=false,settleT=null;
+function H(){return book.clientHeight}
+function setY(y,anim){trk.classList.toggle('anim',!!anim);trk.style.transform=`translate3d(0,${y}px,0)`}
+function goTo(n,anim=true){if(!trk)return;n=Math.max(0,Math.min(17,n));const changed=n!==cur;cur=n;
+  setY(-n*H(),anim);if(changed||!anim){setCount();pageChanged();if(reading){speak();setMood(MOOD[cur])}}
+  clearTimeout(settleT);animating=anim;settleT=setTimeout(()=>{animating=false;autoPlay(cur);placeScenes();placeLangHot()},anim?520:60)}
+let ty=null,tt=0,dy=0,moved=false;
+book.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;ty=e.touches[0].clientY;tt=performance.now();dy=0;moved=false;trk.classList.remove('anim')},{passive:true});
+book.addEventListener('touchmove',e=>{if(ty===null)return;dy=e.touches[0].clientY-ty;if(Math.abs(dy)>6)moved=true;
+  let d=dy;if((cur===0&&d>0)||(cur===17&&d<0))d*=.3;setY(-cur*H()+d,false);e.preventDefault()},{passive:false});
+book.addEventListener('touchend',()=>{if(ty===null)return;const v=dy/Math.max(1,performance.now()-tt);ty=null;
+  if(!moved){setY(-cur*H(),false);return}
+  if(dy<-H()*.12||v<-.35)goTo(cur+1);else if(dy>H()*.12||v>.35)goTo(cur-1);else goTo(cur)});
+book.addEventListener('touchcancel',()=>{ty=null;goTo(cur)});
+let wheelAcc=0,wheelLock=0;
+book.addEventListener('wheel',e=>{e.preventDefault();const now=performance.now();if(now<wheelLock)return;wheelAcc+=e.deltaY;
+  if(Math.abs(wheelAcc)>40){goTo(cur+(wheelAcc>0?1:-1));wheelAcc=0;wheelLock=now+650}},{passive:false});
+addEventListener('resize',()=>{if(trk)setY(-cur*H(),false)});
+
+// ---- background score: one continuous mood per story section, crossfaded, dipping under the narrator ----
+const MOOD=['c1','c1','c1','c2','c3','c3','c4','c4','c5','c6','c6','c6','c7','c7','c7','c7','c8','c8'];
+const LOOP_START=1.0,LOOP_LEN=53.3333,MUSIC_UP=0.6,MUSIC_DUCK=0.3,XFADE=4;
+let actx=null,mBus=null,mPlaying=null,mBufs={},mLoading={};
+function ensureAudio(){try{if(!actx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return;actx=new C();mBus=actx.createGain();mBus.gain.value=0;mBus.gain._lvl=0;mBus.connect(actx.destination);narrBus=actx.createGain();narrBus.connect(actx.destination);actx.onstatechange=()=>{if(reading&&actx.state!=='running'){try{actx.resume()}catch(e){}}};document.addEventListener('visibilitychange',()=>{if(!document.hidden&&reading&&actx.state!=='running'){try{actx.resume()}catch(e){}}})}if(actx.state!=='running')actx.resume()}catch(e){}}
+function loadMood(n){if(mBufs[n])return Promise.resolve(mBufs[n]);if(mLoading[n])return mLoading[n];
+  mLoading[n]=fetch('music/cue_'+n+'.mp3?v='+VER).then(r=>r.arrayBuffer()).then(ab=>new Promise((res,rej)=>actx.decodeAudioData(ab,res,rej))).then(b=>(mBufs[n]=b));return mLoading[n]}
+async function setMood(n){if(!actx||(mPlaying&&mPlaying.name===n))return;let buf;try{buf=await loadMood(n)}catch(e){return}
+  if(!reading||MOOD[cur]!==n||(mPlaying&&mPlaying.name===n))return;
+  const now=actx.currentTime,src=actx.createBufferSource(),g=actx.createGain();src.buffer=buf;src.loop=true;src.loopStart=0;src.loopEnd=buf.duration;
+  g.gain.setValueAtTime(0,now);g.gain._lvl=0;glide(g.gain,1,XFADE);src.connect(g);g.connect(mBus);src.start(now,0);
+  if(mPlaying){const o=mPlaying;glide(o.g.gain,0,XFADE);try{o.src.stop(now+XFADE*1.6)}catch(e){}}
+  mPlaying={name:n,src,g};const nx=MOOD[Math.min(17,cur+3)];if(nx)loadMood(nx).catch(()=>{})}
+// glide a gain smoothly from wherever it is right now (iPad Safari reports stale .value during fades, which made the music drop out)
+function glide(p,to,secs){const now=actx.currentTime;if(p.cancelAndHoldAtTime){p.cancelAndHoldAtTime(now)}else{p.cancelScheduledValues(now);p.setValueAtTime(p._lvl!=null?p._lvl:p.value,now)}p.setTargetAtTime(to,now,Math.max(0.05,secs/3));p._lvl=to}
+function musicLevel(x,secs=0.8){if(!mBus)return;glide(mBus.gain,x,secs)}
+function musicStop(){musicLevel(0,1.5);const p=mPlaying;mPlaying=null;if(p)setTimeout(()=>{try{p.src.stop()}catch(e){}},1700)}
+function setCount(){const c_=document.getElementById('count');c_.textContent=(cur+1)+' / 18';c_.classList.toggle('hide',cur===0);if(secs.length&&B)track()}
+function advance(me){setTimeout(()=>{if(reading&&cur===me){if(cur<17)goTo(cur+1);else setRead(false)}},1500)}
+const synth=window.speechSynthesis;
+const MALE=/(aaron|arthur|daniel|evan|nathan|tom|reed|alex|gordon|oliver|rishi|guy|andrew|brian|christopher|eric|davis|ryan|thomas|william|male|jorge|diego|thomas|yuri|maged|carmit|markus|felipe)/i,FEMALE=/(female|samantha|karen|moira|tessa|fiona|victoria|zira|aria|jenny|emma|ava|allison|susan|serena|kate|libby|sonia|zoe|monica|paulina|amelie|anna|milena|luciana|lekha|tingting|meijia)/i;
+function pick(){const lang=B.book[L].voice.toLowerCase();const vs=synth.getVoices().filter(v=>v.lang.toLowerCase().replace('_','-').startsWith(lang.split('-')[0]));
+  const sc=v=>(MALE.test(v.name)?10:0)-(FEMALE.test(v.name)?20:0)+(/premium/i.test(v.name)?6:0)+(/enhanced|natural|neural|online/i.test(v.name)?5:0)+(v.lang.toLowerCase().replace('_','-')===lang?2:0);
+  return vs.sort((a,b)=>sc(b)-sc(a))[0]}
+function speak(){
+  const id=++run,me=cur;player.pause();stopNarr();synth&&synth.cancel();
+  clearTimeout(autoTimer);
+  if(RECORDED[L]){ensureAudio();resetScenes(me);const NN=String(me+1).padStart(2,'0'),ext=RECORDED[L],scs=SCENES[me]||[];
+    const live=()=>id===run&&reading&&cur===me;
+    const startNarr=(url,onEnd)=>playBuf(`${url}?v=${VER}`,e=>{if(id===run&&narr&&narr.src===e.target){narr=null;onEnd&&onEnd()}}).then(n=>{
+      if(!live()){try{n.src.onended=null;n.src.stop()}catch(e){}return null}narr=Object.assign(n,{id});musicLevel(MUSIC_DUCK,0.6);if(!mPlaying)setMood(MOOD[cur]);return n});
+    const finish=()=>{musicLevel(MUSIC_UP,1.2);advance(me)};
+    const P=PAUSE[me]&&scs[0]&&scs[0].at&&scs[0].at[L]!=null?PAUSE[me]:null;
+    if(P){ // narration part 1 → clip with its own sound → narration part 2 (waits for the clip)
+      let part2=false;const goPart2=()=>{if(part2||!live())return;part2=true;startNarr(`audio/${L}/${NN}-2.${ext}`,finish).then(n=>{if(!n&&live())finish()}).catch(()=>{if(id===run)advance(me)})};
+      loadBuf(`audio/${L}/${NN}-2.${ext}?v=${VER}`).catch(()=>{});
+      startNarr(`audio/${L}/${NN}-1.${ext}`,null).then(n=>{if(!n)return;const at=Math.max(0,n.dur-0.05-P.lead);let started=false;
+        const tick=()=>{if(!live()||started)return;if(actx.currentTime-n.t0-outLat()>=at){started=true;runSyncedClip(me,0,{near:{rb:P.rb,fn:goPart2}}).then(goPart2)}else setTimeout(tick,30)};tick();
+        if(me<17)loadBuf(narrUrl(me+1)).catch(()=>{})}).catch(()=>{if(id===run)advance(me)});
+      return}
+    // narration plays straight through; each clip starts at its cue and carries its own synced sound
+    startNarr(`audio/${L}/${NN}.${ext}`,finish).then(n=>{if(!n)return;
+      const cues=scs.map((s,j)=>({j,t:s.at&&s.at[L]})).filter(c=>c.t!=null);let ci=0;
+      const tick=()=>{if(!live()||!narr||narr.id!==id)return;const pos=actx.currentTime-n.t0-outLat();while(ci<cues.length&&pos>=cues[ci].t){runSyncedClip(me,cues[ci].j);ci++}if(ci<cues.length)setTimeout(tick,30)};tick();
+      if(me<17)loadBuf(narrUrl(me+1)).catch(()=>{})}).catch(()=>{if(id===run)advance(me)});return}
+  const txt=(B.book[L].say||[])[cur]||'';const parts=txt.match(/[^.!?。！？।۔]+[.!?。！？।۔]+[”"’»“]?/g)||(txt?[txt]:[]);let k=0;const v=pick();
+  resetScenes(me);const tcues=(SCENES[me]||[]).map((s,j)=>({j,n:s.sent}));let tc=0;
+  const next=()=>{if(id!==run||!reading||cur!==me)return;if(tc<tcues.length&&k===tcues[tc].n){const c=tcues[tc++];playScene(me,c.j,true).then(()=>setTimeout(next,300));return}if(k>=parts.length){advance(me);return}
+    const u=new SpeechSynthesisUtterance(parts[k++].trim());if(v){u.voice=v;u.lang=v.lang}else u.lang=B.book[L].voice;u.rate=.82;u.pitch=.9;u.onend=()=>setTimeout(next,600);synth.speak(u)};
+  next();
+}
+function setRead(on){reading=on;if(on){ensureAudio()}else musicStop();const b=document.getElementById('read');b.setAttribute('aria-pressed',on);b.innerHTML=on?`<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.2" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.2" fill="currentColor"/></svg>`:`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>`;b.setAttribute('aria-label',on?'Stop reading':'Read to me');if(on)speak();else{run++;stopNarr();synth&&synth.cancel();player.pause()}}
+document.getElementById('read').onclick=()=>setRead(!reading);
+addEventListener('keydown',e=>{if(!secs.length)return;if(e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();goTo(cur+1)}if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();goTo(cur-1)}});
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f07f476aee854a4f9d3679ffcecc1fa7"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
