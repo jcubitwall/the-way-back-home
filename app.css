@@ -35,22 +35,22 @@ button{font:inherit}
 /* the progressive blur: a softened copy of the whole page, revealed toward the bottom.
    --th is the height of the text block, measured per page, so short pages show more picture */
 .soft{position:absolute;inset:0;pointer-events:none;
-  -webkit-mask-image:linear-gradient(to bottom,transparent calc(100% - var(--th,40%) - 120px),rgba(0,0,0,.5) calc(100% - var(--th,40%) - 60px),#000 calc(100% - var(--th,40%) + 10px));
-  mask-image:linear-gradient(to bottom,transparent calc(100% - var(--th,40%) - 120px),rgba(0,0,0,.5) calc(100% - var(--th,40%) - 60px),#000 calc(100% - var(--th,40%) + 10px))}
+  -webkit-mask-image:linear-gradient(to bottom,transparent calc(100% - var(--th,40%) - 44px),rgba(0,0,0,.6) calc(100% - var(--th,40%) - 14px),#000 calc(100% - var(--th,40%) + 16px));
+  mask-image:linear-gradient(to bottom,transparent calc(100% - var(--th,40%) - 44px),rgba(0,0,0,.6) calc(100% - var(--th,40%) - 14px),#000 calc(100% - var(--th,40%) + 16px))}
 .soft img{position:absolute;left:0;width:100%;display:block}
 .soft .ext{top:0;height:100%;object-fit:cover}
 .soft .top{top:0;aspect-ratio:var(--artw)/var(--arth);height:auto;object-fit:cover;
   -webkit-mask-image:linear-gradient(#000 84%,transparent);mask-image:linear-gradient(#000 84%,transparent)}
 /* chapter colour, deepening toward the bottom */
 .shade{position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(to bottom,rgba(0,0,0,0) calc(100% - var(--th,40%) - 200px),var(--shade-mid) calc(100% - var(--th,40%) - 20px),var(--shade) 100%)}
+  background:linear-gradient(to bottom,rgba(0,0,0,0) calc(100% - var(--th,40%) - 80px),var(--shade-mid) calc(100% - var(--th,40%) + 10px),var(--shade) 100%)}
 /* a faint dark fade at the top keeps the controls readable over bright skies */
 .stage::before{content:"";position:absolute;left:0;right:0;top:0;height:150px;z-index:2;pointer-events:none;
   background:linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,0))}
 
 .txt{position:absolute;left:0;right:0;bottom:0;z-index:3;margin:0 auto;max-width:680px;
   padding:0 calc(24px + env(safe-area-inset-right,0px)) calc(30px + env(safe-area-inset-bottom,0px)) calc(24px + env(safe-area-inset-left,0px));
-  text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px rgba(0,0,0,.25);font-size:calc(var(--k) * clamp(17px,4.7vw,23px));line-height:1.42}
+  text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px rgba(0,0,0,.25);font-size:calc(var(--k) * clamp(16px,4.3vw,21px));line-height:1.42}
 [dir=rtl] .txt{text-align:right}
 .num{font-family:var(--display);font-weight:800;color:var(--gold);font-size:.86em;margin:0 0 .2em}
 .para{margin:0 0 .5em}
@@ -77,7 +77,7 @@ button{font:inherit}
 [dir=rtl] .chip{left:auto;right:14px}
 
 /* prayer and grown-ups pages */
-.pg.prayer .txt,.pg.grownups .txt{font-size:calc(var(--k) * clamp(16px,4.3vw,21px))}
+.pg.prayer .txt,.pg.grownups .txt{font-size:calc(var(--k) * clamp(15px,4vw,20px))}
 .big{font-family:var(--display);font-weight:900;font-size:1.75em;line-height:1.08;margin:0 0 .25em}
 .intro{opacity:.85;font-size:.86em;margin:0 0 .9em}
 .steps{list-style:none;margin:0 0 1em;padding:0;display:grid;gap:.6em}
