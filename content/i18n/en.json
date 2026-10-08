@@ -118,17 +118,16 @@
     "test": {
       "text": [
         [
-          "Maybe you think, “Not me! I am a good person!”",
-          "Let’s check."
+          "Maybe you think, “I am a good person!” Let’s check."
         ],
         [
-          "God gave us ten rules, called the Ten Commandments.",
-          "Here is one: Have you ever told a lie?",
-          "Here is another: Have you ever taken something that wasn’t yours, even something small, like a candy or a coin?"
+          "God gave us ten rules, the Ten Commandments.",
+          "Have you ever told a lie?",
+          "Have you ever taken something that wasn’t yours, even something small?"
         ],
         [
-          "And that is only two of the ten!",
-          "If your answer is yes, you have disobeyed God too."
+          "That is only two of the ten!",
+          "If you said yes, you have disobeyed God too."
         ]
       ],
       "ref": "Exodus 20:1–17; James 2:10"
