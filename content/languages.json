@@ -25,7 +25,9 @@
       "name": "English",
       "english": "English",
       "dir": "ltr",
-      "ready": true
+      "ready": true,
+      "narration": true,
+      "video": false
     },
     "zh": {
       "name": "中文",
