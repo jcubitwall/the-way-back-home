@@ -101,36 +101,51 @@
       ],
       "ref": "Genesis 3:15, 21–24"
     },
-    "test": {
+    "road": {
       "text": [
         [
           "Adam and Eve had children, and their children had children, all the way down to you and me."
         ],
         [
-          "Maybe you think, “Not me! I am a good person!”",
-          "Well, let’s see. God gave us ten rules, called the Ten Commandments.",
-          "Here is one: Have you ever told a lie?",
-          "Here is another: Have you ever taken something that wasn’t yours, even something small, like a candy or a coin?"
+          "We were all born far from the garden, with the same sin problem."
+        ],
+        [
+          "The Bible says that all of us have sinned, just like Adam and Eve."
         ]
       ],
-      "ref": "Exodus 20:1–17"
+      "ref": "Romans 3:23; Romans 5:12"
+    },
+    "test": {
+      "text": [
+        [
+          "Maybe you think, “Not me! I am a good person!”",
+          "Let’s check."
+        ],
+        [
+          "God gave us ten rules, called the Ten Commandments.",
+          "Here is one: Have you ever told a lie?",
+          "Here is another: Have you ever taken something that wasn’t yours, even something small, like a candy or a coin?"
+        ],
+        [
+          "If your answer is yes, you have broken God’s law too."
+        ]
+      ],
+      "ref": "Exodus 20:1–17; James 2:10"
     },
     "everyone": {
       "text": [
         [
-          "If your answer is yes, you have disobeyed God, just like Adam and Eve.",
-          "We have all broken God’s rules."
-        ],
-        [
-          "God is perfect, and He must punish sin.",
-          "How can we get rid of our sin?"
+          "God is perfect, and He must punish sin."
         ],
         [
           "The Bible says that if we die with sin still on us, we will go to a place called hell.",
           "That is very bad news."
+        ],
+        [
+          "How can we get rid of our sin?"
         ]
       ],
-      "ref": "Romans 3:23; 5:12; 6:23; Hebrews 9:27"
+      "ref": "Romans 6:23; Hebrews 9:27"
     },
     "scrub": {
       "text": [
@@ -146,20 +161,6 @@
         ]
       ],
       "ref": "Isaiah 64:6; Ephesians 2:8–9; Hebrews 9:22"
-    },
-    "wall": {
-      "text": [
-        [
-          "Sin is like a giant wall between people and God.",
-          "God is perfectly good, and sin cannot come close to Him."
-        ],
-        [
-          "The Bible says sin leads to death, which means being far away from God forever.",
-          "That is very sad news.",
-          "But it is not the end of the story!"
-        ]
-      ],
-      "ref": "Isaiah 59:2; Romans 6:23"
     },
     "door": {
       "text": [
