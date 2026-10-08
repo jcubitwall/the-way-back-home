@@ -207,7 +207,7 @@ function preload() {
   [cur, cur + 1].forEach(i => secs[i] && secs[i].querySelectorAll('video').forEach(v => { if (!v.src) { v.preload = 'auto'; v.src = v.dataset.src; } }));
 }
 function setCount() {
-  const c = $('#count'); c.textContent = `${cur + 1} / ${N}`; c.classList.toggle('hide', cur === 0);
+  const c = $('#count'); c.textContent = `${cur + 1} / ${N}`; c.classList.toggle('hide', cur === 0); $('#homeBtn').hidden = cur === 0;
   if (TRACK) { const p = `${ROOT.pathname}${L}/p${cur + 1}`; if (location.pathname !== p) history.pushState({ p: cur }, '', p); }
 }
 addEventListener('popstate', () => { const m = location.pathname.match(/p(\d+)$/); if (m && secs.length) goTo(+m[1] - 1); });
@@ -367,6 +367,8 @@ function setupControls() {
   read.hidden = !(META.narration || DEMO);
   read.innerHTML = ICON.speaker; read.setAttribute('aria-label', UI.read); read.title = UI.read;
   read.onclick = () => setRead(!reading);
+  const home = $('#homeBtn'); home.setAttribute('aria-label', UI.home || 'Home'); home.title = UI.home || 'Home';
+  home.onclick = () => { if (reading) setRead(false); goTo(0); };
   $('#menuBtn').setAttribute('aria-label', UI.more || 'More');
   document.querySelectorAll('#menu [data-k]').forEach(e => { e.textContent = UI[e.dataset.k] || e.textContent; });
   if (META.dir === 'rtl') { $('#menu').dir = 'rtl'; $('#msgMenu').dir = 'rtl'; }
