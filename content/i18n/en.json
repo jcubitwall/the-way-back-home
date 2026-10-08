@@ -101,13 +101,27 @@
       ],
       "ref": "Genesis 3:15, 21–24"
     },
-    "everyone": {
+    "test": {
       "text": [
         [
           "Adam and Eve had children, and their children had children, all the way down to you and me."
         ],
         [
-          "Just like Adam and Eve, we have all broken God’s rules.",
+          "Maybe you think, “Not me! I am a good person!”",
+          "Well, let’s see. God gave us ten rules, called the Ten Commandments.",
+          "Here is one: Have you ever told a lie?",
+          "Here is another: Have you ever taken something that wasn’t yours, even something small, like a candy or a coin?"
+        ]
+      ],
+      "ref": "Exodus 20:1–17"
+    },
+    "everyone": {
+      "text": [
+        [
+          "If your answer is yes, you have disobeyed God, just like Adam and Eve.",
+          "We have all broken God’s rules."
+        ],
+        [
           "God is perfect, and He must punish sin.",
           "How can we get rid of our sin?"
         ],

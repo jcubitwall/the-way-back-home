@@ -12,6 +12,7 @@
     {"id": "serpent", "kind": "story", "art": "serpent", "tint": "#2E7D4F", "mood": "c2", "clips": []},
     {"id": "fruit", "kind": "story", "art": "fruit", "tint": "#6B3F8C", "mood": "c3", "clips": []},
     {"id": "exile", "kind": "story", "art": "exile", "tint": "#6B3F8C", "mood": "c3", "clips": []},
+    {"id": "test", "kind": "story", "art": "law", "tint": "#2A2340", "mood": "c4", "clips": []},
     {"id": "everyone", "kind": "story", "art": "law-stained", "tint": "#2A2340", "mood": "c4", "clips": []},
     {"id": "scrub", "kind": "story", "art": "scrub", "tint": "#2A2340", "mood": "c4", "clips": []},
     {"id": "wall", "kind": "story", "art": "wall", "tint": "#2A2340", "mood": "c5", "clips": []},
@@ -23,6 +24,6 @@
     {"id": "forever", "kind": "story", "art": "hug", "tint": "#2F7FD9", "mood": "c7", "clips": []},
     {"id": "new-earth", "kind": "story", "art": "new-earth", "tint": "#2F7FD9", "mood": "c7", "clips": []},
     {"id": "prayer", "kind": "prayer", "art": "clean", "tint": "#C8641E", "mood": "c8", "clips": []},
-    {"id": "grownups", "kind": "grownups", "art": "law", "tint": "#2E7D4F", "mood": "c8", "clips": []}
+    {"id": "grownups", "kind": "grownups", "art": "tomb", "tint": "#2E7D4F", "mood": "c8", "clips": []}
   ]
 }
