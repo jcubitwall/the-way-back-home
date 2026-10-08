@@ -129,16 +129,26 @@
         ],
         [
           "And that is only two of the ten!",
-          "If your answer is yes, you have disobeyed God too.",
-          "And just like Adam and Eve long ago, we are locked out of God’s perfect home."
+          "If your answer is yes, you have disobeyed God too."
         ]
       ],
-      "ref": "Exodus 20:1–17; James 2:10; Galatians 3:23"
+      "ref": "Exodus 20:1–17; James 2:10"
+    },
+    "locked": {
+      "text": [
+        [
+          "God’s law shows us what is right, but it cannot open the gate."
+        ],
+        [
+          "Just like Adam and Eve long ago, we are locked out of God’s perfect home.",
+          "Nothing with sin can go in."
+        ]
+      ],
+      "ref": "Galatians 3:23; Revelation 21:27"
     },
     "everyone": {
       "text": [
         [
-          "God’s home is perfect, and nothing with sin can go in.",
           "God is a good judge, and He must punish sin."
         ],
         [
@@ -149,7 +159,7 @@
           "How can we get rid of our sin?"
         ]
       ],
-      "ref": "Revelation 21:27; Romans 6:23; Hebrews 9:27"
+      "ref": "Romans 6:23; Hebrews 9:27"
     },
     "scrub": {
       "text": [
