@@ -166,11 +166,11 @@
     "door": {
       "text": [
         [
-          "Here is the good news!",
-          "God loved the world so much that He sent His only Son, Jesus."
+          "Here is the good news! That someone is Jesus.",
+          "God loved the world so much that He sent His only Son."
         ],
         [
-          "Jesus is the door in the wall.",
+          "Jesus said, “I am the door. Whoever comes in through Me will be saved.”",
           "People who know Jesus tell everyone, “Come and see! There is a way back to God!”"
         ]
       ],
@@ -180,14 +180,14 @@
       "text": [
         [
           "Jesus never sinned, not even once.",
-          "But He chose to die on a cross."
+          "But He chose to die on a cross, in our place."
         ],
         [
-          "He took the punishment for our sin, so we would not have to.",
-          "The cross is where the way home begins."
+          "All our sin was put on Him, and He took the punishment we deserved.",
+          "He is the someone we needed."
         ]
       ],
-      "ref": "2 Corinthians 5:21; 1 Peter 2:24"
+      "ref": "2 Corinthians 5:21; 1 Peter 2:24; Isaiah 53:6"
     },
     "choice": {
       "text": [
