@@ -15,7 +15,6 @@
     {"id": "road", "kind": "story", "art": "wall", "tint": "#2A2340", "mood": "c4", "clips": []},
     {"id": "test", "kind": "story", "art": "law", "tint": "#2A2340", "mood": "c4", "clips": []},
     {"id": "locked", "kind": "story", "art": "law-stained", "tint": "#2A2340", "mood": "c5", "clips": []},
-    {"id": "everyone", "kind": "story", "art": "law-stained", "tint": "#2A2340", "mood": "c5", "clips": []},
     {"id": "scrub", "kind": "story", "art": "scrub", "tint": "#2A2340", "mood": "c4", "clips": []},
     {"id": "door", "kind": "story", "art": "door", "tint": "#C8641E", "mood": "c6", "clips": []},
     {"id": "cross", "kind": "story", "art": "cross", "tint": "#C8641E", "mood": "c6", "clips": []},
