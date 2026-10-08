@@ -4,8 +4,9 @@ A true Bible story for children, read and listened to full screen on a phone. Ea
 screen; the bottom of the page softens into a blur in the chapter's colour, and the words sit on it.
 While the narrator reads, the words appear one sentence at a time.
 
-This branch is the new version. The live site (thewaybackhome.net) still runs the old version from
-`main` until this one is finished in every language.
+This repository is the new version, live for testing at
+https://jcubitwall.github.io/the-way-back-home-v2/ . The public site (thewaybackhome.net) still runs the
+old version from the `the-way-back-home` repository until this one is finished in every language.
 
 ## Where things are
 
@@ -71,6 +72,11 @@ before then at `…/?lang=es&preview=1`.
 
 ## Going live
 
-When every language is done: set `"ready"` on the finished languages, run `python3 tools/build.py`,
-copy `CNAME` from `main`, and publish this branch as the site (or merge it into `main`).
+When every language is done:
+
+1. Set `"ready": true` on the finished languages in `content/languages.json` and run `python3 tools/build.py`.
+2. In the old repository (`the-way-back-home`) → Settings → Pages, remove the custom domain `thewaybackhome.net`.
+3. In this repository → Settings → Pages, enter `thewaybackhome.net` as the custom domain and tick "Enforce HTTPS"
+   (GitHub adds a `CNAME` file). Cloudflare needs no change: the domain already points at GitHub Pages.
+
 Old links like `thewaybackhome.net/es/p7` keep working.
