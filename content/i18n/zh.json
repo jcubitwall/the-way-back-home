@@ -1,0 +1,26 @@
+{
+  "about": "Chinese (Mandarin) text for The Way Back Home. Page ids match content/story.json. Each story page is a list of paragraphs; each paragraph is a list of sentences (one caption each). \"cues\" holds the start time in seconds of every sentence in the narration (written by tools/narrate.py or tools/cues.py).",
+  "title": "回家的路",
+  "ui": {
+    "app": "下载应用",
+    "apptip": "点按“分享”（或浏览器菜单 ⋮），然后选择“添加到主屏幕”。",
+    "apptip26": "点按下方的 •••，然后点“分享”，再选择“添加到主屏幕”。",
+    "video": "下载视频",
+    "share": "分享",
+    "langs": "语言",
+    "copied": "链接已复制",
+    "message": {
+      "title": "给我们留言",
+      "sub": "家长使用",
+      "choices": [
+        "代祷请求",
+        "申请新语言",
+        "表达感谢",
+        "分享这本书带来的帮助"
+      ],
+      "note": "请家长或监护人代孩子填写。"
+    }
+  },
+  "pages": {},
+  "cues": {}
+}

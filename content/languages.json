@@ -1,0 +1,133 @@
+{
+  "about": "Every language the book can show. \"ready\": true lists it publicly; a language that is not ready can still be previewed with ?lang=xx&preview=1. Text for each language is in content/i18n/<code>.json.",
+  "order": [
+    "en",
+    "zh",
+    "hi",
+    "es",
+    "fr",
+    "ar",
+    "bn",
+    "pt",
+    "ru",
+    "ur",
+    "de",
+    "he",
+    "sw",
+    "pa",
+    "ko",
+    "ja",
+    "ki",
+    "pdt"
+  ],
+  "langs": {
+    "en": {
+      "name": "English",
+      "english": "English",
+      "dir": "ltr",
+      "ready": true
+    },
+    "zh": {
+      "name": "中文",
+      "english": "Chinese (Mandarin)",
+      "dir": "ltr",
+      "ready": false
+    },
+    "hi": {
+      "name": "हिन्दी",
+      "english": "Hindi",
+      "dir": "ltr",
+      "ready": false
+    },
+    "es": {
+      "name": "Español",
+      "english": "Spanish",
+      "dir": "ltr",
+      "ready": false
+    },
+    "fr": {
+      "name": "Français",
+      "english": "French",
+      "dir": "ltr",
+      "ready": false
+    },
+    "ar": {
+      "name": "العربية",
+      "english": "Arabic",
+      "dir": "rtl",
+      "ready": false
+    },
+    "bn": {
+      "name": "বাংলা",
+      "english": "Bengali",
+      "dir": "ltr",
+      "ready": false
+    },
+    "pt": {
+      "name": "Português",
+      "english": "Portuguese",
+      "dir": "ltr",
+      "ready": false
+    },
+    "ru": {
+      "name": "Русский",
+      "english": "Russian",
+      "dir": "ltr",
+      "ready": false
+    },
+    "ur": {
+      "name": "اردو",
+      "english": "Urdu",
+      "dir": "rtl",
+      "ready": false
+    },
+    "de": {
+      "name": "Deutsch",
+      "english": "German",
+      "dir": "ltr",
+      "ready": false
+    },
+    "he": {
+      "name": "עברית",
+      "english": "Hebrew",
+      "dir": "rtl",
+      "ready": false
+    },
+    "sw": {
+      "name": "Kiswahili",
+      "english": "Swahili",
+      "dir": "ltr",
+      "ready": false
+    },
+    "pa": {
+      "name": "ਪੰਜਾਬੀ",
+      "english": "Punjabi",
+      "dir": "ltr",
+      "ready": false
+    },
+    "ko": {
+      "name": "한국어",
+      "english": "Korean",
+      "dir": "ltr",
+      "ready": false
+    },
+    "ja": {
+      "name": "日本語",
+      "english": "Japanese",
+      "dir": "ltr",
+      "ready": false
+    },
+    "ki": {
+      "name": "Gĩkũyũ",
+      "english": "Kikuyu",
+      "dir": "ltr",
+      "ready": false
+    },
+    "pdt": {
+      "name": "Plautdietsch",
+      "english": "Plautdietsch",
+      "dir": "ltr",
+      "ready": false
+    }
+  }
+}

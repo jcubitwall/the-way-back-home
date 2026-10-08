@@ -1,0 +1,25 @@
+{
+  "about": "ElevenLabs voices for tools/narrate.py. Paste a voice_id for each language (Voice Library → the voice → copy ID). Settings here apply to every language unless a language sets its own voice_settings. Optional per language: model_id, language_code.",
+  "model_id": "eleven_multilingual_v2",
+  "voice_settings": { "stability": 0.5, "similarity_boost": 0.8, "style": 0.15, "use_speaker_boost": true, "speed": 0.92 },
+  "langs": {
+    "en": { "voice_id": "" },
+    "zh": { "voice_id": "" },
+    "hi": { "voice_id": "" },
+    "es": { "voice_id": "" },
+    "fr": { "voice_id": "" },
+    "ar": { "voice_id": "" },
+    "bn": { "voice_id": "" },
+    "pt": { "voice_id": "" },
+    "ru": { "voice_id": "" },
+    "ur": { "voice_id": "" },
+    "de": { "voice_id": "" },
+    "he": { "voice_id": "" },
+    "sw": { "voice_id": "" },
+    "pa": { "voice_id": "" },
+    "ko": { "voice_id": "" },
+    "ja": { "voice_id": "" },
+    "ki": { "voice_id": "", "note": "Not in ElevenLabs' language list; a human recording + tools/cues.py may work better." },
+    "pdt": { "voice_id": "", "note": "Human narrator planned: record each page as audio/pdt/<page id>.mp3, then run tools/cues.py pdt." }
+  }
+}

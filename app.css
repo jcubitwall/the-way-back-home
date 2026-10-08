@@ -1,0 +1,113 @@
+/* The Way Back Home: full-screen reader.
+   Each page: the picture fills the width of the screen, the space below it is filled
+   with a blurred continuation of the same picture, and the bottom of the page melts
+   into a soft, chapter-coloured blur that the text sits on. */
+:root{
+  --display:'Grandstander','Trebuchet MS',system-ui,sans-serif;
+  --body:'Andika','Verdana',system-ui,sans-serif;
+  --gold:#FFD166;--ink:#2B2233;--paper:#FFFDF8;
+  --artw:942;--arth:1670;
+  --k:1; /* text scale, lowered automatically when a page has a lot of text */
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:#15121f;overflow:hidden;overscroll-behavior:none}
+body{font-family:var(--body);color:#fff;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+button{font:inherit}
+[hidden]{display:none!important}
+
+.book{position:fixed;inset:0;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+.track{position:absolute;left:0;right:0;top:0;height:100%;will-change:transform;transform:translate3d(0,0,0)}
+.track.anim{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+
+.pg{position:relative;height:100%;overflow:hidden;background:var(--tint)}
+.pg>.bg{position:absolute;inset:-8%;width:116%;height:116%;filter:blur(26px) saturate(1.15) brightness(.72)}
+.stage{position:relative;height:100%;margin:0 auto;width:min(100%,calc(100vh * var(--artw) / var(--arth)));overflow:hidden}
+@supports (height:100dvh){.stage{width:min(100%,calc(100dvh * var(--artw) / var(--arth)))}}
+/* wider screens (tablets, computers): the book becomes a tall column with soft edges */
+@media (min-aspect-ratio:10/16){.stage{box-shadow:0 0 80px rgba(0,0,0,.45)}}
+
+.art{position:absolute;left:0;top:0;width:100%;aspect-ratio:var(--artw)/var(--arth);
+  -webkit-mask-image:linear-gradient(#000 84%,transparent);mask-image:linear-gradient(#000 84%,transparent)}
+.art img,.art video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.art video{opacity:0;transition:opacity .25s}
+.art video.on{opacity:1}
+
+/* the progressive blur: a softened copy of the whole page, revealed toward the bottom.
+   --th is the height of the text block, measured per page, so short pages show more picture */
+.soft{position:absolute;inset:0;width:100%;height:100%;filter:blur(16px) saturate(1.1);transform:scale(1.04);
+  -webkit-mask-image:linear-gradient(to bottom,transparent calc(100% - var(--th,40%) - 300px),rgba(0,0,0,.45) calc(100% - var(--th,40%) - 150px),#000 calc(100% - var(--th,40%) - 10px));
+  mask-image:linear-gradient(to bottom,transparent calc(100% - var(--th,40%) - 300px),rgba(0,0,0,.45) calc(100% - var(--th,40%) - 150px),#000 calc(100% - var(--th,40%) - 10px))}
+/* chapter colour, deepening toward the bottom */
+.shade{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(0,0,0,0) calc(100% - var(--th,40%) - 380px),var(--shade-mid) calc(100% - var(--th,40%) - 60px),var(--shade) 100%)}
+/* a faint dark fade at the top keeps the controls readable over bright skies */
+.stage::before{content:"";position:absolute;left:0;right:0;top:0;height:150px;z-index:2;pointer-events:none;
+  background:linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,0))}
+
+.txt{position:absolute;left:0;right:0;bottom:0;z-index:3;margin:0 auto;max-width:680px;
+  padding:0 calc(24px + env(safe-area-inset-right,0px)) calc(30px + env(safe-area-inset-bottom,0px)) calc(24px + env(safe-area-inset-left,0px));
+  text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px rgba(0,0,0,.25);font-size:calc(var(--k) * clamp(17px,4.7vw,23px));line-height:1.42}
+[dir=rtl] .txt{text-align:right}
+.num{font-family:var(--display);font-weight:800;color:var(--gold);font-size:.86em;margin:0 0 .2em}
+.para{margin:0 0 .5em}
+.ref{font-size:.7em;opacity:.78;margin:.55em 0 0}
+.untranslated{outline:1.5px dashed rgba(255,209,102,.8);outline-offset:6px;border-radius:4px}
+
+/* listening: one sentence at a time, fading in and out with the narration */
+.caps{display:none}
+.listening .pg.story .full{display:none}
+.listening .pg.story .caps{display:grid}
+.caps .cap{grid-area:1/1;align-self:end;margin:0;font-size:1.12em;line-height:1.38;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
+.caps .cap.on{opacity:1;transform:none}
+.render .caps .cap{transition:none}
+
+/* cover */
+.pg.cover .txt{text-align:center;padding-bottom:calc(48px + env(safe-area-inset-bottom,0px))}
+.cover h1{font-family:var(--display);font-weight:900;font-size:calc(var(--k) * clamp(48px,14vw,84px));line-height:.98;margin:0;text-shadow:0 4px 0 rgba(0,0,0,.18),0 2px 18px rgba(0,0,0,.35)}
+.cover .sub{font-size:1.08em;margin:.6em 0 1.1em;opacity:.96}
+.cta{display:inline-flex;align-items:center;gap:.45em;font-family:var(--display);font-weight:800;font-size:.9em;background:var(--gold);color:#2B2233;border:0;border-radius:999px;padding:.62em 1.3em;box-shadow:0 4px 0 #C99A1E;cursor:pointer;text-shadow:none}
+.cta:active{transform:translateY(3px);box-shadow:0 1px 0 #C99A1E}
+.cta svg{animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+.chip{position:absolute;z-index:4;top:calc(14px + env(safe-area-inset-top,0px));left:14px;font:700 15px var(--body);background:rgba(255,255,255,.94);color:#2B2233;border-radius:999px;padding:9px 15px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);text-shadow:none}
+[dir=rtl] .chip{left:auto;right:14px}
+
+/* prayer and grown-ups pages */
+.pg.prayer .txt,.pg.grownups .txt{font-size:calc(var(--k) * clamp(16px,4.3vw,21px))}
+.big{font-family:var(--display);font-weight:900;font-size:1.75em;line-height:1.08;margin:0 0 .25em}
+.intro{opacity:.85;font-size:.86em;margin:0 0 .9em}
+.steps{list-style:none;margin:0 0 1em;padding:0;display:grid;gap:.6em}
+.steps li{display:flex;gap:.7em;align-items:flex-start}
+.steps .key{flex:none;width:1.75em;height:1.75em;border-radius:.45em;background:var(--gold);color:#3c230f;display:grid;place-items:center;font:900 1em var(--display);text-shadow:none;margin-top:.05em}
+.steps b{font-weight:700}
+.pray{margin:0 0 .8em;padding:.8em 1em;border-radius:18px;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.3)}
+.note{font-size:.75em;opacity:.8;margin:0}
+.qs{margin:0 0 .9em;padding-inline-start:1.3em;display:grid;gap:.45em}
+
+/* controls */
+.bar{position:fixed;z-index:10;left:12px;right:12px;top:calc(12px + env(safe-area-inset-top,0px));display:flex;gap:10px;align-items:center;pointer-events:none}
+.bar>*{pointer-events:auto}
+.sp{flex:1}
+.count{font:700 14px var(--body);color:#fff;background:rgba(0,0,0,.32);padding:8px 13px;border-radius:999px;transition:opacity .2s;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.count.hide{opacity:0;pointer-events:none}
+.rb{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,.45);background:rgba(255,255,255,.22);color:#fff;display:grid;place-items:center;cursor:pointer;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.rb[aria-pressed=true]{background:var(--gold);color:#2B2233;border-color:var(--gold);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,209,102,.6)}50%{box-shadow:0 0 0 9px rgba(255,209,102,0)}}
+.rb:focus-visible,.cta:focus-visible,.chip:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.mwrap{position:relative}
+.menu{position:absolute;top:56px;right:0;min-width:220px;max-width:calc(100vw - 24px);background:var(--paper);color:var(--ink);border-radius:18px;box-shadow:0 12px 36px rgba(0,0,0,.35);padding:6px;display:flex;flex-direction:column}
+.menu[hidden]{display:none}
+.menu a,.menu button{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;font:600 16px var(--body);color:var(--ink);text-decoration:none;background:none;border:0;cursor:pointer;text-align:start;width:100%}
+.menu a:hover,.menu button:hover,.menu a:focus-visible,.menu button:focus-visible{background:rgba(47,127,217,.12);outline:none}
+.menu .off{opacity:.35;pointer-events:none}
+.menu small{display:block;font-weight:500;font-size:12px;opacity:.6}
+.menu .note{font:500 12.5px/1.35 var(--body);opacity:.7;padding:6px 14px 10px}
+.emo{width:20px;text-align:center;font-size:17px}
+.tip{position:fixed;z-index:20;left:50%;top:calc(70px + env(safe-area-inset-top,0px));transform:translateX(-50%);width:min(88vw,380px);background:#1F1A2E;color:#fff;font:600 15px/1.4 var(--body);padding:14px 18px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35);text-align:center}
+.tip.bottom{top:auto;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:auto;right:12px;transform:none}
+.toast{position:fixed;z-index:20;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:rgba(20,20,30,.88);color:#fff;font:600 15px var(--body);padding:10px 18px;border-radius:99px;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.on{opacity:1}
+.render .bar,.render .chip,.render .cta{display:none}
+.render .track{transition:none}
+
+@media (prefers-reduced-motion:reduce){.track.anim{transition-duration:.01s}.caps .cap{transition:opacity .2s}.cta svg,.rb[aria-pressed=true]{animation:none}}

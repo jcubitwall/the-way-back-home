@@ -1,0 +1,273 @@
+{
+  "about": "English text for The Way Back Home. Page ids match content/story.json. Each story page is a list of paragraphs; each paragraph is a list of sentences (one caption each). \"cues\" holds the start time in seconds of every sentence in the narration (written by tools/narrate.py or tools/cues.py).",
+  "title": "The Way Back Home",
+  "ui": {
+    "read": "Read to me",
+    "stop": "Stop reading",
+    "more": "More",
+    "app": "Download app",
+    "apptip": "Tap Share (or your browser menu ⋮), then “Add to Home Screen”.",
+    "apptip26": "Tap ••• below, then Share, then “Add to Home Screen”.",
+    "video": "Download video",
+    "share": "Share",
+    "langs": "Languages",
+    "copied": "Link copied",
+    "downloading": "Downloading…",
+    "page": "Page",
+    "message": {
+      "title": "Message us",
+      "sub": "for parents",
+      "choices": [
+        "Prayer request",
+        "Request a language",
+        "Say thank you",
+        "Share how this book helped"
+      ],
+      "note": "Parents or guardians, please write on behalf of your child."
+    }
+  },
+  "pages": {
+    "cover": {
+      "title": "The Way Back Home",
+      "subtitle": "A true story from the Bible",
+      "cta": "Scroll down to read"
+    },
+    "garden": {
+      "text": [
+        [
+          "In the very beginning, God made everything.",
+          "He made the sky, the trees, the flowers, and the birds."
+        ],
+        [
+          "Then God made a man named Adam and a woman named Eve.",
+          "God loved them, and they loved being with Him.",
+          "Their garden home, Eden, was perfect."
+        ]
+      ],
+      "ref": "Genesis 1–2"
+    },
+    "rule": {
+      "text": [
+        [
+          "God gave Adam and Eve every tree in the garden to enjoy.",
+          "Only one tree was not for them."
+        ],
+        [
+          "“Do not eat from that tree,” God said. “If you do, you will die.”",
+          "It was one simple rule from a Father who loved them."
+        ]
+      ],
+      "ref": "Genesis 2:16–17"
+    },
+    "serpent": {
+      "text": [
+        [
+          "One day, a sneaky serpent spoke to Eve.",
+          "“Did God really say that?” he asked.",
+          "“That fruit won’t hurt you. It will make you like God!”"
+        ],
+        [
+          "But the serpent was lying.",
+          "He wanted Eve to stop trusting God."
+        ]
+      ],
+      "ref": "Genesis 3:1–5"
+    },
+    "fruit": {
+      "text": [
+        [
+          "Eve looked at the fruit. It looked so good.",
+          "She took a bite.",
+          "Then she gave some to Adam, and he ate it too."
+        ],
+        [
+          "Uh-oh. For the very first time, people had disobeyed God.",
+          "The Bible calls this sin."
+        ]
+      ],
+      "ref": "Genesis 3:6"
+    },
+    "exile": {
+      "text": [
+        [
+          "Sin changed everything.",
+          "Adam and Eve felt ashamed and afraid.",
+          "God made them clothes from animal skins, and then they had to leave the garden."
+        ],
+        [
+          "An angel with a flaming sword guarded the way back in.",
+          "But God already had a plan to bring His people home."
+        ]
+      ],
+      "ref": "Genesis 3:15, 21–24"
+    },
+    "everyone": {
+      "text": [
+        [
+          "Adam and Eve had children, and their children had children, all the way down to you and me."
+        ],
+        [
+          "Every person is born with sin inside.",
+          "Sin is like marks we cannot rub off.",
+          "It makes us want our own way instead of God’s way."
+        ]
+      ],
+      "ref": "Romans 3:23; Romans 5:12"
+    },
+    "scrub": {
+      "text": [
+        [
+          "People tried hard to get clean.",
+          "They tried being extra good.",
+          "They tried to scrub and wash and try again."
+        ],
+        [
+          "But no matter how hard they tried, the marks stayed.",
+          "Nobody can wash sin away all by themselves."
+        ]
+      ],
+      "ref": "Isaiah 64:6; Ephesians 2:8–9"
+    },
+    "wall": {
+      "text": [
+        [
+          "Sin is like a giant wall between people and God.",
+          "God is perfectly good, and sin cannot come close to Him."
+        ],
+        [
+          "The Bible says sin leads to death, which means being far away from God forever.",
+          "That is very sad news.",
+          "But it is not the end of the story!"
+        ]
+      ],
+      "ref": "Isaiah 59:2; Romans 6:23"
+    },
+    "door": {
+      "text": [
+        [
+          "Here is the good news!",
+          "God loved the world so much that He sent His only Son, Jesus."
+        ],
+        [
+          "Jesus is the door in the wall.",
+          "People who know Jesus tell everyone, “Come and see! There is a way back to God!”"
+        ]
+      ],
+      "ref": "John 3:16; John 10:9; John 14:6"
+    },
+    "cross": {
+      "text": [
+        [
+          "Jesus never sinned, not even once.",
+          "But He chose to die on a cross."
+        ],
+        [
+          "He took the punishment for our sin, so we would not have to.",
+          "The cross is where the way home begins."
+        ]
+      ],
+      "ref": "2 Corinthians 5:21; 1 Peter 2:24"
+    },
+    "choice": {
+      "text": [
+        [
+          "Every person has a choice to make.",
+          "Some people pray, “God, I am sorry for my sin. I believe Jesus died for me. Please save me!”"
+        ],
+        [
+          "Other people say, “No thanks.”",
+          "Jesus loves everyone, and He lets each person choose."
+        ]
+      ],
+      "ref": "Romans 10:9, 13"
+    },
+    "tomb": {
+      "text": [
+        [
+          "Three days after Jesus died, His friends found His tomb empty.",
+          "Jesus was alive again! He beat sin and death."
+        ],
+        [
+          "Everyone who trusts Jesus is washed clean.",
+          "All the marks are gone!",
+          "He gives them a brand-new start."
+        ]
+      ],
+      "ref": "1 Corinthians 15:3–4; 2 Corinthians 5:17; 1 John 1:7"
+    },
+    "gates": {
+      "text": [
+        [
+          "One day, everyone who trusts Jesus will be with Him forever.",
+          "Heaven’s gates will be wide open."
+        ],
+        [
+          "And Jesus will be right there, holding out His hands to welcome them home.",
+          "You can still see the scars in His hands, the scars of His love."
+        ]
+      ],
+      "ref": "John 14:2–3; John 20:27"
+    },
+    "forever": {
+      "text": [
+        [
+          "No more crying. No more hurting. No more sin."
+        ],
+        [
+          "Just God’s big, warm love, forever and ever.",
+          "Finally, we are home!"
+        ]
+      ],
+      "ref": "Revelation 21:3–4"
+    },
+    "new-earth": {
+      "text": [
+        [
+          "And guess what?",
+          "God will make everything new: a new heaven and a new earth, even better than Eden!"
+        ],
+        [
+          "Until that day, Jesus asks His friends to tell the whole world the good news, so everyone can find the way back home."
+        ]
+      ],
+      "ref": "Revelation 21:1, 5; Matthew 28:19–20"
+    },
+    "prayer": {
+      "title": "Would you like to follow Jesus?",
+      "intro": "It is as easy as A, B, C.",
+      "steps": [
+        {
+          "key": "A",
+          "word": "Admit",
+          "rest": "to God that you have sinned, and say you are sorry."
+        },
+        {
+          "key": "B",
+          "word": "Believe",
+          "rest": "that Jesus is God’s Son, that He died for you, and that He rose again."
+        },
+        {
+          "key": "C",
+          "word": "Choose",
+          "rest": "to trust Jesus and follow Him every day."
+        }
+      ],
+      "prayer": "“Dear God, I know I have sinned, and I am sorry. Thank You for sending Jesus to die for me and rise again. Please forgive me and make me clean. I want to follow You. In Jesus’ name, amen.”",
+      "note": "Talk with a parent, pastor, or grown-up you trust about what you prayed.",
+      "ref": "Romans 10:9–10"
+    },
+    "grownups": {
+      "title": "For grown-ups",
+      "intro": "Try these questions after reading together.",
+      "questions": [
+        "What was the one rule God gave Adam and Eve? Why do you think He gave it?",
+        "Why couldn’t the people wash their marks away?",
+        "What did Jesus do so we could come back to God?",
+        "How do we know Jesus is alive?",
+        "Who is someone you could tell the good news to this week?"
+      ],
+      "note": "Every page lists its Bible passages so you can read the full account together."
+    }
+  },
+  "cues": {}
+}

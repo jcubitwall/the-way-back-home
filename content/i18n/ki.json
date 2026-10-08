@@ -1,0 +1,26 @@
+{
+  "about": "Kikuyu text for The Way Back Home. Page ids match content/story.json. Each story page is a list of paragraphs; each paragraph is a list of sentences (one caption each). \"cues\" holds the start time in seconds of every sentence in the narration (written by tools/narrate.py or tools/cues.py).",
+  "title": "Njĩra ya Gũcooka Mũciĩ",
+  "ui": {
+    "app": "Pakua programu",
+    "apptip": "Gusa Shiriki (au menyu ya kivinjari ⋮), kisha “Ongeza kwenye Skrini ya Mwanzo”.",
+    "apptip26": "Gusa ••• hapo chini, kisha Shiriki, kisha “Ongeza kwenye Skrini ya Mwanzo”.",
+    "video": "Pakua video",
+    "share": "Shiriki",
+    "langs": "Lugha",
+    "copied": "Kiungo kimenakiliwa",
+    "message": {
+      "title": "Tuandikie",
+      "sub": "kwa wazazi",
+      "choices": [
+        "Ombi la maombi",
+        "Omba lugha",
+        "Sema asante",
+        "Shiriki jinsi kitabu hiki kilivyosaidia"
+      ],
+      "note": "Wazazi au walezi, tafadhali andikeni kwa niaba ya mtoto wenu."
+    }
+  },
+  "pages": {},
+  "cues": {}
+}

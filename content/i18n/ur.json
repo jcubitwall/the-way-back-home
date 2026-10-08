@@ -1,0 +1,26 @@
+{
+  "about": "Urdu text for The Way Back Home. Page ids match content/story.json. Each story page is a list of paragraphs; each paragraph is a list of sentences (one caption each). \"cues\" holds the start time in seconds of every sentence in the narration (written by tools/narrate.py or tools/cues.py).",
+  "title": "گھر واپسی کا راستہ",
+  "ui": {
+    "app": "ایپ ڈاؤن لوڈ کریں",
+    "apptip": "«شیئر» (یا براؤزر مینو ⋮) پر ٹیپ کریں، پھر «ہوم اسکرین میں شامل کریں» چنیں۔",
+    "apptip26": "نیچے ••• پر ٹیپ کریں، پھر «شیئر»، پھر «ہوم اسکرین میں شامل کریں»۔",
+    "video": "ویڈیو ڈاؤن لوڈ کریں",
+    "share": "شیئر کریں",
+    "langs": "زبانیں",
+    "copied": "لنک کاپی ہو گیا",
+    "message": {
+      "title": "ہمیں پیغام بھیجیں",
+      "sub": "والدین کے لیے",
+      "choices": [
+        "دعا کی درخواست",
+        "نئی زبان کی درخواست",
+        "شکریہ کہیں",
+        "بتائیں اس کتاب نے کیسے مدد کی"
+      ],
+      "note": "والدین یا سرپرست، براہِ کرم اپنے بچے کی طرف سے لکھیں۔"
+    }
+  },
+  "pages": {},
+  "cues": {}
+}

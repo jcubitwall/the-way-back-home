@@ -1,0 +1,26 @@
+{
+  "about": "Bengali text for The Way Back Home. Page ids match content/story.json. Each story page is a list of paragraphs; each paragraph is a list of sentences (one caption each). \"cues\" holds the start time in seconds of every sentence in the narration (written by tools/narrate.py or tools/cues.py).",
+  "title": "ঘরে ফেরার পথ",
+  "ui": {
+    "app": "অ্যাপ ডাউনলোড",
+    "apptip": "“শেয়ার” (বা ব্রাউজার মেনু ⋮) চাপুন, তারপর “হোম স্ক্রিনে যোগ করুন” বেছে নিন।",
+    "apptip26": "নিচে ••• চাপুন, তারপর “শেয়ার”, তারপর “হোম স্ক্রিনে যোগ করুন”।",
+    "video": "ভিডিও ডাউনলোড",
+    "share": "শেয়ার করুন",
+    "langs": "ভাষা",
+    "copied": "লিংক কপি হয়েছে",
+    "message": {
+      "title": "আমাদের বার্তা পাঠান",
+      "sub": "অভিভাবকদের জন্য",
+      "choices": [
+        "প্রার্থনার অনুরোধ",
+        "নতুন ভাষার অনুরোধ",
+        "ধন্যবাদ জানান",
+        "জানান এই বইটি কীভাবে সাহায্য করেছে"
+      ],
+      "note": "বাবা-মা বা অভিভাবক, অনুগ্রহ করে আপনার সন্তানের হয়ে লিখুন।"
+    }
+  },
+  "pages": {},
+  "cues": {}
+}

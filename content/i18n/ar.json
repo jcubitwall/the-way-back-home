@@ -1,0 +1,26 @@
+{
+  "about": "Arabic text for The Way Back Home. Page ids match content/story.json. Each story page is a list of paragraphs; each paragraph is a list of sentences (one caption each). \"cues\" holds the start time in seconds of every sentence in the narration (written by tools/narrate.py or tools/cues.py).",
+  "title": "طريق العودة إلى البيت",
+  "ui": {
+    "app": "تنزيل التطبيق",
+    "apptip": "اضغط على «مشاركة» (أو قائمة المتصفح ⋮)، ثم «إضافة إلى الشاشة الرئيسية».",
+    "apptip26": "اضغط على ••• في الأسفل، ثم «مشاركة»، ثم «إضافة إلى الشاشة الرئيسية».",
+    "video": "تنزيل الفيديو",
+    "share": "مشاركة",
+    "langs": "اللغات",
+    "copied": "تم نسخ الرابط",
+    "message": {
+      "title": "راسلنا",
+      "sub": "للوالدين",
+      "choices": [
+        "طلب صلاة",
+        "طلب لغة جديدة",
+        "كلمة شكر",
+        "شارك كيف ساعدك هذا الكتاب"
+      ],
+      "note": "أيها الوالدان أو الأوصياء، يُرجى الكتابة نيابةً عن طفلكم."
+    }
+  },
+  "pages": {},
+  "cues": {}
+}

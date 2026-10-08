@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Way Back Home · Choose a language</title>
+<meta name="description" content="A true Bible story for children, from Creation to the Cross, the empty tomb, and the new creation. Free to read and listen to in many languages.">
+<meta property="og:title" content="The Way Back Home">
+<meta property="og:description" content="A true Bible story for children. Read and listen free in many languages.">
+<meta property="og:image" content="https://thewaybackhome.net/art/share.jpg">
+<meta property="og:url" content="https://thewaybackhome.net/languages.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="art/icon-192.png">
+<link rel="apple-touch-icon" href="art/apple-touch-icon.png">
+<meta name="theme-color" content="#2F7FD9">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{--sky:#2F7FD9;--gold:#FFD166;--paper:#FFFDF8;--ink:#2B2233;--soft:#6B6275;--line:rgba(43,34,51,.1);
+  --display:'Grandstander','Trebuchet MS',system-ui,sans-serif;--body:'Andika','Verdana',system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#1F1A2B;--ink:#F4EEFF;--soft:#B5ACC7;--line:rgba(255,255,255,.12)}}
+:root[data-theme="dark"]{--paper:#1F1A2B;--ink:#F4EEFF;--soft:#B5ACC7;--line:rgba(255,255,255,.12)}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--sky)}
+.hero{position:relative;height:min(86vh,820px);min-height:520px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.hero .blur{filter:blur(18px);transform:scale(1.06);-webkit-mask-image:linear-gradient(transparent 45%,#000 75%);mask-image:linear-gradient(transparent 45%,#000 75%)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,45,95,0) 40%,rgba(20,45,95,.9) 100%)}
+.in{position:relative;z-index:1;text-align:center;color:#fff;padding:24px 22px 56px;max-width:640px;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(50px,14vw,88px);line-height:.96;margin:0}
+.tag{font-size:clamp(17px,4.6vw,21px);margin:14px 0 20px}
+.cta{display:inline-flex;gap:8px;font-family:var(--display);font-weight:800;font-size:19px;background:var(--gold);color:#2B2233;text-decoration:none;border-radius:999px;padding:13px 26px;box-shadow:0 5px 0 #C99A1E;text-shadow:none}
+main{background:var(--paper);border-radius:28px 28px 0 0;margin-top:-26px;position:relative;z-index:2;padding:28px 16px calc(40px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:640px;margin:0 auto}
+h2{font-family:var(--display);font-weight:800;font-size:26px;margin:4px 6px;color:var(--sky)}
+.sub{color:var(--soft);margin:0 6px 18px;font-size:16px;line-height:1.5}
+.langs{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.langs a{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;color:inherit;text-decoration:none}
+.langs a:hover{background:rgba(47,127,217,.08)}
+.langs a:focus-visible,.cta:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.nm{flex:1;min-width:0}.nm b{display:block;font-size:20px;line-height:1.25}.nm span{font-size:14px;color:var(--soft)}
+.chev{font-size:28px;color:var(--sky);line-height:1}
+.draft{font-size:12px;font-weight:700;color:#8a5a00;background:rgba(255,209,102,.35);border-radius:99px;padding:3px 9px}
+.share{margin:28px 6px 0;padding:18px;border-radius:20px;background:rgba(255,209,102,.2);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.share p{margin:0;flex:1;min-width:200px;line-height:1.5}
+.share button{font:700 16px var(--body);border:0;border-radius:999px;padding:12px 20px;background:#25D366;color:#fff;cursor:pointer}
+footer{color:var(--soft);font-size:13px;line-height:1.6;margin:26px 6px 0}
+</style>
+</head>
+<body>
+<header class="hero">
+  <img src="art/hug-720.webp" srcset="art/hug-720.webp 720w, art/hug.webp 942w" sizes="100vw" alt="Jesus hugging two happy children">
+  <img class="blur" src="art/hug-720.webp" alt="" aria-hidden="true">
+  <div class="in">
+    <h1>The Way<br>Back Home</h1>
+    <p class="tag">A true story from the Bible</p>
+    <a class="cta" href="#langs">Choose a language ↓</a>
+  </div>
+</header>
+<main><div class="wrap">
+  <h2>Choose your language</h2>
+  <p class="sub">Tap a language to read and listen.</p>
+  <ul class="langs" id="langs"></ul>
+  <div class="share"><p>Know a family who would love this story? Send them the link.</p><button id="share">Share on WhatsApp</button></div>
+  <footer>From Creation to the Cross, the empty tomb, and the new creation. Every page lists its Bible passages so families can read the full account together.</footer>
+</div></main>
+<script>
+const preview=new URLSearchParams(location.search).has('preview');
+fetch('content/languages.json',{cache:'no-cache'}).then(r=>r.json()).then(b=>{
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  document.getElementById('langs').innerHTML=b.order.filter(l=>b.langs[l].ready||preview).map(l=>{const x=b.langs[l];
+    return `<li><a href="${l}/${x.ready?'':'?preview=1'}"><span class="nm"><b dir="auto" lang="${l}">${esc(x.name)}</b><span>${esc(x.english)}</span></span>${x.ready?'':'<span class="draft">draft</span>'}<span class="chev" aria-hidden="true">›</span></a></li>`}).join('');
+});
+document.getElementById('share').onclick=async()=>{
+  const url='https://thewaybackhome.net/',text='The Way Back Home: a true Bible story for children, free in many languages';
+  if(navigator.share){try{await navigator.share({title:'The Way Back Home',text,url});return}catch(e){if(e.name==='AbortError')return}}
+  location.href='https://wa.me/?text='+encodeURIComponent(text+' '+url);
+};
+</script>
+<!-- Cloudflare Web Analytics (anonymous, no cookies) --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "f07f476aee854a4f9d3679ffcecc1fa7"}'></script>
+</body>
+</html>

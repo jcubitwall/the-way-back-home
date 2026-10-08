@@ -1,0 +1,8 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>The Way Back Home</title><script>
+// Page links like /en/p7 (and the same under a sub-folder) open the reader at that page.
+var s=location.pathname.split('/'),i=s.length-1;while(i>0&&!s[i])i--;
+var m=s[i]&&s[i].match(/^p(\d+)$/),l=m?s[i-1]:s[i],root;
+if(m&&/^[a-z]{2,3}$/.test(l)){root=s.slice(0,i-1).join('/')+'/';location.replace(root+l+'/?p='+m[1])}
+else if(/^dl$/.test(s[i-1]||'')){location.replace(s.slice(0,i-1).join('/')+'/')}
+else{location.replace(s.slice(0,Math.max(1,i)).join('/')+'/languages.html')}
+</script></head><body></body></html>

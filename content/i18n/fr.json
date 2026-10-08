@@ -1,0 +1,26 @@
+{
+  "about": "French text for The Way Back Home. Page ids match content/story.json. Each story page is a list of paragraphs; each paragraph is a list of sentences (one caption each). \"cues\" holds the start time in seconds of every sentence in the narration (written by tools/narrate.py or tools/cues.py).",
+  "title": "Le chemin du retour",
+  "ui": {
+    "app": "Télécharger l’app",
+    "apptip": "Touchez Partager (ou le menu du navigateur ⋮), puis « Sur l’écran d’accueil ».",
+    "apptip26": "Touchez ••• en bas, puis Partager, puis « Sur l’écran d’accueil ».",
+    "video": "Télécharger la vidéo",
+    "share": "Partager",
+    "langs": "Langues",
+    "copied": "Lien copié",
+    "message": {
+      "title": "Nous écrire",
+      "sub": "pour les parents",
+      "choices": [
+        "Demande de prière",
+        "Demander une langue",
+        "Dire merci",
+        "Raconter comment ce livre a aidé"
+      ],
+      "note": "Parents ou tuteurs : merci d’écrire au nom de votre enfant."
+    }
+  },
+  "pages": {},
+  "cues": {}
+}
