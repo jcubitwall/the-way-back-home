@@ -35,15 +35,15 @@ button{font:inherit}
 /* the progressive blur: a softened copy of the whole page, revealed toward the bottom.
    --th is the height of the text block, measured per page, so short pages show more picture */
 .soft{position:absolute;inset:0;pointer-events:none;
-  -webkit-mask-image:linear-gradient(to bottom,transparent calc(100% - var(--th,40%) - 300px),rgba(0,0,0,.45) calc(100% - var(--th,40%) - 150px),#000 calc(100% - var(--th,40%) - 10px));
-  mask-image:linear-gradient(to bottom,transparent calc(100% - var(--th,40%) - 300px),rgba(0,0,0,.45) calc(100% - var(--th,40%) - 150px),#000 calc(100% - var(--th,40%) - 10px))}
+  -webkit-mask-image:linear-gradient(to bottom,transparent calc(100% - var(--th,40%) - 120px),rgba(0,0,0,.5) calc(100% - var(--th,40%) - 60px),#000 calc(100% - var(--th,40%) + 10px));
+  mask-image:linear-gradient(to bottom,transparent calc(100% - var(--th,40%) - 120px),rgba(0,0,0,.5) calc(100% - var(--th,40%) - 60px),#000 calc(100% - var(--th,40%) + 10px))}
 .soft img{position:absolute;left:0;width:100%;display:block}
 .soft .ext{top:0;height:100%;object-fit:cover}
 .soft .top{top:0;aspect-ratio:var(--artw)/var(--arth);height:auto;object-fit:cover;
   -webkit-mask-image:linear-gradient(#000 84%,transparent);mask-image:linear-gradient(#000 84%,transparent)}
 /* chapter colour, deepening toward the bottom */
 .shade{position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(to bottom,rgba(0,0,0,0) calc(100% - var(--th,40%) - 380px),var(--shade-mid) calc(100% - var(--th,40%) - 60px),var(--shade) 100%)}
+  background:linear-gradient(to bottom,rgba(0,0,0,0) calc(100% - var(--th,40%) - 200px),var(--shade-mid) calc(100% - var(--th,40%) - 20px),var(--shade) 100%)}
 /* a faint dark fade at the top keeps the controls readable over bright skies */
 .stage::before{content:"";position:absolute;left:0;right:0;top:0;height:150px;z-index:2;pointer-events:none;
   background:linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,0))}
