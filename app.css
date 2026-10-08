@@ -20,7 +20,7 @@ button{font:inherit}
 .track.anim{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 
 .pg{position:relative;height:100%;overflow:hidden;background:var(--tint)}
-.pg>.bg{position:absolute;inset:-8%;width:116%;height:116%;filter:blur(26px) saturate(1.15) brightness(.72)}
+.pg>.bg{position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;filter:brightness(.72) saturate(1.1)}
 .stage{position:relative;height:100%;margin:0 auto;width:min(100%,calc(100vh * var(--artw) / var(--arth)));overflow:hidden}
 @supports (height:100dvh){.stage{width:min(100%,calc(100dvh * var(--artw) / var(--arth)))}}
 /* wider screens (tablets, computers): the book becomes a tall column with soft edges */
@@ -34,9 +34,13 @@ button{font:inherit}
 
 /* the progressive blur: a softened copy of the whole page, revealed toward the bottom.
    --th is the height of the text block, measured per page, so short pages show more picture */
-.soft{position:absolute;inset:0;width:100%;height:100%;filter:blur(16px) saturate(1.1);transform:scale(1.04);
+.soft{position:absolute;inset:0;pointer-events:none;
   -webkit-mask-image:linear-gradient(to bottom,transparent calc(100% - var(--th,40%) - 300px),rgba(0,0,0,.45) calc(100% - var(--th,40%) - 150px),#000 calc(100% - var(--th,40%) - 10px));
   mask-image:linear-gradient(to bottom,transparent calc(100% - var(--th,40%) - 300px),rgba(0,0,0,.45) calc(100% - var(--th,40%) - 150px),#000 calc(100% - var(--th,40%) - 10px))}
+.soft img{position:absolute;left:0;width:100%;display:block}
+.soft .ext{top:0;height:100%;object-fit:cover}
+.soft .top{top:0;aspect-ratio:var(--artw)/var(--arth);height:auto;object-fit:cover;
+  -webkit-mask-image:linear-gradient(#000 84%,transparent);mask-image:linear-gradient(#000 84%,transparent)}
 /* chapter colour, deepening toward the bottom */
 .shade{position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(to bottom,rgba(0,0,0,0) calc(100% - var(--th,40%) - 380px),var(--shade-mid) calc(100% - var(--th,40%) - 60px),var(--shade) 100%)}

@@ -27,13 +27,16 @@ def build_art(st):
         if not os.path.exists(src):
             print(f'  ! missing picture art/src/{name}.jpg')
             continue
-        for suffix, width, q in (('-720', 720, 80), ('', None, 84)):
+        for suffix, width, q in (('-720', 720, 80), ('', None, 84), ('-soft', 300, 72)):
             out = path('art', f'{name}{suffix}.webp')
             if os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(src):
                 continue
             im = Image.open(src).convert('RGB')
             if width and im.width > width:
                 im = im.resize((width, round(im.height * width / im.width)), Image.LANCZOS)
+            if suffix == '-soft':  # the blurred copy the text sits on (same look on every phone)
+                from PIL import ImageFilter
+                im = im.filter(ImageFilter.GaussianBlur(7))
             im.save(out, 'WEBP', quality=q, method=6)
             made += 1
     print(f'  pictures: {made} made, {len(used)} in use')

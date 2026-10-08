@@ -117,11 +117,11 @@ function pageHTML(pg, i) {
     body = `<h2 class="big">${esc(d.title)}</h2><p class="intro">${esc(d.intro)}</p><ol class="qs">${d.questions.map(q => `<li>${esc(q)}</li>`).join('')}</ol><p class="note">${esc(d.note)}</p>`;
   }
   const chip = pg.kind === 'cover' ? `<a class="chip" href="${ROOT}languages.html">${esc(META.name)}</a>` : '';
-  const sh = mix(pg.tint, 0.42), sm = mix(pg.tint, 0.5);
+  const sh = mix(pg.tint, 0.42), sm = mix(pg.tint, 0.5), lazy = i > 1 ? 'loading="lazy"' : '';
   return `<section class="pg ${pg.kind}" data-i="${i}" aria-label="${esc(UI.page || 'Page')} ${i + 1}" style="--tint:${pg.tint};--shade:${rgb(sh, .93)};--shade-mid:${rgb(sm, .55)}">
-<canvas class="bg" width="40" height="72" aria-hidden="true"></canvas>
-<div class="stage"><div class="art"><img class="pic" alt="" draggable="false" decoding="async" ${i > 1 ? 'loading="lazy"' : ''} sizes="(min-width:520px) 942px, 100vw" srcset="${url(art + '-720.webp')} 720w, ${url(art + '.webp')} 942w" src="${url(art + '-720.webp')}"></div>
-<canvas class="soft" aria-hidden="true"></canvas><div class="shade"></div>${chip}
+<img class="bg" alt="" aria-hidden="true" decoding="async" ${lazy} src="${url(art + '-soft.webp')}">
+<div class="stage"><div class="art"><img class="pic" alt="" draggable="false" decoding="async" ${lazy} sizes="(min-width:520px) 942px, 100vw" srcset="${url(art + '-720.webp')} 720w, ${url(art + '.webp')} 942w" src="${url(art + '-720.webp')}"></div>
+<div class="soft" aria-hidden="true"><img class="ext" alt="" decoding="async" ${lazy} src="${url(art + '-soft.webp')}"><img class="top" alt="" decoding="async" ${lazy} src="${url(art + '-soft.webp')}"></div><div class="shade"></div>${chip}
 <div class="txt${fb && L !== 'en' ? ' untranslated' : ''}">${body}</div></div></section>`;
 }
 
@@ -130,8 +130,6 @@ function build() {
   trk = $('#track'); secs = [...trk.children];
   secs.forEach((sec, i) => {
     const img = sec.querySelector('.pic');
-    const ready = () => paint(i);
-    img.complete && img.naturalWidth ? ready() : img.addEventListener('load', ready);
     (S.pages[i].clips || []).forEach((c, j) => {
       const v = document.createElement('video');
       v.muted = true; v.defaultMuted = true; v.playsInline = true; v.preload = 'none';
@@ -143,7 +141,7 @@ function build() {
   });
   book.addEventListener('click', e => { const g = e.target.closest('[data-go]'); if (g) goTo(+g.dataset.go); });
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(fitAll);
-  addEventListener('resize', () => { if (trk) setY(-cur * H(), false); fitAll(); secs.forEach((_, i) => paint(i)); });
+  addEventListener('resize', () => { if (trk) setY(-cur * H(), false); fitAll(); });
 }
 
 // the blur and colour start just above the text, however tall the text is on this page and screen
@@ -160,27 +158,9 @@ function fitAll() {
   });
 }
 
-/* the soft layer: a tiny copy of the page (picture + its blurred continuation),
-   stretched and blurred by the browser. Repainted from the video while a scene plays. */
-function drawCover(c, src, sw, sh, x, y, w, h) {
-  const r = Math.max(w / sw, h / sh), cw = w / r, ch = h / r;
-  c.drawImage(src, (sw - cw) / 2, (sh - ch) / 2, cw, ch, x, y, w, h);
-}
-function paint(i, from) {
-  const sec = secs[i]; if (!sec) return;
-  const src = from || sec.querySelector('.pic');
-  const sw = src.videoWidth || src.naturalWidth, sh = src.videoHeight || src.naturalHeight; if (!sw) return;
-  const st = sec.querySelector('.stage'), W = st.clientWidth, Hh = st.clientHeight; if (!W) return;
-  const soft = sec.querySelector('.soft'), w = 64, h = Math.max(1, Math.round(w * Hh / W));
-  if (soft.width !== w || soft.height !== h) { soft.width = w; soft.height = h; }
-  const c = soft.getContext('2d'); c.imageSmoothingQuality = 'high';
-  drawCover(c, src, sw, sh, 0, 0, w, h);
-  c.filter = 'none';
-  drawCover(c, src, sw, sh, 0, 0, w, w * S.art.height / S.art.width);
-  const bg = sec.querySelector('.bg'), bw = 40, bh = Math.max(1, Math.round(bw * sec.clientHeight / Math.max(1, sec.clientWidth)));
-  if (bg.width !== bw || bg.height !== bh) { bg.width = bw; bg.height = bh; }
-  drawCover(bg.getContext('2d'), src, sw, sh, 0, 0, bw, bh);
-}
+/* the soft layer is a blurred copy of the picture made ahead of time (art/<name>-soft.webp),
+   so the blur looks the same on every phone. During an animated scene it stays still. */
+function paint() {}
 
 /* ---------------- page turning: one swipe = one page ---------------- */
 const H = () => book.clientHeight;
@@ -223,7 +203,7 @@ addEventListener('keydown', e => {
   if (e.key === 'Escape') closeMenus();
 });
 function preload() {
-  [cur + 1, cur + 2].forEach(i => { const im = secs[i] && secs[i].querySelector('.pic'); if (im && im.loading === 'lazy') im.loading = 'eager'; });
+  [cur + 1, cur + 2].forEach(i => secs[i] && secs[i].querySelectorAll('img[loading=lazy]').forEach(im => { im.loading = 'eager'; }));
   [cur, cur + 1].forEach(i => secs[i] && secs[i].querySelectorAll('video').forEach(v => { if (!v.src) { v.preload = 'auto'; v.src = v.dataset.src; } }));
 }
 function setCount() {
@@ -438,7 +418,7 @@ async function show(p, s) {
   const story = S.pages[p].kind === 'story' && s != null && s >= 0;
   book.classList.toggle('listening', story);
   if (story) setCap(p, s);
-  const img = secs[p].querySelector('.pic'); img.loading = 'eager';
+  secs[p].querySelectorAll('img').forEach(im => { im.loading = 'eager'; }); const img = secs[p].querySelector('.pic');
   if (!img.complete || !img.naturalWidth) await new Promise(r => { img.addEventListener('load', r, { once: true }); img.addEventListener('error', r, { once: true }); });
   if (document.fonts) await document.fonts.ready;
   fitAll(); paint(p);
