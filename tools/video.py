@@ -17,7 +17,7 @@ W, H, FPS = 1080, 1920, 25
 FADE = 0.35      # crossfade between captions
 TURN = 0.6       # crossfade between pages
 GAP = 0.9        # quiet moment after each page's narration
-MUSIC = 0.2      # music level under the narrator
+MUSIC = 0.21     # music level under the narrator
 
 
 def run(cmd):

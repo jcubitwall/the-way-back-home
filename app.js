@@ -247,7 +247,7 @@ function glide(p, to, secs) {
   if (p.cancelAndHoldAtTime) p.cancelAndHoldAtTime(now); else { p.cancelScheduledValues(now); p.setValueAtTime(p._lvl != null ? p._lvl : p.value, now); }
   p.setTargetAtTime(to, now, Math.max(0.05, secs / 3)); p._lvl = to;
 }
-const MUSIC_UP = 0.6, MUSIC_DUCK = 0.28, XFADE = 4;
+const MUSIC_UP = 0.63, MUSIC_DUCK = 0.294, XFADE = 4;
 const musicLevel = (x, s = 0.8) => mBus && glide(mBus.gain, x, s);
 async function setMood(n) {
   if (!actx || !n || (mPlaying && mPlaying.name === n)) return;
