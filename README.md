@@ -52,6 +52,16 @@ are timed exactly.
 `audio/pdt/<page id>.mp3` (page ids are in `story.json`), pausing briefly between sentences, then
 `python3 tools/cues.py pdt` finds the sentence breaks.
 
+**Add an animated scene.** `python3 tools/clips.py fruit fruit.mp4 --sentence 1 --offset 0.6 --sound`
+shrinks the clip for phones, makes its first frame the page's picture and its last frame the blur under
+the text, and wires it to the page. With narration on, it starts when that sentence is spoken
+(counting from 0), and the page turns only after the narration is finished and the clip has frozen on
+its last frame. Without narration it plays silently half a second after the page arrives. `--sound`
+keeps the clip's sound effects (heard only with narration on); leave it off for a silent clip.
+`--add` puts a second clip on the same page; `python3 tools/clips.py fruit --remove` goes back to the
+still picture. Then run `python3 tools/build.py`. On a slow connection or with data saver on, readers
+simply see the still pictures.
+
 **Make the downloadable video.** `python3 tools/video.py es` photographs every page and caption from
 the real reader and joins them with the narration and music (1080×1920). It takes a few minutes per
 language.

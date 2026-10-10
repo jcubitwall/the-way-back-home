@@ -29,7 +29,7 @@ button{font:inherit}
 .art{position:absolute;left:0;top:0;width:100%;aspect-ratio:var(--artw)/var(--arth);
   -webkit-mask-image:linear-gradient(#000 84%,transparent);mask-image:linear-gradient(#000 84%,transparent)}
 .art img,.art video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.art video{opacity:0;transition:opacity .25s}
+.art video{opacity:0;transition:opacity .4s}
 .art video.on{opacity:1}
 
 /* the progressive blur: a softened copy of the whole page, revealed toward the bottom.

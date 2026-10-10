@@ -20,14 +20,16 @@ CHECK = '--check' in sys.argv
 
 def build_art(st):
     from PIL import Image
-    used = {p['art'] for p in st['pages']} | {'hug'}
+    ends = {c['end'] for p in st['pages'] for c in p.get('clips', []) if c.get('end')}
+    used = {p['art'] for p in st['pages']} | {'hug'} | ends
     made = 0
     for name in sorted(used):
         src = path('art', 'src', name + '.jpg')
         if not os.path.exists(src):
             print(f'  ! missing picture art/src/{name}.jpg')
             continue
-        for suffix, width, q in (('-720', 720, 80), ('', None, 84), ('-soft', 300, 72)):
+        sizes = (('-720', 720, 80), ('', None, 84), ('-soft', 300, 72))
+        for suffix, width, q in (sizes[2:] if name in ends else sizes):  # a clip's last frame is only needed for the blur
             out = path('art', f'{name}{suffix}.webp')
             if os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(src):
                 continue

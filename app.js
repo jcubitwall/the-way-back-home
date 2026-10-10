@@ -13,6 +13,8 @@ const CFG = window.TWBH || {};                   // optional settings from the p
 const DEMO = Q.has('demo') || !!CFG.demo;      // try the captions with no recording (silent, reading pace)
 const TRACK = /(^|\.)thewaybackhome\.net$|\.github\.io$/.test(location.hostname) && !RENDER;
 const CJK = new Set(['zh', 'ja']);
+// data saver or a very slow connection: show the still pictures only, never download the animated scenes
+const NOCLIPS = Q.has('noclips') || (() => { const c = navigator.connection; return !!(c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))); })();
 // fonts for scripts that Andika/Grandstander don't cover: [Google Fonts family, line height]
 const SCRIPT = {
   ar: ['Noto Naskh Arabic', 1.7], ur: ['Noto Nastaliq Urdu', 2.05], he: ['Noto Sans Hebrew', 1.5],
@@ -130,7 +132,7 @@ function build() {
   trk = $('#track'); secs = [...trk.children];
   secs.forEach((sec, i) => {
     const img = sec.querySelector('.pic');
-    (S.pages[i].clips || []).forEach((c, j) => {
+    if (!NOCLIPS) (S.pages[i].clips || []).forEach((c, j) => {
       const v = document.createElement('video');
       v.muted = true; v.defaultMuted = true; v.playsInline = true; v.preload = 'none';
       v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
@@ -176,7 +178,8 @@ function goTo(n, anim = true) {
     if (reading) speak();
   }
   clearTimeout(settleT);
-  settleT = setTimeout(() => { if (!reading) autoClips(cur); }, anim ? 520 : 60);
+  // reading without narration: the scene plays (silently) half a second after the page has landed
+  settleT = setTimeout(() => { if (!reading) autoClips(cur); }, (anim ? 520 : 60) + 500);
 }
 let ty = null, tt = 0, dy = 0, moved = false;
 book.addEventListener('touchstart', e => { if (e.touches.length !== 1) return; ty = e.touches[0].clientY; tt = performance.now(); dy = 0; moved = false; trk && trk.classList.remove('anim'); }, { passive: true });
@@ -205,6 +208,7 @@ addEventListener('keydown', e => {
 function preload() {
   [cur + 1, cur + 2].forEach(i => secs[i] && secs[i].querySelectorAll('img[loading=lazy]').forEach(im => { im.loading = 'eager'; }));
   [cur, cur + 1].forEach(i => secs[i] && secs[i].querySelectorAll('video').forEach(v => { if (!v.src) { v.preload = 'auto'; v.src = v.dataset.src; } }));
+  [cur, cur + 1].forEach(i => secs[i] && (S.pages[i].clips || []).forEach(c => { if (c.end && !NOCLIPS) new Image().src = url(`art/${c.end}-soft.webp`); }));
 }
 function setCount() {
   const c = $('#count'); c.textContent = `${cur + 1} / ${N}`; c.classList.toggle('hide', cur === 0); $('#homeBtn').hidden = cur === 0;
@@ -219,7 +223,8 @@ function setCap(i, k) {
 }
 
 /* ---------------- sound: narration, scene sounds and music share one audio clock ---------------- */
-let actx = null, narrBus = null, mBus = null, mPlaying = null, reading = false, run = 0, narr = null;
+let actx = null, narrBus = null, sfxBus = null, mBus = null, mPlaying = null, reading = false, run = 0, narr = null;
+const SFX = 0.75;  // scene sound effects sit a little under the narrator
 const bufs = new Map(), moods = {};
 function ensureAudio() {
   try {
@@ -228,6 +233,7 @@ function ensureAudio() {
       actx = new C();
       mBus = actx.createGain(); mBus.gain.value = 0; mBus.gain._lvl = 0; mBus.connect(actx.destination);
       narrBus = actx.createGain(); narrBus.connect(actx.destination);
+      sfxBus = actx.createGain(); sfxBus.gain.value = SFX; sfxBus.connect(actx.destination);
       document.addEventListener('visibilitychange', () => { if (!document.hidden && reading && actx.state !== 'running') actx.resume(); });
     }
     if (actx.state !== 'running') actx.resume();
@@ -283,13 +289,21 @@ async function speak() {
   if (buf) { dur = buf.duration; const c = (T.cues || {})[pg.id]; cues = c && c.length === lines.length ? c : estimate(lines, dur); }
   else { dur = lines.reduce((a, s) => a + 1.2 + s.length / 14, 0) || 3; cues = estimate(lines, dur); }
   const clips = (pg.clips || []).map((c, j) => ({ ...c, j, t: (cues[c.sentence || 0] || 0) + (c.offset || 0), done: false }));
-  let t0 = 0, paused = false, ended = false;
+  let t0 = 0, paused = false, ended = false, scenes = Promise.resolve();
+  // scenes on a page play one after another, never on top of each other
+  const scene = c => { c.done = true; scenes = scenes.then(() => live() ? playClip(me, c.j, true) : false); return scenes; };
   const start = off => {
     if (!live()) return; paused = false; t0 = actx.currentTime - off;
     if (buf) { const s = actx.createBufferSource(); s.buffer = buf; s.connect(narrBus); s.start(actx.currentTime, off); s.onended = () => { if (narr === s && !paused) { narr = null; ended = true; } }; narr = s; }
     musicLevel(MUSIC_DUCK, .6);
   };
-  const finish = () => { musicLevel(MUSIC_UP, 1.2); setTimeout(() => { if (live()) { if (cur < N - 1) goTo(cur + 1); else setRead(false); } }, 1600); };
+  // the page turns once the narration has finished and the last scene has frozen on its final frame
+  const finish = () => {
+    musicLevel(MUSIC_UP, 1.2);
+    clips.forEach(c => { if (!c.done) scene(c); });
+    const t = performance.now();
+    scenes.then(() => setTimeout(() => { if (live()) { if (cur < N - 1) goTo(cur + 1); else setRead(false); } }, Math.max(900, 1600 - (performance.now() - t))));
+  };
   const tick = () => {
     if (!live()) return;
     if (!paused) {
@@ -297,9 +311,8 @@ async function speak() {
       let k = 0; while (k + 1 < cues.length && pos >= cues[k + 1] - 0.05) k++;
       setCap(me, k);
       for (const c of clips) if (!c.done && pos >= c.t) {
-        c.done = true;
-        if (c.pause) { paused = true; stopNarr(); playClip(me, c.j, true).then(() => start(Math.max(0, pos - (c.overlap || 0)))); }
-        else playClip(me, c.j, true);
+        if (c.pause) { paused = true; stopNarr(); scene(c).then(() => start(Math.max(0, pos - (c.overlap || 0)))); }
+        else scene(c);
       }
       if (ended || (!buf && pos >= dur)) { finish(); return; }
     }
@@ -312,44 +325,65 @@ function setRead(on) {
   reading = on; book.classList.toggle('listening', on);
   const b = $('#read'); b.setAttribute('aria-pressed', on); b.setAttribute('aria-label', on ? UI.stop : UI.read); b.title = on ? UI.stop : UI.read;
   b.innerHTML = on ? ICON.pause : ICON.speaker;
-  if (on) { ensureAudio(); speak(); } else { run++; stopNarr(); musicStop(); setCap(cur, -1); resetClips(cur); }
+  if (on) { ensureAudio(); speak(); } else { run++; stopNarr(); stopSfx(); musicStop(); setCap(cur, -1); }
   fitAll();
 }
 
-/* ---------------- animated scenes: the picture moves, then freezes on its last frame ---------------- */
+/* ---------------- animated scenes ----------------
+   The page's picture is the clip's first frame, so nothing jumps when the clip starts. The clip plays
+   once and freezes on its last frame; the blur under the text switches to that frame too. A clip that
+   has not arrived in time (slow connection) or that the phone refuses to play is skipped and the
+   still picture stays, along with any later clips on that page. Sound effects play only while the
+   book is read aloud. */
+let sfxNow = null;
+function stopSfx() { if (sfxNow) { try { sfxNow.stop(); } catch (e) {} sfxNow = null; } }
+function setSoft(sec, name) {
+  sec.querySelectorAll('.soft img, img.bg').forEach(im => {
+    if (!im.dataset.orig) im.dataset.orig = im.src;
+    im.src = name ? url(`art/${name}-soft.webp`) : im.dataset.orig;
+  });
+}
 function resetClips(i) {
   const sec = secs[i]; if (!sec) return;
-  sec.querySelectorAll('video').forEach(v => { v._gen = (v._gen || 0) + 1; v.pause(); v.classList.remove('on'); try { v.currentTime = 0; } catch (e) {} });
-  paint(i);
+  sec._skip = false; stopSfx();
+  const vs = sec.querySelectorAll('video'); if (!vs.length) return;
+  vs.forEach(v => { v._gen = (v._gen || 0) + 1; v.pause(); v.classList.remove('on'); try { v.currentTime = 0; } catch (e) {} });
+  setSoft(sec, null);
 }
+const WAIT = 2500;  // how long a clip may take to start before the page carries on with the still picture
 function playClip(i, j, withSound) {
   const sec = secs[i], v = sec && sec.querySelectorAll('video')[j], c = S.pages[i].clips[j];
-  if (!v) return Promise.resolve();
+  if (!v || sec._skip) return Promise.resolve(false);
   return new Promise(res => {
     const gen = v._gen = (v._gen || 0) + 1, stale = () => v._gen !== gen;
     if (!v.src) { v.preload = 'auto'; v.src = v.dataset.src; }
-    let snd = null, done = false;
-    const end = () => { if (done) return; done = true; if (snd) { try { snd.stop(); } catch (e) {} } paint(i, v); res(); };
-    const repaint = () => { if (stale() || done) return; if (v.readyState >= 2) paint(i, v); (v.requestVideoFrameCallback ? v.requestVideoFrameCallback(repaint) : setTimeout(repaint, 120)); };
-    v.onplaying = () => {
-      if (stale()) { v.pause(); return; } v.classList.add('on'); repaint();
-      if (withSound && c.sound && actx) loadBuf(url(c.sound)).then(b => { if (stale() || done) return; snd = actx.createBufferSource(); snd.buffer = b; snd.connect(narrBus); snd.start(actx.currentTime, Math.min(b.duration, v.currentTime + lat())); }).catch(() => {});
+    let done = false, started = false, giveUp = 0, cap = 0;
+    const end = ok => {
+      if (done) return; done = true; clearTimeout(giveUp); clearTimeout(cap);
+      if (!ok) { sec._skip = true; if (!started) { v.pause(); v.classList.remove('on'); } }
+      else if (!stale() && c.end) setSoft(sec, c.end);
+      res(ok);
     };
-    v.onended = end;
+    v.onplaying = () => {
+      if (stale()) { v.pause(); return; }
+      if (started) return; started = true; clearTimeout(giveUp);
+      v.classList.add('on');
+      cap = setTimeout(() => end(true), ((v.duration || 12) + 6) * 1000);  // a clip that stalls part-way just stops there
+      if (withSound && reading && c.sound && actx) loadBuf(url(c.sound)).then(b => {
+        if (stale() || done || !reading) return; stopSfx();
+        const s = actx.createBufferSource(); s.buffer = b; s.connect(sfxBus); s.start(actx.currentTime, Math.min(b.duration, v.currentTime + lat())); sfxNow = s;
+      }).catch(() => {});
+    };
+    v.onended = () => { if (!stale()) end(true); };
     try { v.currentTime = 0; } catch (e) {}
-    v.play().catch(() => { // a phone that refuses to play shows the final frame instead
-      const last = () => { try { v.currentTime = Math.max(0, v.duration - 0.05); } catch (e) {} v.classList.add('on'); setTimeout(end, 300); };
-      v.readyState >= 1 ? last() : v.addEventListener('loadedmetadata', last, { once: true });
-    });
-    setTimeout(end, 20000);
+    const p = v.play(); if (p && p.catch) p.catch(() => end(false));
+    giveUp = setTimeout(() => { if (!started) end(false); }, WAIT);
   });
 }
 function autoClips(i) {
   if (reading || RENDER) return; const pg = S.pages[i]; if (!pg.clips || !pg.clips.length) return;
   const v0 = secs[i].querySelector('video'); if (!v0 || v0.classList.contains('on')) return;
-  const snd = !!(navigator.userActivation && navigator.userActivation.hasBeenActive);
-  if (snd) ensureAudio();
-  (async () => { for (let j = 0; j < pg.clips.length; j++) { if (cur !== i || reading) return; await playClip(i, j, snd); } })();
+  (async () => { for (let j = 0; j < pg.clips.length; j++) { if (cur !== i || reading) return; if (!await playClip(i, j, false)) return; } })();
 }
 
 /* ---------------- controls & menu ---------------- */
