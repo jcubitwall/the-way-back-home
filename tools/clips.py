@@ -86,7 +86,13 @@ def main():
         if not has_audio:
             print('  ! this clip has no sound track; it will play silent')
         else:
-            run('-i', src, '-vn', '-ac', '2', '-ar', '44100', '-af', 'loudnorm=I=-20:TP=-2', '-c:a', 'libmp3lame', '-b:a', '128k', snd)
+            # bring quiet effects up, but never by more than 18 dB (that would only raise the hiss)
+            vd = subprocess.run(['ffmpeg', '-hide_banner', '-i', src, '-map', '0:a:0', '-af', 'volumedetect', '-f', 'null', '-'],
+                                capture_output=True, text=True).stderr
+            peak = float(vd.split('max_volume:')[1].split('dB')[0]) if 'max_volume:' in vd else -6.0
+            gain = max(0.0, min(18.0, -6.0 - peak))
+            run('-i', src, '-map', '0:a:0', '-vn', '-ac', '2', '-ar', '44100', '-af', f'volume={gain:.1f}dB,alimiter=limit=0.9',
+                '-c:a', 'libmp3lame', '-b:a', '128k', snd)
             clip['sound'] = f'scenes/{name}.mp3'
     elif os.path.exists(snd):
         os.remove(snd)
