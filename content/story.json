@@ -1,5 +1,5 @@
 {
-  "version": "20261010155506",
+  "version": "20261010160023",
   "about": "Page order, pictures, colours and music for every language. Text lives in content/i18n/<lang>.json under the same page ids. To reorder pages, move entries here; to swap a picture, change \"art\" (a file in art/src). \"tint\" is the chapter colour blended into the blur. \"mood\" is the music cue (music/cue_<mood>.mp3). \"clips\" are optional animated scenes: {\"src\": \"scenes/x.mp4\", \"sound\": \"scenes/x.mp3\", \"sentence\": 2, \"offset\": 0} starts the clip when that sentence (counting from 0) begins in the narration; it then freezes on its last frame.",
   "art": {
     "width": 942,
@@ -8,7 +8,7 @@
   "pages": [
     {"id": "cover", "kind": "cover", "art": "hug", "tint": "#2F7FD9", "mood": "c1", "clips": []},
     {"id": "garden", "kind": "story", "art": "garden-clip", "tint": "#2E7D4F", "mood": "c1", "clips": [{"src": "scenes/garden.mp4", "sentence": 2, "offset": 0.0, "end": "garden-end"}], "still": "garden"},
-    {"id": "rule", "kind": "story", "art": "rule", "tint": "#2E7D4F", "mood": "c1", "clips": []},
+    {"id": "rule", "kind": "story", "art": "rule-clip", "tint": "#2E7D4F", "mood": "c1", "clips": [{"src": "scenes/rule.mp4", "sentence": 1, "offset": 0.0, "end": "rule-end"}], "still": "rule"},
     {"id": "serpent", "kind": "story", "art": "serpent", "tint": "#2E7D4F", "mood": "c2", "clips": []},
     {"id": "fruit", "kind": "story", "art": "fruit", "tint": "#6B3F8C", "mood": "c3", "clips": []},
     {"id": "exile", "kind": "story", "art": "exile", "tint": "#6B3F8C", "mood": "c3", "clips": []},
