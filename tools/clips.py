@@ -72,13 +72,13 @@ def main():
     os.makedirs(path('scenes'), exist_ok=True)
 
     # the clip, small enough for a slow phone connection; "faststart" lets it begin before it has all arrived
-    run('-i', src, '-an', '-vf', f'scale={WIDTH}:-2:flags=lanczos,format=yuv420p', '-c:v', 'libx264', '-profile:v', 'high',
-        '-preset', 'slow', '-crf', '25', '-movflags', '+faststart', path('scenes', name + '.mp4'))
+    run('-i', src, '-map', '0:v:0', '-an', '-vf', f'scale={WIDTH}:-2:flags=lanczos,format=yuv420p', '-c:v', 'libx264', '-profile:v', 'high',
+        '-preset', 'slow', '-crf', '28', '-movflags', '+faststart', path('scenes', name + '.mp4'))
     # first and last frames as stills
     scale = f'scale={min(STILL, w)}:-2:flags=lanczos'
     if n == 1:
-        run('-i', src, '-vf', scale, '-frames:v', '1', '-q:v', '2', path('art', 'src', f'{pid}-clip.jpg'))
-    run('-sseof', '-0.6', '-i', src, '-vf', scale, '-q:v', '2', '-update', '1', path('art', 'src', f'{name}-end.jpg'))
+        run('-i', src, '-map', '0:v:0', '-vf', scale, '-frames:v', '1', '-q:v', '2', path('art', 'src', f'{pid}-clip.jpg'))
+    run('-sseof', '-0.6', '-i', src, '-map', '0:v:0', '-vf', scale, '-q:v', '2', '-update', '1', path('art', 'src', f'{name}-end.jpg'))
 
     clip = {'src': f'scenes/{name}.mp4', 'sentence': arg('--sentence', 0, int), 'offset': arg('--offset', 0.0, float), 'end': f'{name}-end'}
     snd = path('scenes', name + '.mp3')
