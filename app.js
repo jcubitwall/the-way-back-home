@@ -214,7 +214,27 @@ function preload() {
   load(cur); const at = cur; setTimeout(() => { if (cur === at) load(at + 1); }, 1500);
   [cur, cur + 1].forEach(i => secs[i] && (S.pages[i].clips || []).forEach(c => { if (c.end && !NOCLIPS) new Image().src = url(`art/${c.end}-soft.webp`); }));
 }
+/* phones can show a strip below the page (Safari's toolbar area, the home bar on some iPhones). Paint it in the
+   colour of the bottom of the current page, measured from its blurred picture, so the page seems to run to the edge. */
+const edge = {};
+function edgeColor(i) {
+  if (edge[i]) return Promise.resolve(edge[i]);
+  return new Promise(res => {
+    const im = new Image();
+    im.onload = () => {
+      try {
+        const c = document.createElement('canvas'); c.width = c.height = 1; const x = c.getContext('2d');
+        x.drawImage(im, 0, im.height * 0.88, im.width, im.height * 0.12, 0, 0, 1, 1);
+        const d = x.getImageData(0, 0, 1, 1).data, s = mix(S.pages[i].tint, 0.42), k = 0.72;
+        res(edge[i] = `rgb(${[0, 1, 2].map(j => Math.round(d[j] * (1 - k) + s[j] * k)).join(',')})`);
+      } catch (e) { res(null); }
+    };
+    im.onerror = () => res(null); im.src = url(`art/${S.pages[i].art}-soft.webp`);
+  });
+}
+function paintEdge() { const at = cur; edgeColor(at).then(c => { if (c && cur === at) document.documentElement.style.setProperty('--edge', c); }); }
 function setCount() {
+  paintEdge();
   const c = $('#count'); c.textContent = `${cur + 1} / ${N}`; c.classList.toggle('hide', cur === 0); $('#homeBtn').hidden = cur === 0;
   if (TRACK) { const p = `${ROOT.pathname}${L}/p${cur + 1}`; if (location.pathname !== p) history.pushState({ p: cur }, '', p); }
 }
