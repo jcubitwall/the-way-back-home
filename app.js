@@ -122,7 +122,7 @@ function pageHTML(pg, i) {
   }
   const chip = pg.kind === 'cover' ? `<a class="chip" href="${ROOT}languages.html">${esc(META.name)}</a>` : '';
   const sh = mix(pg.tint, 0.42), sm = mix(pg.tint, 0.5), lazy = i > 1 ? 'loading="lazy"' : '';
-  return `<section class="pg ${pg.kind}" data-i="${i}" aria-label="${esc(UI.page || 'Page')} ${i + 1}" style="--tint:${pg.tint};--shade:${rgb(sh, .93)};--shade-mid:${rgb(sm, .55)}">
+  return `<section class="pg ${pg.kind}" data-i="${i}" aria-label="${esc(UI.page || 'Page')} ${i + 1}" style="--tint:${pg.tint};--shade:${rgb(sh, .72)};--shade-mid:${rgb(sm, .5)}">
 <img class="bg" alt="" aria-hidden="true" decoding="async" ${lazy} src="${url(art + '-soft.webp')}">
 <div class="stage"><div class="art"><img class="pic" alt="" draggable="false" decoding="async" ${lazy} sizes="(min-width:520px) 942px, 100vw" srcset="${url(art + '-720.webp')} 720w, ${url(art + '.webp')} 942w" src="${url(art + '-720.webp')}"></div>
 <div class="soft" aria-hidden="true"><img class="ext" alt="" decoding="async" ${lazy} src="${url(art + '-soft.webp')}"><img class="top" alt="" decoding="async" ${lazy} src="${url(art + '-soft.webp')}"></div><div class="shade"></div>${chip}
