@@ -21,7 +21,7 @@ CHECK = '--check' in sys.argv
 def build_art(st):
     from PIL import Image
     ends = {c['end'] for p in st['pages'] for c in p.get('clips', []) if c.get('end')}
-    used = {p['art'] for p in st['pages']} | {'hug'} | ends
+    used = {p['art'] for p in st['pages']} | ends
     made = 0
     for name in sorted(used):
         src = path('art', 'src', name + '.jpg')
