@@ -62,6 +62,8 @@ button{font:inherit}
 .caps{display:none}
 .listening .pg.story .full{display:none}
 .listening .pg.story .caps{display:grid}
+/* while listening the single caption sits lower, near the bottom edge, so more of the picture shows */
+.listening .pg.story .txt{padding-bottom:calc(12px + env(safe-area-inset-bottom,0px) * .6)}
 .caps .cap{grid-area:1/1;align-self:end;margin:0;font-size:1.12em;line-height:1.38;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
 .caps .cap.on{opacity:1;transform:none}
 .render .caps .cap{transition:none}
@@ -92,6 +94,9 @@ button{font:inherit}
 /* controls */
 .bar{position:fixed;z-index:10;left:12px;right:12px;top:calc(12px + env(safe-area-inset-top,0px));display:flex;gap:10px;align-items:center;pointer-events:none}
 .bar>*{pointer-events:auto}
+/* while the book reads aloud the buttons fade away; any touch brings them back for a few seconds */
+.bar,.stage::before{transition:opacity .45s ease}
+.hud-off .bar{opacity:0}.hud-off .bar>*{pointer-events:none}.hud-off .stage::before{opacity:0}
 .sp{flex:1}
 .count{font:700 14px var(--body);color:#fff;background:rgba(0,0,0,.32);padding:8px 13px;border-radius:999px;transition:opacity .2s;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .count.hide{opacity:0;pointer-events:none}

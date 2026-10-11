@@ -331,8 +331,18 @@ function setRead(on) {
   const b = $('#read'); b.setAttribute('aria-pressed', on); b.setAttribute('aria-label', on ? UI.stop : UI.read); b.title = on ? UI.stop : UI.read;
   b.innerHTML = on ? ICON.pause : ICON.speaker;
   if (on) { ensureAudio(); speak(); } else { run++; stopNarr(); stopSfx(); musicStop(); setCap(cur, -1); }
-  fitAll();
+  hud(!on); fitAll();
 }
+/* while the book reads aloud the buttons fade away after a moment; a touch anywhere brings them back */
+let hudT = 0;
+function hud(touched) {
+  clearTimeout(hudT); document.body.classList.remove('hud-off');
+  if (reading) hudT = setTimeout(() => {
+    if (!reading) return;
+    if ($('#menu').hidden && $('#msgMenu').hidden) document.body.classList.add('hud-off'); else hud(true);
+  }, touched ? 3500 : 1500);
+}
+['pointerdown', 'touchstart', 'keydown'].forEach(ev => addEventListener(ev, () => hud(true), { passive: true, capture: true }));
 
 /* ---------------- animated scenes ----------------
    The page's picture is the clip's first frame, so nothing jumps when the clip starts. The clip plays
