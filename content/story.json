@@ -1,5 +1,5 @@
 {
-  "version": "20261011082623",
+  "version": "20261011084153",
   "about": "Page order, pictures, colours and music for every language. Text lives in content/i18n/<lang>.json under the same page ids. To reorder pages, move entries here; to swap a picture, change \"art\" (a file in art/src). \"tint\" is the chapter colour blended into the blur. \"mood\" is the music cue (music/cue_<mood>.mp3). \"clips\" are optional animated scenes: {\"src\": \"scenes/x.mp4\", \"sound\": \"scenes/x.mp3\", \"sentence\": 2, \"offset\": 0} starts the clip when that sentence (counting from 0) begins in the narration; it then freezes on its last frame.",
   "art": {
     "width": 942,
@@ -17,7 +17,7 @@
     {"id": "locked", "kind": "story", "art": "locked-clip", "tint": "#2A2340", "mood": "c5", "clips": [{"src": "scenes/locked.mp4", "sentence": 0, "offset": 1.25, "end": "locked-end", "sound": "scenes/locked.mp3"}], "still": "locked"},
     {"id": "scrub", "kind": "story", "art": "scrub-clip", "tint": "#2A2340", "mood": "c4", "clips": [{"src": "scenes/scrub.mp4", "sentence": 1, "offset": 0.0, "end": "scrub-end", "sound": "scenes/scrub.mp3"}], "still": "scrub"},
     {"id": "door", "kind": "story", "art": "door-clip", "tint": "#C8641E", "mood": "c6", "clips": [{"src": "scenes/door.mp4", "sentence": 0, "offset": 0.0, "end": "door-end"}], "still": "door"},
-    {"id": "cross", "kind": "story", "art": "cross", "tint": "#C8641E", "mood": "c6", "clips": []},
+    {"id": "cross", "kind": "story", "art": "cross-clip", "tint": "#C8641E", "mood": "c6", "clips": [{"src": "scenes/cross.mp4", "sentence": 1, "offset": 2.5, "end": "cross-end"}], "still": "cross"},
     {"id": "choice", "kind": "story", "art": "choice-clip", "tint": "#C8641E", "mood": "c6", "clips": [{"src": "scenes/choice.mp4", "sentence": 1, "offset": 0.0, "end": "choice-end"}], "still": "choice"},
     {"id": "tomb", "kind": "story", "art": "tomb", "tint": "#C8641E", "mood": "c7", "clips": []},
     {"id": "gates", "kind": "story", "art": "gates", "tint": "#2F7FD9", "mood": "c7", "clips": []},
