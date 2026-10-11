@@ -1,5 +1,5 @@
 {
-  "version": "20261011115311",
+  "version": "20261011121241",
   "about": "Page order, pictures, colours and music for every language. Text lives in content/i18n/<lang>.json under the same page ids. To reorder pages, move entries here; to swap a picture, change \"art\" (a file in art/src). \"tint\" is the chapter colour blended into the blur. \"mood\" is the music cue (music/cue_<mood>.mp3). \"clips\" are optional animated scenes: {\"src\": \"scenes/x.mp4\", \"sound\": \"scenes/x.mp3\", \"sentence\": 2, \"offset\": 0} starts the clip when that sentence (counting from 0) begins in the narration; it then freezes on its last frame.",
   "art": {
     "width": 942,
@@ -22,7 +22,7 @@
     {"id": "tomb", "kind": "story", "art": "tomb-clip", "tint": "#C8641E", "mood": "c7", "clips": [{"src": "scenes/tomb.mp4", "sentence": 0, "offset": 3.2, "end": "tomb-end", "sound": "scenes/tomb.mp3"}], "still": "tomb"},
     {"id": "gates", "kind": "story", "art": "gates-clip", "tint": "#2F7FD9", "mood": "c7", "clips": [{"src": "scenes/gates.mp4", "sentence": 1, "offset": 0.0, "end": "gates-end", "sound": "scenes/gates.mp3"}], "still": "gates"},
     {"id": "forever", "kind": "story", "art": "hug", "tint": "#2F7FD9", "mood": "c7", "clips": []},
-    {"id": "new-earth", "kind": "story", "art": "new-earth", "tint": "#2F7FD9", "mood": "c7", "clips": []},
+    {"id": "new-earth", "kind": "story", "art": "new-earth-clip", "tint": "#2F7FD9", "mood": "c7", "clips": [{"src": "scenes/new-earth.mp4", "sentence": 0, "offset": 0.0, "end": "new-earth-end"}], "still": "new-earth"},
     {"id": "prayer", "kind": "prayer", "art": "clean", "tint": "#C8641E", "mood": "c8", "clips": []},
     {"id": "grownups", "kind": "grownups", "art": "tomb", "tint": "#2E7D4F", "mood": "c8", "clips": []}
   ]
