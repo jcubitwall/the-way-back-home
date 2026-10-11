@@ -16,6 +16,10 @@ button{font:inherit}
 [hidden]{display:none!important}
 
 .book{position:fixed;inset:0;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+/* the pages run all the way to the bottom of the screen, under the phone's toolbar or home bar; the words
+   are lifted by exactly the part of the screen the phone covers (--gap), so nothing important hides there */
+:root{--gap:0px}
+@supports (height:100lvh){:root{--gap:max(0px,calc(100lvh - 100dvh))}.book{bottom:auto;height:100lvh}}
 .track{position:absolute;left:0;right:0;top:0;height:100%;will-change:transform;transform:translate3d(0,0,0)}
 .track.anim{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 
@@ -49,7 +53,7 @@ button{font:inherit}
   background:linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,0))}
 
 .txt{position:absolute;left:0;right:0;bottom:0;z-index:3;margin:0 auto;max-width:680px;
-  padding:0 calc(24px + env(safe-area-inset-right,0px)) calc(30px + env(safe-area-inset-bottom,0px)) calc(24px + env(safe-area-inset-left,0px));
+  padding:0 calc(24px + env(safe-area-inset-right,0px)) calc(30px + env(safe-area-inset-bottom,0px) + var(--gap)) calc(24px + env(safe-area-inset-left,0px));
   text-shadow:0 1px 3px rgba(0,0,0,.55),0 0 18px rgba(0,0,0,.25);font-size:calc(var(--k) * clamp(16px,4.3vw,21px));line-height:1.42}
 
 [dir=rtl] .txt{text-align:right}
@@ -63,13 +67,13 @@ button{font:inherit}
 .listening .pg.story .full{display:none}
 .listening .pg.story .caps{display:grid}
 /* while listening the single caption sits lower, near the bottom edge, so more of the picture shows */
-.listening .pg.story .txt{padding-bottom:calc(12px + env(safe-area-inset-bottom,0px) * .6)}
+.listening .pg.story .txt{padding-bottom:calc(12px + env(safe-area-inset-bottom,0px) * .6 + var(--gap))}
 .caps .cap{grid-area:1/1;align-self:end;margin:0;font-size:1.12em;line-height:1.38;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
 .caps .cap.on{opacity:1;transform:none}
 .render .caps .cap{transition:none}
 
 /* cover */
-.pg.cover .txt{text-align:center;padding-bottom:calc(48px + env(safe-area-inset-bottom,0px))}
+.pg.cover .txt{text-align:center;padding-bottom:calc(48px + env(safe-area-inset-bottom,0px) + var(--gap))}
 .cover h1{font-family:var(--display);font-weight:900;font-size:calc(var(--k) * clamp(48px,14vw,84px));line-height:.98;margin:0;text-shadow:0 4px 0 rgba(0,0,0,.18),0 2px 18px rgba(0,0,0,.35)}
 .cover .sub{font-size:1.08em;margin:.6em 0 1.1em;opacity:.96}
 .cta{display:inline-flex;align-items:center;gap:.45em;font-family:var(--display);font-weight:800;font-size:.9em;background:var(--gold);color:#2B2233;border:0;border-radius:999px;padding:.62em 1.3em;box-shadow:0 4px 0 #C99A1E;cursor:pointer;text-shadow:none}
