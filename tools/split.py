@@ -48,7 +48,7 @@ def main():
     for pg, (a, b) in zip(pages, bounds):
         out = path('audio', code, pg['id'] + '.mp3')
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-ss', f'{a:.3f}', '-to', f'{b:.3f}', '-i', mp3,
-                        '-af', 'afade=t=in:d=0.05', '-c:a', 'libmp3lame', '-b:a', '128k', out], check=True)
+                        '-af', 'afade=t=in:d=0.05', '-ac', '1', '-c:a', 'libmp3lame', '-b:a', '64k', out], check=True)
         n = len(spoken(pg['kind'], t['pages'][pg['id']], code))
         c = detect(out, n) if n > 1 else [0.0]
         if c:

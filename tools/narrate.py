@@ -23,7 +23,7 @@ def tts(text, voice, cfg, key):
     if voice.get('language_code'):
         q['language_code'] = voice['language_code']
     req = urllib.request.Request(
-        f'https://api.elevenlabs.io/v1/text-to-speech/{voice["voice_id"]}/with-timestamps?output_format=mp3_44100_128',
+        f'https://api.elevenlabs.io/v1/text-to-speech/{voice["voice_id"]}/with-timestamps?output_format=mp3_44100_64',
         data=json.dumps(q).encode(), headers={'xi-api-key': key, 'Content-Type': 'application/json'})
     try:
         with urllib.request.urlopen(req, timeout=180) as r:

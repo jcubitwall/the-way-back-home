@@ -58,7 +58,7 @@ def main():
     for p in info:
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-ss', f"{p['a']:.3f}", '-to', f"{p['b']:.3f}", '-i', mp3,
                         '-af', f"afade=t=in:d=0.04,afade=t=out:st={max(0, p['b'] - p['a'] - 0.06):.3f}:d=0.06",
-                        '-c:a', 'libmp3lame', '-b:a', '128k', path('audio', code, p['id'] + '.mp3')], check=True)
+                        '-ac', '1', '-c:a', 'libmp3lame', '-b:a', '64k', path('audio', code, p['id'] + '.mp3')], check=True)
         t['cues'][p['id']] = [0.0 if li == 0 else round(max(0.0, s - p['a'] - 0.08), 2) for li, s in sorted(p['lines'].items())]
     save(f'content/i18n/{code}.json', t)
     print(f'Saved {len(info)} pages to audio/{code}/ with caption timings. Run tools/build.py to update the site.')

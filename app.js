@@ -162,9 +162,6 @@ function fitAll() {
   });
 }
 
-/* the soft layer is a blurred copy of the picture made ahead of time (art/<name>-soft.webp),
-   so the blur looks the same on every phone. During an animated scene it stays still. */
-function paint() {}
 
 /* ---------------- page turning: one swipe = one page ---------------- */
 const H = () => book.clientHeight;
@@ -212,7 +209,9 @@ function preload() {
   [cur + 1, cur + 2].forEach(i => secs[i] && secs[i].querySelectorAll('img[loading=lazy]').forEach(im => { im.loading = 'eager'; }));
   // decode the next page's pictures now, so the slide to it never waits on them
   secs[cur + 1] && secs[cur + 1].querySelectorAll('img').forEach(im => { if (im.decode) im.decode().catch(() => {}); });
-  [cur, cur + 1].forEach(i => secs[i] && secs[i].querySelectorAll('video').forEach(v => { if (!v.src) { v.preload = 'auto'; v.src = v.dataset.src; } }));
+  // this page's scene starts downloading now; the next page's waits until this page's pictures have had their turn
+  const load = i => secs[i] && secs[i].querySelectorAll('video').forEach(v => { if (!v.src) { v.preload = 'auto'; v.src = v.dataset.src; } });
+  load(cur); const at = cur; setTimeout(() => { if (cur === at) load(at + 1); }, 1500);
   [cur, cur + 1].forEach(i => secs[i] && (S.pages[i].clips || []).forEach(c => { if (c.end && !NOCLIPS) new Image().src = url(`art/${c.end}-soft.webp`); }));
 }
 function setCount() {
@@ -473,7 +472,7 @@ async function show(p, s) {
   secs[p].querySelectorAll('img').forEach(im => { im.loading = 'eager'; }); const img = secs[p].querySelector('.pic');
   if (!img.complete || !img.naturalWidth) await new Promise(r => { img.addEventListener('load', r, { once: true }); img.addEventListener('error', r, { once: true }); });
   if (document.fonts) await document.fonts.ready;
-  fitAll(); paint(p);
+  fitAll();
   await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
   return true;
 }
