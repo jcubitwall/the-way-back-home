@@ -1,5 +1,5 @@
 {
-  "version": "20261011212119",
+  "version": "20261012005135",
   "about": "Page order, pictures, colours and music for every language. Text lives in content/i18n/<lang>.json under the same page ids. To reorder pages, move entries here; to swap a picture, change \"art\" (a file in art/src). \"tint\" is the chapter colour blended into the blur. \"mood\" is the music cue (music/cue_<mood>.mp3). \"clips\" are optional animated scenes: {\"src\": \"scenes/x.mp4\", \"sound\": \"scenes/x.mp3\", \"sentence\": 2, \"offset\": 0} starts the clip when that sentence (counting from 0) begins in the narration; it then freezes on its last frame.",
   "art": {
     "width": 942,
@@ -11,7 +11,7 @@
     {"id": "rule", "kind": "story", "art": "rule-clip", "tint": "#2E7D4F", "mood": "c1", "clips": [{"src": "scenes/rule.mp4", "sentence": 1, "offset": 2.3, "end": "rule-end"}], "still": "rule"},
     {"id": "serpent", "kind": "story", "art": "serpent-clip", "tint": "#2E7D4F", "mood": "c2", "clips": [{"src": "scenes/serpent.mp4", "sentence": 0, "offset": 0.5, "end": "serpent-end", "sound": "scenes/serpent.mp3"}], "still": "serpent"},
     {"id": "fruit", "kind": "story", "art": "fruit-clip", "tint": "#6B3F8C", "mood": "c3", "clips": [{"src": "scenes/fruit.mp4", "sentence": 0, "offset": 1.42, "end": "fruit-end", "sound": "scenes/fruit.mp3"}], "still": "fruit"},
-    {"id": "exile", "kind": "story", "art": "exile-clip", "tint": "#6B3F8C", "mood": "c3", "clips": [{"src": "scenes/exile.mp4", "sentence": 3, "offset": 0, "end": "exile-end"}], "still": "exile"},
+    {"id": "exile", "kind": "story", "art": "exile-clip", "tint": "#6B3F8C", "mood": "c3", "clips": [{"src": "scenes/exile.mp4", "sentence": 2, "offset": 2.0, "end": "exile-end"}], "still": "exile"},
     {"id": "road", "kind": "story", "art": "road-clip", "tint": "#2A2340", "mood": "c4", "clips": [{"src": "scenes/road.mp4", "sentence": 0, "offset": 0, "end": "road-end"}], "still": "wall"},
     {"id": "test", "kind": "story", "art": "test-clip", "tint": "#2A2340", "mood": "c4", "clips": [{"src": "scenes/test.mp4", "sentence": 2, "offset": 1.4, "end": "test-end"}], "still": "law"},
     {"id": "locked", "kind": "story", "art": "locked-clip", "tint": "#2A2340", "mood": "c5", "clips": [{"src": "scenes/locked.mp4", "sentence": 0, "offset": 4.3, "end": "locked-end", "sound": "scenes/locked.mp3"}], "still": "locked"},
