@@ -25,7 +25,7 @@ const SCRIPT = {
 };
 
 let S, LANGS, META, T, EN, L, V = 'dev', UI;
-let secs = [], cur = 0, trk = null, N = 0;
+let secs = [], cur = 0, trk = null, N = 0, OFF = 0;  // OFF: the cover has no page number, so the first story page is page 1
 const book = $('#book');
 
 /* ---------------- loading ---------------- */
@@ -43,15 +43,14 @@ async function boot() {
   T = t; EN = en || t;
   UI = Object.assign({}, EN.ui, T.ui);
   UI.message = (T.ui && T.ui.message) || EN.ui.message;
-  N = S.pages.length;
+  N = S.pages.length; OFF = S.pages[0] && S.pages[0].kind === 'cover' ? 1 : 0;
   document.documentElement.style.setProperty('--artw', S.art.width);
   document.documentElement.style.setProperty('--arth', S.art.height);
   setupLanguage();
   build();
   setupControls();
   if (RENDER) return renderMode();
-  const p = parseInt(Q.get('p') || '1', 10) || 1;
-  goTo(Math.max(0, Math.min(N - 1, p - 1)), false);
+  goTo(pageIndex(Q.get('p')), false);
   if ('serviceWorker' in navigator && TRACK) { try { navigator.serviceWorker.register(ROOT + 'sw.js'); } catch (e) {} }
 }
 
@@ -113,7 +112,7 @@ function pageHTML(pg, i) {
     body = `<h1>${esc(T.pages.cover ? T.pages.cover.title : T.title)}</h1><p class="sub">${esc(d.subtitle)}</p><button class="cta" data-go="1">${esc(d.cta)} ${ARROW}</button>`;
   } else if (pg.kind === 'story') {
     const lines = d.text.flat();
-    body = `<div class="full"><p class="num">${i}</p>${d.text.map(p => `<p class="para">${p.map(esc).join(J())}</p>`).join('')}<p class="ref">${esc(d.ref)}</p></div>` +
+    body = `<div class="full"><p class="num">${i + 1 - OFF}</p>${d.text.map(p => `<p class="para">${p.map(esc).join(J())}</p>`).join('')}<p class="ref">${esc(d.ref)}</p></div>` +
       `<div class="caps" aria-hidden="true">${lines.map((s, k) => `<p class="cap" data-k="${k}">${esc(s)}</p>`).join('')}</div>`;
   } else if (pg.kind === 'prayer') {
     body = `<h2 class="big">${esc(d.title)}</h2><p class="intro">${esc(d.intro)}</p><ol class="steps">${d.steps.map(s => `<li><span class="key">${esc(s.key)}</span><span><b>${esc(s.word)}</b>${J()}${esc(s.rest)}</span></li>`).join('')}</ol><p class="pray">${esc(d.prayer)}</p><p class="note">${esc(d.note)} ${esc(d.ref || '')}</p>`;
@@ -122,7 +121,7 @@ function pageHTML(pg, i) {
   }
   const chip = pg.kind === 'cover' ? `<a class="chip" href="${ROOT}languages.html">${esc(META.name)}</a>` : '';
   const sh = mix(pg.tint, 0.42), sm = mix(pg.tint, 0.5), lazy = i > 1 ? 'loading="lazy"' : '';
-  return `<section class="pg ${pg.kind}" data-i="${i}" aria-label="${esc(UI.page || 'Page')} ${i + 1}" style="--tint:${pg.tint};--shade:${rgb(sh, .72)};--shade-mid:${rgb(sm, .5)}">
+  return `<section class="pg ${pg.kind}" data-i="${i}" aria-label="${pg.kind === 'cover' ? esc(pg.kind) : esc(UI.page || 'Page') + ' ' + (i + 1 - OFF)}" style="--tint:${pg.tint};--shade:${rgb(sh, .72)};--shade-mid:${rgb(sm, .5)}">
 <img class="bg" alt="" aria-hidden="true" decoding="async" ${lazy} src="${url(art + '-soft.webp')}">
 <div class="stage"><div class="art"><img class="pic" alt="" draggable="false" decoding="async" ${lazy} sizes="(min-width:520px) 942px, 100vw" srcset="${url(art + '-720.webp')} 720w, ${url(art + '.webp')} 942w" src="${url(art + '-720.webp')}"></div>
 <div class="soft" aria-hidden="true"><img class="ext" alt="" decoding="async" ${lazy} src="${url(art + '-soft.webp')}"><img class="top" alt="" decoding="async" ${lazy} src="${url(art + '-soft.webp')}"></div><div class="shade"></div>${chip}
@@ -237,10 +236,12 @@ function edgeColor(i) {
 function paintEdge() { const at = cur; edgeColor(at).then(c => { if (c && cur === at) document.documentElement.style.setProperty('--edge', c); }); }
 function setCount() {
   paintEdge();
-  const c = $('#count'); c.textContent = `${cur + 1} / ${N}`; c.classList.toggle('hide', cur === 0); $('#homeBtn').hidden = cur === 0;
-  if (TRACK) { const p = `${ROOT.pathname}${L}/p${cur + 1}`; if (location.pathname !== p) history.pushState({ p: cur }, '', p); }
+  const c = $('#count'); c.textContent = `${cur + 1 - OFF} / ${N - OFF}`; c.classList.toggle('hide', cur === 0); $('#homeBtn').hidden = cur === 0;
+  if (TRACK) { const p = `${ROOT.pathname}${L}/` + (cur < OFF ? '' : `p${cur + 1 - OFF}`); if (location.pathname !== p) history.pushState({ p: cur }, '', p); }
 }
-addEventListener('popstate', () => { const m = location.pathname.match(/p(\d+)$/); if (m && secs.length) goTo(+m[1] - 1); });
+// page numbers in links (/en/p5, ?p=5) are the numbers printed on the pages; the cover is p0 (or no number)
+function pageIndex(n) { return n === null || n === undefined || n === '' ? 0 : Math.max(0, Math.min(N - 1, (parseInt(n, 10) || 0) + OFF - 1)); }
+addEventListener('popstate', () => { if (!secs.length) return; const m = location.pathname.match(/\/p(\d+)$/); goTo(m ? pageIndex(m[1]) : 0); });
 
 /* ---------------- captions ---------------- */
 function setCap(i, k) {
@@ -508,7 +509,7 @@ async function renderMode() {
   document.body.classList.add('render');
   window.__show = show;
   const s = Q.get('s');
-  await show((parseInt(Q.get('p') || '1', 10) || 1) - 1, s === null ? null : +s);
+  await show(pageIndex(Q.get('p')), s === null ? null : +s);
   document.body.dataset.ready = '1';
 }
 

@@ -50,7 +50,7 @@ def photograph(code, plan, tmp):
         pg = b.new_page(viewport={'width': W // 3, 'height': H // 3}, device_scale_factor=3, is_mobile=True)  # a phone screen, photographed sharp
         # only the book's own files (and Google Fonts for non-Latin scripts); no analytics
         pg.route('**/*', lambda r: r.continue_() if r.request.url.startswith(base) or 'fonts.g' in r.request.url else r.abort())
-        pg.goto(f'{base}index.html?lang={code}&render=1&p=1')
+        pg.goto(f'{base}index.html?lang={code}&render=1&p=0')
         pg.wait_for_selector('body[data-ready]', timeout=30000)
         for i, page in enumerate(plan):
             for k, st in enumerate(page['states']):

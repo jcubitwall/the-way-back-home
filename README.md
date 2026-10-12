@@ -90,7 +90,7 @@ before then at `…/?lang=es&preview=1`.
 
 - `?demo=1`: shows the read-aloud button even without a recording, and plays the captions
   silently at reading pace with the music, to judge the timing and the look.
-- `?p=7`: opens at page 7.
+- `?p=7`: opens at page 7 (the number printed on the page; `?p=0` is the cover).
 - `languages.html?preview=1`: lists every language, marking the unfinished ones as drafts.
 
 ## Going live
