@@ -1,28 +1,28 @@
 {
-  "version": "20261012005135",
+  "version": "20261012005918",
   "about": "Page order, pictures, colours and music for every language. Text lives in content/i18n/<lang>.json under the same page ids. To reorder pages, move entries here; to swap a picture, change \"art\" (a file in art/src). \"tint\" is the chapter colour blended into the blur. \"mood\" is the music cue (music/cue_<mood>.mp3). \"clips\" are optional animated scenes: {\"src\": \"scenes/x.mp4\", \"sound\": \"scenes/x.mp3\", \"sentence\": 2, \"offset\": 0} starts the clip when that sentence (counting from 0) begins in the narration; it then freezes on its last frame.",
   "art": {
     "width": 942,
     "height": 1670
   },
   "pages": [
-    {"id": "cover", "kind": "cover", "art": "cover", "tint": "#2F7FD9", "mood": "c1", "clips": []},
-    {"id": "garden", "kind": "story", "art": "garden-clip", "tint": "#2E7D4F", "mood": "c1", "clips": [{"src": "scenes/garden.mp4", "sentence": 2, "offset": 0, "end": "garden-end"}], "still": "garden"},
-    {"id": "rule", "kind": "story", "art": "rule-clip", "tint": "#2E7D4F", "mood": "c1", "clips": [{"src": "scenes/rule.mp4", "sentence": 1, "offset": 2.3, "end": "rule-end"}], "still": "rule"},
-    {"id": "serpent", "kind": "story", "art": "serpent-clip", "tint": "#2E7D4F", "mood": "c2", "clips": [{"src": "scenes/serpent.mp4", "sentence": 0, "offset": 0.5, "end": "serpent-end", "sound": "scenes/serpent.mp3"}], "still": "serpent"},
-    {"id": "fruit", "kind": "story", "art": "fruit-clip", "tint": "#6B3F8C", "mood": "c3", "clips": [{"src": "scenes/fruit.mp4", "sentence": 0, "offset": 1.42, "end": "fruit-end", "sound": "scenes/fruit.mp3"}], "still": "fruit"},
-    {"id": "exile", "kind": "story", "art": "exile-clip", "tint": "#6B3F8C", "mood": "c3", "clips": [{"src": "scenes/exile.mp4", "sentence": 2, "offset": 2.0, "end": "exile-end"}], "still": "exile"},
-    {"id": "road", "kind": "story", "art": "road-clip", "tint": "#2A2340", "mood": "c4", "clips": [{"src": "scenes/road.mp4", "sentence": 0, "offset": 0, "end": "road-end"}], "still": "wall"},
-    {"id": "test", "kind": "story", "art": "test-clip", "tint": "#2A2340", "mood": "c4", "clips": [{"src": "scenes/test.mp4", "sentence": 2, "offset": 1.4, "end": "test-end"}], "still": "law"},
-    {"id": "locked", "kind": "story", "art": "locked-clip", "tint": "#2A2340", "mood": "c5", "clips": [{"src": "scenes/locked.mp4", "sentence": 0, "offset": 4.3, "end": "locked-end", "sound": "scenes/locked.mp3"}], "still": "locked"},
-    {"id": "scrub", "kind": "story", "art": "scrub-clip", "tint": "#2A2340", "mood": "c4", "clips": [{"src": "scenes/scrub.mp4", "sentence": 1, "offset": 0, "end": "scrub-end", "sound": "scenes/scrub.mp3"}], "still": "scrub"},
-    {"id": "door", "kind": "story", "art": "door-clip", "tint": "#C8641E", "mood": "c6", "clips": [{"src": "scenes/door.mp4", "sentence": 1, "offset": 0, "end": "door-end"}], "still": "door"},
-    {"id": "cross", "kind": "story", "art": "cross-clip", "tint": "#C8641E", "mood": "c6", "clips": [{"src": "scenes/cross.mp4", "sentence": 0, "offset": 3.0, "end": "cross-end"}], "still": "cross"},
-    {"id": "choice", "kind": "story", "art": "choice-clip", "tint": "#C8641E", "mood": "c6", "clips": [{"src": "scenes/choice.mp4", "sentence": 1, "offset": 0.3, "end": "choice-end"}], "still": "choice"},
-    {"id": "tomb", "kind": "story", "art": "tomb-clip", "tint": "#C8641E", "mood": "c7", "clips": [{"src": "scenes/tomb.mp4", "sentence": 0, "offset": 3.0, "end": "tomb-end", "sound": "scenes/tomb.mp3"}], "still": "tomb"},
-    {"id": "gates", "kind": "story", "art": "gates-clip", "tint": "#2F7FD9", "mood": "c7", "clips": [{"src": "scenes/gates.mp4", "sentence": 0, "offset": 1.0, "end": "gates-end", "sound": "scenes/gates.mp3"}], "still": "gates"},
-    {"id": "new-earth", "kind": "story", "art": "new-earth-clip", "tint": "#2F7FD9", "mood": "c7", "clips": [{"src": "scenes/new-earth.mp4", "sentence": 0, "offset": 0, "end": "new-earth-end"}], "still": "new-earth"},
-    {"id": "prayer", "kind": "prayer", "art": "clean", "tint": "#C8641E", "mood": "c8", "clips": []},
-    {"id": "grownups", "kind": "grownups", "art": "tomb", "tint": "#2E7D4F", "mood": "c8", "clips": []}
+    {"id": "cover", "kind": "cover", "art": "cover", "tint": "#2F7FD9", "mood": "m01", "clips": []},
+    {"id": "garden", "kind": "story", "art": "garden-clip", "tint": "#2E7D4F", "mood": "m01", "clips": [{"src": "scenes/garden.mp4", "sentence": 2, "offset": 0, "end": "garden-end"}], "still": "garden"},
+    {"id": "rule", "kind": "story", "art": "rule-clip", "tint": "#2E7D4F", "mood": "m02", "clips": [{"src": "scenes/rule.mp4", "sentence": 1, "offset": 2.3, "end": "rule-end"}], "still": "rule"},
+    {"id": "serpent", "kind": "story", "art": "serpent-clip", "tint": "#2E7D4F", "mood": "m03", "clips": [{"src": "scenes/serpent.mp4", "sentence": 0, "offset": 0.5, "end": "serpent-end", "sound": "scenes/serpent.mp3"}], "still": "serpent"},
+    {"id": "fruit", "kind": "story", "art": "fruit-clip", "tint": "#6B3F8C", "mood": "m04", "clips": [{"src": "scenes/fruit.mp4", "sentence": 0, "offset": 1.42, "end": "fruit-end", "sound": "scenes/fruit.mp3"}], "still": "fruit"},
+    {"id": "exile", "kind": "story", "art": "exile-clip", "tint": "#6B3F8C", "mood": "m05", "clips": [{"src": "scenes/exile.mp4", "sentence": 2, "offset": 2.0, "end": "exile-end"}], "still": "exile"},
+    {"id": "road", "kind": "story", "art": "road-clip", "tint": "#2A2340", "mood": "m06", "clips": [{"src": "scenes/road.mp4", "sentence": 0, "offset": 0, "end": "road-end"}], "still": "wall"},
+    {"id": "test", "kind": "story", "art": "test-clip", "tint": "#2A2340", "mood": "m07", "clips": [{"src": "scenes/test.mp4", "sentence": 2, "offset": 1.4, "end": "test-end"}], "still": "law"},
+    {"id": "locked", "kind": "story", "art": "locked-clip", "tint": "#2A2340", "mood": "m08", "clips": [{"src": "scenes/locked.mp4", "sentence": 0, "offset": 4.3, "end": "locked-end", "sound": "scenes/locked.mp3"}], "still": "locked"},
+    {"id": "scrub", "kind": "story", "art": "scrub-clip", "tint": "#2A2340", "mood": "m09", "clips": [{"src": "scenes/scrub.mp4", "sentence": 1, "offset": 0, "end": "scrub-end", "sound": "scenes/scrub.mp3"}], "still": "scrub"},
+    {"id": "door", "kind": "story", "art": "door-clip", "tint": "#C8641E", "mood": "m10", "clips": [{"src": "scenes/door.mp4", "sentence": 1, "offset": 0, "end": "door-end"}], "still": "door"},
+    {"id": "cross", "kind": "story", "art": "cross-clip", "tint": "#C8641E", "mood": "m11", "clips": [{"src": "scenes/cross.mp4", "sentence": 0, "offset": 3.0, "end": "cross-end"}], "still": "cross"},
+    {"id": "choice", "kind": "story", "art": "choice-clip", "tint": "#C8641E", "mood": "m12", "clips": [{"src": "scenes/choice.mp4", "sentence": 1, "offset": 0.3, "end": "choice-end"}], "still": "choice"},
+    {"id": "tomb", "kind": "story", "art": "tomb-clip", "tint": "#C8641E", "mood": "m13", "clips": [{"src": "scenes/tomb.mp4", "sentence": 0, "offset": 3.0, "end": "tomb-end", "sound": "scenes/tomb.mp3"}], "still": "tomb"},
+    {"id": "gates", "kind": "story", "art": "gates-clip", "tint": "#2F7FD9", "mood": "m13", "clips": [{"src": "scenes/gates.mp4", "sentence": 0, "offset": 1.0, "end": "gates-end", "sound": "scenes/gates.mp3"}], "still": "gates"},
+    {"id": "new-earth", "kind": "story", "art": "new-earth-clip", "tint": "#2F7FD9", "mood": "m13", "clips": [{"src": "scenes/new-earth.mp4", "sentence": 0, "offset": 0, "end": "new-earth-end"}], "still": "new-earth"},
+    {"id": "prayer", "kind": "prayer", "art": "clean", "tint": "#C8641E", "mood": "m12", "clips": []},
+    {"id": "grownups", "kind": "grownups", "art": "tomb", "tint": "#2E7D4F", "mood": "m12", "clips": []}
   ]
 }

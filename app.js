@@ -213,6 +213,8 @@ function preload() {
   const load = i => secs[i] && secs[i].querySelectorAll('video').forEach(v => { if (!v.src) { v.preload = 'auto'; v.src = v.dataset.src; } });
   load(cur); const at = cur; setTimeout(() => { if (cur === at) load(at + 1); }, 1500);
   [cur, cur + 1].forEach(i => secs[i] && (S.pages[i].clips || []).forEach(c => { if (c.end && !NOCLIPS) new Image().src = url(`art/${c.end}-soft.webp`); }));
+  // while reading aloud, the next page's music loads too, so it is ready when the page turns
+  setTimeout(() => { if (cur === at && reading && actx) warmMood(); }, 2500);
 }
 /* phones can show a strip below the page (Safari's toolbar area, the home bar on some iPhones). Paint it in the
    colour of the bottom of the current page, measured from its blurred picture, so the page seems to run to the edge. */
@@ -279,6 +281,12 @@ function glide(p, to, secs) {
 }
 const MUSIC_UP = 0.63, MUSIC_DUCK = 0.294, XFADE = 4;
 const musicLevel = (x, s = 0.8) => mBus && glide(mBus.gain, x, s);
+// keep only this page's and the next page's music decoded (a decoded track is large on a phone)
+function warmMood() {
+  const keep = [S.pages[cur], S.pages[cur + 1]].filter(Boolean).map(p => p.mood);
+  Object.keys(moods).forEach(k => { if (!keep.includes(k) && !(mPlaying && mPlaying.name === k)) { delete moods[k]; bufs.delete(url(`music/cue_${k}.mp3`)); } });
+  keep.forEach(n => { if (n && !moods[n]) { moods[n] = loadBuf(url(`music/cue_${n}.mp3`)); moods[n].catch(() => delete moods[n]); } });
+}
 async function setMood(n) {
   if (!actx || !n || (mPlaying && mPlaying.name === n)) return;
   let buf; try { buf = await (moods[n] || (moods[n] = loadBuf(url(`music/cue_${n}.mp3`)))); } catch (e) { return; }
@@ -349,7 +357,7 @@ function setRead(on) {
   reading = on; book.classList.toggle('listening', on);
   const b = $('#read'); b.setAttribute('aria-pressed', on); b.setAttribute('aria-label', on ? UI.stop : UI.read); b.title = on ? UI.stop : UI.read;
   b.innerHTML = on ? ICON.pause : ICON.speaker;
-  if (on) { ensureAudio(); speak(); } else { run++; stopNarr(); stopSfx(); musicStop(); setCap(cur, -1); }
+  if (on) { ensureAudio(); speak(); setTimeout(() => reading && warmMood(), 2500); } else { run++; stopNarr(); stopSfx(); musicStop(); setCap(cur, -1); }
   hud(!on); fitAll();
 }
 /* while the book reads aloud the buttons fade away after a moment; a touch anywhere brings them back */
