@@ -302,6 +302,8 @@ async function setMood(n) {
   if (mPlaying) { const o = mPlaying; glide(o.g.gain, 0, XFADE); try { o.src.stop(now + XFADE * 1.6); } catch (e) {} }
   mPlaying = { name: n, src, g };
 }
+if (Q.has('debug')) window.__twbh = { get music() { return mPlaying && { name: mPlaying.name, gain: mPlaying.g.gain.value, hushed: !!mPlaying.hushed }; }, get sfx() { return !!sfxNow; } };
+function hushMusic() { if (mPlaying) { glide(mPlaying.g.gain, 0, 2.5); mPlaying.hushed = true; } }
 function musicStop() { musicLevel(0, 1.5); const p = mPlaying; mPlaying = null; if (p) setTimeout(() => { try { p.src.stop(); } catch (e) {} }, 1700); }
 function stopNarr() { if (narr) { try { narr.onended = null; narr.stop(); } catch (e) {} narr = null; } }
 
@@ -317,6 +319,7 @@ async function speak() {
   stopNarr(); resetClips(me); ensureAudio();
   const live = () => id === run && reading && cur === me;
   const lines = spokenAt(me);
+  if (mPlaying && mPlaying.hushed && mPlaying.name === pg.mood) { glide(mPlaying.g.gain, 1, XFADE); mPlaying.hushed = false; }  // music back after a hushed scene
   setMood(pg.mood);
   let buf = null, cues, dur;
   if (META.narration && !DEMO) {
@@ -416,6 +419,8 @@ function playClip(i, j, withSound) {
       if (stale()) { v.pause(); return; }
       if (started) return; started = true; clearTimeout(giveUp);
       v.classList.add('on');
+      // "hush": seconds into the clip when the book's music fades away for the rest of the page (the scene's own sounds carry it)
+      if (reading && c.hush != null) setTimeout(() => { if (!stale() && reading && cur === i) hushMusic(); }, Math.max(0, c.hush - (v.currentTime || 0)) * 1000);
       cap = setTimeout(() => end(true), ((v.duration || 12) + 6) * 1000);  // a clip that stalls part-way just stops there
       if (withSound && reading && c.sound && actx) loadBuf(url(c.sound)).then(b => {
         if (stale() || done || !reading) return; stopSfx();

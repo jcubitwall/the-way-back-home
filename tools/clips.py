@@ -5,6 +5,7 @@
     python3 tools/clips.py fruit fruit-take3.mp4 --sentence 1 --offset 0.6 --sound
     python3 tools/clips.py fruit second.mp4 --add --sentence 3          # a second clip on the same page
     python3 tools/clips.py fruit --remove                               # back to the still picture
+    --hush 4    the book's music fades out 4 s into the clip and stays off for the rest of the page
 
 What it does:
   * shrinks the clip for phones (720 px wide, no sound track, starts playing before it has fully loaded)
@@ -46,7 +47,7 @@ def arg(name, default=None, cast=str):
 
 
 def main():
-    args = [a for i, a in enumerate(sys.argv[1:], 1) if not a.startswith('--') and not sys.argv[i - 1] in ('--sentence', '--offset')]
+    args = [a for i, a in enumerate(sys.argv[1:], 1) if not a.startswith('--') and not sys.argv[i - 1] in ('--sentence', '--offset', '--crf', '--hush')]
     if not args:
         sys.exit(__doc__)
     pid = args[0]
@@ -88,6 +89,8 @@ def main():
     run('-sseof', '-0.6', '-i', src, '-map', '0:v:0', '-vf', scale, '-q:v', '2', '-update', '1', path('art', 'src', f'{name}-end.jpg'))
 
     clip = {'src': f'scenes/{name}.mp4', 'sentence': arg('--sentence', 0, int), 'offset': arg('--offset', 0.0, float), 'end': f'{name}-end'}
+    if '--hush' in sys.argv:   # seconds into the clip when the book's music fades out for the rest of the page
+        clip['hush'] = arg('--hush', None, float)
     if os.path.exists(hd):
         clip['hd'] = f'scenes/{name}-hd.mp4'
     snd = path('scenes', name + '.mp3')
