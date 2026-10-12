@@ -284,7 +284,14 @@ function glide(p, to, secs) {
   if (p.cancelAndHoldAtTime) p.cancelAndHoldAtTime(now); else { p.cancelScheduledValues(now); p.setValueAtTime(p._lvl != null ? p._lvl : p.value, now); }
   p.setTargetAtTime(to, now, Math.max(0.05, secs / 3)); p._lvl = to;
 }
-const MUSIC_UP = 0.63, MUSIC_DUCK = 0.294, XFADE = 4;
+const MUSIC_UP = 0.63, MUSIC_DUCK = 0.294, XFADE = 3.5;
+function fadeCurve(p, from, to, secs, at) {
+  const n = 64, c = new Float32Array(n);
+  for (let k = 0; k < n; k++) { const x = k / (n - 1); c[k] = from + (to - from) * (to > from ? Math.sin(x * Math.PI / 2) : 1 - Math.cos(x * Math.PI / 2)); }
+  try { if (p.cancelAndHoldAtTime) p.cancelAndHoldAtTime(at); else p.cancelScheduledValues(at); p.setValueCurveAtTime(c, at, secs); }
+  catch (e) { try { p.cancelScheduledValues(0); p.setValueAtTime(from, at); p.linearRampToValueAtTime(to, at + secs); } catch (e2) { p.value = to; } }
+  p._lvl = to;
+}
 const musicLevel = (x, s = 0.8) => mBus && glide(mBus.gain, x, s);
 // keep only this page's and the next page's music decoded (a decoded track is large on a phone)
 function warmMood() {
@@ -297,9 +304,11 @@ async function setMood(n) {
   let buf; try { buf = await (moods[n] || (moods[n] = loadBuf(url(`music/cue_${n}.mp3`)))); } catch (e) { return; }
   if (!reading || S.pages[cur].mood !== n || (mPlaying && mPlaying.name === n)) return;
   const now = actx.currentTime, src = actx.createBufferSource(), g = actx.createGain();
-  src.buffer = buf; src.loop = true; g.gain.setValueAtTime(0, now); g.gain._lvl = 0; glide(g.gain, 1, XFADE);
+  src.buffer = buf; src.loop = true;
   src.connect(g); g.connect(mBus); src.start(now);
-  if (mPlaying) { const o = mPlaying; glide(o.g.gain, 0, XFADE); try { o.src.stop(now + XFADE * 1.6); } catch (e) {} }
+  // equal-power crossfade: the two pieces overlap without a dip or a bump in loudness
+  fadeCurve(g.gain, 0, 1, XFADE, now);
+  if (mPlaying) { const o = mPlaying; fadeCurve(o.g.gain, o.g.gain.value, 0, XFADE, now); try { o.src.stop(now + XFADE + 0.2); } catch (e) {} }
   mPlaying = { name: n, src, g };
 }
 if (Q.has('debug')) window.__twbh = { get music() { return mPlaying && { name: mPlaying.name, gain: mPlaying.g.gain.value, hushed: !!mPlaying.hushed }; }, get sfx() { return !!sfxNow; } };
