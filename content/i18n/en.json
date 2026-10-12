@@ -36,13 +36,13 @@
     "garden": {
       "text": [
         [
-          "In the beginning, God made everything.",
-          "He made the sky, the trees, the flowers, and the birds."
+          "In the beginning, God made everything: the sky, the trees, the flowers, and the birds."
         ],
         [
-          "Then God made a man named Adam and a woman named Eve.",
-          "God loved them, and they loved being with Him.",
-          "Their garden home, Eden, was perfect."
+          "Then He made the first man and woman, Adam and Eve.",
+          "God was with them in their garden home, Eden.",
+          "They loved being with Him, and He loved them.",
+          "Everything was perfect."
         ]
       ],
       "ref": "Genesis 1–2"
@@ -50,11 +50,11 @@
     "rule": {
       "text": [
         [
-          "God gave Adam and Eve every tree in the garden to enjoy.",
-          "Only one tree was not for them."
+          "God gave Adam and Eve every tree in the garden to enjoy, except one."
         ],
         [
           "“Do not eat from that tree,” God said. “If you do, you will die.”",
+          "Adam pointed to the tree so Eve would remember.",
           "It was one simple rule from a Father who loved them."
         ]
       ],
@@ -63,9 +63,9 @@
     "serpent": {
       "text": [
         [
-          "One day, a sneaky serpent spoke to Eve.",
-          "“Did God really say that?” he asked.",
-          "“That fruit won’t hurt you. It will make you like God!”"
+          "One day, a sneaky serpent slid down beside Eve.",
+          "“Did God really say that?” he hissed.",
+          "“You won’t die! That fruit will make you like God!”"
         ],
         [
           "But the serpent was lying.",
@@ -77,13 +77,16 @@
     "fruit": {
       "text": [
         [
-          "Eve looked at the fruit. It looked so good.",
-          "She took a bite.",
+          "Eve looked at the fruit. It looked so good, so she took a bite.",
           "Then she gave some to Adam, and he ate it too."
         ],
         [
-          "Uh-oh. For the very first time, people had disobeyed God.",
+          "Uh-oh.",
+          "For the very first time, people had disobeyed God.",
           "The Bible calls this sin."
+        ],
+        [
+          "And the serpent grinned. His trick had worked."
         ]
       ],
       "ref": "Genesis 3:6"
@@ -91,13 +94,16 @@
     "exile": {
       "text": [
         [
-          "Sin changed everything. Adam and Eve felt afraid and ashamed.",
-          "God covered them with clothes made from animal skins.",
-          "But that meant innocent animals had to die."
+          "Sin changed everything. Now Adam and Eve felt afraid and ashamed."
         ],
         [
-          "Adam and Eve could no longer live in their garden home.",
-          "Yet God already had a plan to bring His people home."
+          "God made them clothes from animal skins.",
+          "But to make them, innocent animals had to die."
+        ],
+        [
+          "Then God sent them out of the garden, and an angel guarded the way back in.",
+          "But God also made them a promise.",
+          "One day, Someone would come to crush the serpent and open the way back home."
         ]
       ],
       "ref": "Genesis 3:15, 21–24"
@@ -108,10 +114,11 @@
           "Adam and Eve had children, and their children had children, all the way down to you and me."
         ],
         [
-          "Even though many years have passed, we still have the same sin problem that separates us from God."
+          "Look at all these people!",
+          "Every one of them has sin marks, just like Adam and Eve."
         ],
         [
-          "The Bible says that all of us have sinned, just like Adam and Eve."
+          "The Bible says we have all sinned, and our sin keeps us far from God."
         ]
       ],
       "ref": "Romans 3:23; Romans 5:12; Isaiah 59:2"
@@ -119,17 +126,17 @@
     "test": {
       "text": [
         [
-          "God gave us ten rules, the Ten Commandments."
+          "God gave us ten good rules, called the Ten Commandments."
         ],
         [
           "Have you ever told a lie? Even once?",
           "Have you ever taken something that wasn’t yours?",
-          "If yes, that makes you a liar and a thief.",
+          "If so, that makes you a liar and a thief.",
           "That doesn’t feel very good, does it?"
         ],
         [
-          "And that is only two of the ten!",
-          "Like Adam and Eve, you have broken God’s law, and that makes you guilty."
+          "And that’s only two of the ten!",
+          "Like Adam and Eve, we have all broken God’s law, and our sin leaves marks we can’t hide."
         ]
       ],
       "ref": "Exodus 20:1–17; James 2:10; Romans 3:19"
@@ -137,27 +144,31 @@
     "locked": {
       "text": [
         [
-          "Like a mirror, God’s law shows us our sin, but it cannot wash it away.",
-          "Just like Adam and Eve were locked out of their home long ago, so are we."
+          "God’s law is like a mirror. It shows us our sin, but it can’t wash it away.",
+          "Sin locks us out of God’s home, just like Adam and Eve were locked out of the garden."
         ],
         [
-          "The Bible says that if we die with our sin, we will go to a place called hell, far away from God forever.",
+          "God is good and fair, so He can’t just pretend our sin never happened.",
+          "The Bible says that if we die with our sin, we will be punished in a place called hell, far away from God forever."
+        ],
+        [
           "That is very bad news."
         ]
       ],
-      "ref": "Romans 3:20; James 1:23–24; Romans 6:23; Hebrews 9:27"
+      "ref": "Romans 3:20; James 1:23–24; Habakkuk 1:13; Romans 6:23; Hebrews 9:27"
     },
     "scrub": {
       "text": [
         [
           "So how can we get rid of our sin?",
-          "We might think we can wash it away by being extra good, saying sorry, or going to church.",
-          "But no matter how hard we scrub, the marks will not come off."
+          "We might try to scrub it off by being extra good, saying sorry, or going to church.",
+          "But no matter how hard we scrub, the marks won’t come off."
         ],
         [
-          "Being good tomorrow can’t erase the wrongs we did today.",
+          "Being good tomorrow can’t erase the wrong things we did today.",
           "Remember the animals that died to cover Adam and Eve?",
-          "We need someone to take our place too."
+          "Someone has to take our place too.",
+          "But who?"
         ]
       ],
       "ref": "Isaiah 64:6; Jeremiah 2:22; Ephesians 2:8–9; Hebrews 9:22"
@@ -165,64 +176,70 @@
     "door": {
       "text": [
         [
-          "Here is the good news! That someone is Jesus.",
-          "God loved the world so much that He sent His only Son."
+          "Here is the good news! That someone is Jesus, God’s own Son.",
+          "He was there in the garden with Adam and Eve, and He is the One God promised."
         ],
         [
-          "Jesus said, “I am the door. Whoever comes in through Me will be saved.”",
-          "People who know Jesus tell others, “Come and see! There is a way back to God!”"
+          "God loved the world so much that He sent Jesus to bring us home.",
+          "Jesus said, “I am the door. Whoever comes in through Me will be saved.”"
+        ],
+        [
+          "That’s why people who know Jesus love to tell others, “Come and see! There is a way back to God!”"
         ]
       ],
-      "ref": "John 3:16; John 10:9; John 14:6"
+      "ref": "John 1:1–3; John 3:16; John 10:9; John 14:6"
     },
     "cross": {
       "text": [
         [
           "Jesus never sinned, not even once.",
-          "Like the innocent animals that died for Adam and Eve, Jesus died on a cross in our place."
+          "But He died on a cross in our place, like the animals that died for Adam and Eve."
         ],
         [
           "All our sin was put on Him, and He took the punishment we deserved.",
-          "When we trust Him, our sin is washed away, and we are covered with His goodness."
+          "Jesus did this because He loves us."
         ]
       ],
-      "ref": "2 Corinthians 5:21; 1 Peter 2:24; Isaiah 53:6; Isaiah 61:10"
+      "ref": "2 Corinthians 5:21; 1 Peter 2:24; Isaiah 53:6"
     },
     "choice": {
       "text": [
         [
-          "Now you have a choice to make.",
-          "You can tell God, “I am sorry for my sin. I believe Jesus died in my place. Please forgive me and save me!”",
-          "That means turning away from your sin and trusting Jesus."
+          "Now everyone has a choice to make.",
+          "Some people say, “No thanks,” and walk away."
         ],
         [
-          "Or you can say, “No thanks,” and walk away, like some people do.",
+          "Others tell God, “I’m sorry for my sin. I believe Jesus died in my place. Please forgive me and save me!”",
+          "That means turning away from sin and trusting Jesus."
+        ],
+        [
+          "When we do, God takes our sin away and covers us with Jesus’ goodness.",
           "Jesus loves you, and He lets you choose."
         ]
       ],
-      "ref": "Mark 1:15; Romans 10:9, 13; John 3:18"
+      "ref": "Mark 1:15; Romans 10:9, 13; John 3:18; Isaiah 61:10"
     },
     "tomb": {
       "text": [
         [
           "Three days after Jesus died, His friends found His tomb empty.",
-          "Jesus was alive again! He beat sin and death."
+          "Jesus was alive again! He had beaten sin and death!"
         ],
         [
-          "Everyone who trusts Jesus is dressed in His goodness, as clean and white as snow.",
-          "And now the gate is open. The way home is open!"
+          "Everyone who trusts Him is as clean and white as snow.",
+          "The gate is open. Jesus has made a way back home!"
         ]
       ],
-      "ref": "1 Corinthians 15:3–4; Isaiah 1:18; Isaiah 61:10; Revelation 7:14"
+      "ref": "1 Corinthians 15:3–4; Isaiah 1:18; Revelation 7:14"
     },
     "gates": {
       "text": [
         [
-          "One day, everyone who trusts Jesus will be with Him forever.",
-          "Heaven’s gates will be wide open."
+          "One day, everyone who trusts Jesus will run through heaven’s open gates.",
+          "And Jesus will be right there, with His arms open wide."
         ],
         [
-          "And Jesus will be right there, holding out His hands to welcome them home.",
+          "The same Jesus who sent Adam and Eve out of the garden will welcome His children home.",
           "You can still see the scars in His hands, the scars of His love."
         ]
       ],
@@ -242,7 +259,7 @@
     },
     "prayer": {
       "title": "Would you like to follow Jesus?",
-      "intro": "It is as easy as A, B, C.",
+      "intro": "Here is what it means: A, B, C.",
       "steps": [
         {
           "key": "A",
@@ -269,9 +286,10 @@
       "intro": "Try these questions after reading together.",
       "questions": [
         "What was the one rule God gave Adam and Eve? Why do you think He gave it?",
-        "Why couldn’t the people wash their marks away?",
+        "Why couldn’t the children scrub their marks away?",
         "What did Jesus do so we could come back to God?",
         "How do we know Jesus is alive?",
+        "What does it mean to trust Jesus? Is that something you want to do?",
         "Who is someone you could tell the good news to this week?"
       ],
       "note": "Every page lists its Bible passages so you can read the full account together."
