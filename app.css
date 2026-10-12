@@ -76,9 +76,13 @@ button{font:inherit}
 .pg.cover .txt{text-align:center;padding-bottom:calc(48px + env(safe-area-inset-bottom,0px) + var(--gap))}
 .cover h1{font-family:var(--display);font-weight:900;font-size:calc(var(--k) * clamp(48px,14vw,84px));line-height:.98;margin:0;text-shadow:0 4px 0 rgba(0,0,0,.18),0 2px 18px rgba(0,0,0,.35)}
 .cover .sub{font-size:1.08em;margin:.6em 0 1.1em;opacity:.96}
-.cta{display:inline-flex;align-items:center;gap:.45em;font-family:var(--display);font-weight:800;font-size:.9em;background:var(--gold);color:#2B2233;border:0;border-radius:999px;padding:.62em 1.3em;box-shadow:0 4px 0 #C99A1E;cursor:pointer;text-shadow:none}
+.ctas{display:flex;justify-content:center;gap:12px;max-width:360px;margin:0 auto}
+.cta{flex:1 1 0;max-width:170px;display:inline-flex;align-items:center;justify-content:center;gap:.45em;font-family:var(--display);font-weight:800;font-size:.95em;background:var(--gold);color:#2B2233;border:2px solid transparent;border-radius:999px;padding:.66em 1.1em;box-shadow:0 4px 0 #C99A1E,0 8px 22px rgba(0,0,0,.25);cursor:pointer;text-shadow:none;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.cta svg{width:1.15em;height:1.15em;flex:none}
 .cta:active{transform:translateY(3px);box-shadow:0 1px 0 #C99A1E}
-.cta svg{animation:nudge 1.8s ease-in-out infinite}
+.cta.alt{background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.7);box-shadow:0 8px 22px rgba(0,0,0,.2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.cta.alt:active{box-shadow:none;background:rgba(255,255,255,.28)}
+.listening .ctas{visibility:hidden}
 @keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
 .chip{position:absolute;z-index:4;top:calc(14px + env(safe-area-inset-top,0px));left:14px;font:700 15px var(--body);background:rgba(255,255,255,.94);color:#2B2233;border-radius:999px;padding:9px 15px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);text-shadow:none}
 [dir=rtl] .chip{left:auto;right:14px}
@@ -124,7 +128,7 @@ button{font:inherit}
 .render .bar,.render .chip,.render .cta{display:none}
 .render .track{transition:none}
 
-@media (prefers-reduced-motion:reduce){.track.anim{transition-duration:.01s}.caps .cap{transition:opacity .2s}.cta svg,.rb[aria-pressed=true]{animation:none}}
+@media (prefers-reduced-motion:reduce){.track.anim{transition-duration:.01s}.caps .cap{transition:opacity .2s}.rb[aria-pressed=true]{animation:none}}
 
 /* text grows with the page itself, so an iPad's wider page gets bigger words, not just more empty space */
 @supports (width:1cqw){.txt{font-size:calc(var(--k) * clamp(16px,4.3cqw,30px))}.pg.prayer .txt,.pg.grownups .txt{font-size:calc(var(--k) * clamp(15px,4cqw,28px))}.cover h1{font-size:calc(var(--k) * clamp(48px,14cqw,110px))}}

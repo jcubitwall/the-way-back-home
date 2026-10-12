@@ -102,6 +102,7 @@ const spokenAt = i => { const pg = S.pages[i], t = text(pg.id); return spoken(pg
 function hex(c) { c = c.replace('#', ''); return [0, 2, 4].map(i => parseInt(c.substr(i, 2), 16)); }
 const mix = (c, k) => hex(c).map(v => Math.round(v * k));
 const rgb = (a, al) => `rgba(${a[0]},${a[1]},${a[2]},${al})`;
+const BOOK = '<svg viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v13"/></svg>';
 const ARROW = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>';
 
 function pageHTML(pg, i) {
@@ -109,7 +110,7 @@ function pageHTML(pg, i) {
   const art = `art/${pg.art}`;
   let body = '';
   if (pg.kind === 'cover') {
-    body = `<h1>${esc(T.pages.cover ? T.pages.cover.title : T.title)}</h1><p class="sub">${esc(d.subtitle)}</p><button class="cta" data-go="1">${esc(d.cta)} ${ARROW}</button>`;
+    body = `<h1>${esc(T.pages.cover ? T.pages.cover.title : T.title)}</h1><p class="sub">${esc(d.subtitle)}</p><div class="ctas">${META.narration || DEMO ? `<button class="cta" data-listen>${ICON.speaker}<span>${esc(d.listen || UI.read)}</span></button>` : ''}<button class="cta${META.narration || DEMO ? ' alt' : ''}" data-go="1">${BOOK}<span>${esc(d.cta)}</span></button></div>`;
   } else if (pg.kind === 'story') {
     const lines = d.text.flat();
     body = `<div class="full"><p class="num">${i + 1 - OFF}</p>${d.text.map(p => `<p class="para">${p.map(esc).join(J())}</p>`).join('')}<p class="ref">${esc(d.ref)}</p></div>` +
@@ -142,7 +143,10 @@ function build() {
     });
     measure.observe(sec.querySelector('.txt'));
   });
-  book.addEventListener('click', e => { const g = e.target.closest('[data-go]'); if (g) goTo(+g.dataset.go); });
+  book.addEventListener('click', e => {
+    const g = e.target.closest('[data-go]'); if (g) goTo(+g.dataset.go);
+    if (e.target.closest('[data-listen]') && !reading) setRead(true);   // the cover's Listen button: read the book aloud from the start
+  });
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(fitAll);
   addEventListener('resize', () => { if (trk) setY(-cur * H(), false); fitAll(); });
 }

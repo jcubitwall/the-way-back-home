@@ -30,8 +30,9 @@
   "pages": {
     "cover": {
       "title": "The Way Back Home",
-      "subtitle": "A true story from the Bible",
-      "cta": "Scroll down to read"
+      "subtitle": "Our story from the Bible",
+      "cta": "Read",
+      "listen": "Listen"
     },
     "garden": {
       "text": [
