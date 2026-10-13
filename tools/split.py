@@ -21,6 +21,23 @@ def silences(mp3, noise='-35dB', dur=1.2):
     return list(zip(s, e))
 
 
+def guided_cuts(gaps, pages, t, code, total, window=12.0):
+    """Pick one pause per page break: where the text says the break should be (by length),
+    take the longest pause within `window` seconds of it, always moving forward."""
+    sizes = [len(' '.join(spoken(p['kind'], t['pages'][p['id']], code))) for p in pages]
+    cuts, done, last = [], 0, 0.0
+    for n in sizes[:-1]:
+        done += n
+        guess = total * done / sum(sizes)
+        near = [g for g in gaps if g[0] > last and abs((g[0] + g[1]) / 2 - guess) <= window]
+        if not near:
+            near = [min((g for g in gaps if g[0] > last), key=lambda g: abs((g[0] + g[1]) / 2 - guess))]
+        best = max(near, key=lambda g: g[1] - g[0])
+        cuts.append(best)
+        last = best[1]
+    return cuts
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     if len(args) < 2:
@@ -32,8 +49,11 @@ def main():
                                  capture_output=True, text=True).stdout.strip())
     gaps = [g for g in silences(mp3) if 0.5 < g[0] and g[1] < total - 0.5]
     if len(gaps) < len(pages) - 1:
+        # ElevenLabs v3 "[long pause]" gives only 1–2 s: look for shorter pauses, guided by text length
+        gaps = [g for g in silences(mp3, dur=0.5) if 0.5 < g[0] and g[1] < total - 0.5]
+    if len(gaps) < len(pages) - 1:
         sys.exit(f'Found only {len(gaps)} long pauses but there are {len(pages)} pages. Check the recording has a 2–3 second pause between pages.')
-    cuts = sorted(sorted(gaps, key=lambda g: g[1] - g[0], reverse=True)[:len(pages) - 1])
+    cuts = guided_cuts(gaps, pages, t, code, total)
     bounds, start = [], 0.0
     for s, e in cuts:
         bounds.append((start, s + 0.25))
@@ -49,8 +69,9 @@ def main():
         out = path('audio', code, pg['id'] + '.mp3')
         subprocess.run(['ffmpeg', '-y', '-v', 'error', '-ss', f'{a:.3f}', '-to', f'{b:.3f}', '-i', mp3,
                         '-af', 'afade=t=in:d=0.05', '-ac', '1', '-c:a', 'libmp3lame', '-b:a', '64k', out], check=True)
-        n = len(spoken(pg['kind'], t['pages'][pg['id']], code))
-        c = detect(out, n) if n > 1 else [0.0]
+        lines = spoken(pg['kind'], t['pages'][pg['id']], code)
+        n = len(lines)
+        c = detect(out, n, lines) if n > 1 else [0.0]
         if c:
             t['cues'][pg['id']] = c
         else:
