@@ -21,6 +21,276 @@
       "note": "Wazazi au walezi, tafadhali andikeni kwa niaba ya mtoto wenu."
     }
   },
-  "pages": {},
+  "pages": {
+    "cover": {
+      "title": "Njia ya Kurudi Nyumbani",
+      "subtitle": "Hadithi yetu kutoka kwenye Biblia",
+      "cta": "Soma",
+      "listen": "Sikiliza"
+    },
+    "garden": {
+      "text": [
+        [
+          "Hapo mwanzo, Mungu aliumba kila kitu: anga, miti, maua na ndege."
+        ],
+        [
+          "Kisha akamwumba mwanamume na mwanamke wa kwanza, Adamu na Hawa.",
+          "Mungu alikuwa pamoja nao katika makao yao, bustani ya Edeni.",
+          "Walipenda sana kuwa pamoja naye, naye aliwapenda.",
+          "Kila kitu kilikuwa kizuri kabisa."
+        ]
+      ],
+      "ref": "Mwanzo 1–2"
+    },
+    "rule": {
+      "text": [
+        [
+          "Mungu aliwapa Adamu na Hawa miti yote ya bustani wafurahie matunda yake, isipokuwa mti mmoja tu."
+        ],
+        [
+          "Mungu akasema, “Msile matunda ya mti ule. Siku mtakapokula, hakika mtakufa.”",
+          "Adamu akamwonyesha Hawa ule mti kwa kidole, ili asisahau.",
+          "Ilikuwa sheria moja tu rahisi, kutoka kwa Baba aliyewapenda."
+        ]
+      ],
+      "ref": "Mwanzo 2:16–17"
+    },
+    "serpent": {
+      "text": [
+        [
+          "Siku moja, nyoka mjanja alitambaa akashuka karibu na Hawa.",
+          "Akanong’ona kwa sauti ya kuzomea, “Je, ni kweli Mungu amesema hivyo?”",
+          "“Hamtakufa hata kidogo! Tunda lile litawafanya muwe kama Mungu!”"
+        ],
+        [
+          "Lakini nyoka alikuwa anadanganya.",
+          "Alitaka Hawa aache kumwamini Mungu."
+        ]
+      ],
+      "ref": "Mwanzo 3:1–5"
+    },
+    "fruit": {
+      "text": [
+        [
+          "Hawa akalitazama lile tunda. Lilionekana zuri sana, akaliuma.",
+          "Kisha akampa Adamu kidogo, naye akala pia."
+        ],
+        [
+          "Lo!",
+          "Kwa mara ya kwanza kabisa, wanadamu walikuwa wamemwasi Mungu.",
+          "Biblia inaita jambo hili dhambi."
+        ],
+        [
+          "Na yule nyoka akatabasamu kwa hila. Ujanja wake ulikuwa umefaulu."
+        ]
+      ],
+      "ref": "Mwanzo 3:6"
+    },
+    "exile": {
+      "text": [
+        [
+          "Dhambi ilibadilisha kila kitu. Sasa Adamu na Hawa waliogopa na kuona aibu."
+        ],
+        [
+          "Mungu akawashonea nguo za ngozi za wanyama.",
+          "Lakini ili kuzitengeneza, wanyama wasio na hatia walilazimika kufa."
+        ],
+        [
+          "Lakini Mungu aliwapa pia ahadi.",
+          "Siku moja, Mtu angekuja kumponda nyoka kichwa na kufungua njia ya kurudi nyumbani."
+        ],
+        [
+          "Kisha Mungu akawatoa nje ya bustani, na malaika akalinda njia ya kuingia tena."
+        ]
+      ],
+      "ref": "Mwanzo 3:15, 21–24"
+    },
+    "road": {
+      "text": [
+        [
+          "Adamu na Hawa walipata watoto, na watoto wao wakapata watoto, hivyo hivyo mpaka kufika kwako na kwangu."
+        ],
+        [
+          "Tazama watu wengi hivi!",
+          "Kila mmoja wao ana madoa ya dhambi, sawa kabisa na Adamu na Hawa."
+        ],
+        [
+          "Biblia inasema sote tumetenda dhambi, na dhambi yetu inatuweka mbali na Mungu."
+        ]
+      ],
+      "ref": "Warumi 3:23; Warumi 5:12; Isaya 59:2"
+    },
+    "test": {
+      "text": [
+        [
+          "Mungu alitupa sheria kumi nzuri, zinazoitwa Amri Kumi."
+        ],
+        [
+          "Je, umewahi kusema uongo? Hata mara moja tu?",
+          "Je, umewahi kuchukua kitu ambacho si chako?",
+          "Kama ndiyo, basi wewe ni mwongo na mwizi.",
+          "Hilo halipendezi kusikia, sivyo?"
+        ],
+        [
+          "Na hizo ni amri mbili tu kati ya kumi!",
+          "Kama Adamu na Hawa, sote tumevunja sheria ya Mungu, na dhambi yetu inaacha madoa ambayo hatuwezi kuyaficha."
+        ]
+      ],
+      "ref": "Kutoka 20:1–17; Yakobo 2:10; Warumi 3:19"
+    },
+    "locked": {
+      "text": [
+        [
+          "Sheria ya Mungu ni kama kioo. Inatuonyesha dhambi yetu, lakini haiwezi kuiosha.",
+          "Dhambi inatufungia nje ya nyumbani kwa Mungu, kama vile Adamu na Hawa walivyofungiwa nje ya bustani."
+        ],
+        [
+          "Mungu ni mwema na mwenye haki, kwa hiyo hawezi kujifanya tu kwamba dhambi yetu haikutokea.",
+          "Biblia inasema kwamba tukifa tukiwa bado na dhambi zetu, tutaadhibiwa mahali panapoitwa jehanamu, mbali na Mungu milele."
+        ],
+        [
+          "Hii ni habari mbaya sana."
+        ]
+      ],
+      "ref": "Warumi 3:20; Yakobo 1:23–24; Habakuki 1:13; Warumi 6:23; Waebrania 9:27"
+    },
+    "scrub": {
+      "text": [
+        [
+          "Basi, tunawezaje kuondoa dhambi yetu?",
+          "Huenda tukajaribu kuisugua iondoke kwa kuwa wema zaidi, kwa kuomba msamaha, au kwa kwenda kanisani.",
+          "Lakini hata tusugue kwa nguvu kiasi gani, madoa hayatoki."
+        ],
+        [
+          "Kuwa mwema kesho hakuwezi kufuta mabaya tuliyofanya leo.",
+          "Unakumbuka wale wanyama waliokufa ili kuwafunika Adamu na Hawa?",
+          "Lazima mtu achukue nafasi yetu pia.",
+          "Lakini ni nani?"
+        ]
+      ],
+      "ref": "Isaya 64:6; Yeremia 2:22; Waefeso 2:8–9; Waebrania 9:22"
+    },
+    "door": {
+      "text": [
+        [
+          "Sasa sikia habari njema! Mtu huyo ni Yesu, Mwana wa Mungu mwenyewe.",
+          "Alikuwepo bustanini pamoja na Adamu na Hawa, na ndiye yule ambaye Mungu aliahidi."
+        ],
+        [
+          "Mungu aliupenda ulimwengu sana hata akamtuma Yesu atulete nyumbani.",
+          "Yesu alisema, “Mimi ndimi mlango. Mtu akiingia kupitia kwangu, ataokoka.”"
+        ],
+        [
+          "Ndiyo sababu watu wanaomjua Yesu hupenda kuwaambia wengine, “Njooni mwone! Kuna njia ya kurudi kwa Mungu!”"
+        ]
+      ],
+      "ref": "Yohana 1:1–3; Yohana 3:16; Yohana 10:9; Yohana 14:6"
+    },
+    "cross": {
+      "text": [
+        [
+          "Yesu hakuwahi kutenda dhambi, hata mara moja.",
+          "Lakini alikufa msalabani mahali petu, kama wale wanyama waliokufa kwa ajili ya Adamu na Hawa."
+        ],
+        [
+          "Dhambi zetu zote ziliwekwa juu yake, naye akabeba adhabu tuliyostahili sisi.",
+          "Yesu alifanya hivi kwa sababu anatupenda."
+        ]
+      ],
+      "ref": "2 Wakorintho 5:21; 1 Petro 2:24; Isaya 53:6"
+    },
+    "choice": {
+      "text": [
+        [
+          "Sasa kila mtu ana uamuzi wa kufanya.",
+          "Wengine husema, “Hapana, asante,” na kuondoka zao."
+        ],
+        [
+          "Wengine humwambia Mungu, “Samahani kwa dhambi zangu. Naamini Yesu alikufa mahali pangu. Tafadhali nisamehe na uniokoe!”",
+          "Hiyo inamaanisha kuiacha dhambi na kumtegemea Yesu."
+        ],
+        [
+          "Tunapofanya hivyo, Mungu anaondoa dhambi yetu na kutuvika wema wa Yesu.",
+          "Yesu anakupenda, naye anakuachia uchague."
+        ]
+      ],
+      "ref": "Marko 1:15; Warumi 10:9, 13; Yohana 3:18; Isaya 61:10"
+    },
+    "tomb": {
+      "text": [
+        [
+          "Siku tatu baada ya Yesu kufa, rafiki zake walikuta kaburi lake liko tupu.",
+          "Yesu alikuwa hai tena! Alikuwa ameishinda dhambi na mauti!"
+        ],
+        [
+          "Kila anayemtegemea ni safi na mweupe kama theluji.",
+          "Lango liko wazi. Yesu ametengeneza njia ya kurudi nyumbani!"
+        ]
+      ],
+      "ref": "1 Wakorintho 15:3–4; Isaya 1:18; Ufunuo 7:14"
+    },
+    "gates": {
+      "text": [
+        [
+          "Siku moja, kila anayemtegemea Yesu atakimbia kuingia kupitia malango ya mbinguni yaliyo wazi.",
+          "Na Yesu atakuwa pale pale, mikono yake ikiwa imenyooshwa kuwapokea."
+        ],
+        [
+          "Yesu yule yule aliyewatoa Adamu na Hawa nje ya bustani atawakaribisha watoto wake nyumbani.",
+          "Bado utaweza kuona makovu mikononi mwake, makovu ya upendo wake."
+        ]
+      ],
+      "ref": "Yohana 14:2–3; Yohana 20:27"
+    },
+    "new-earth": {
+      "text": [
+        [
+          "Na unajua nini?",
+          "Mungu atafanya vitu vyote kuwa vipya: mbingu mpya na nchi mpya, nzuri kuliko hata Edeni!"
+        ],
+        [
+          "Mpaka siku hiyo ifike, Yesu anakuomba uwaambie wengine habari njema, ili nao waipate njia ya kurudi nyumbani."
+        ]
+      ],
+      "ref": "Ufunuo 21:1, 5; Mathayo 28:19–20"
+    },
+    "prayer": {
+      "title": "Je, ungependa kumfuata Yesu?",
+      "intro": "Hivi ndivyo inavyomaanisha, kwa hatua tatu:",
+      "steps": [
+        {
+          "key": "1",
+          "word": "Kiri:",
+          "rest": "Mwambie Mungu kwamba umetenda dhambi, na useme samahani."
+        },
+        {
+          "key": "2",
+          "word": "Amini:",
+          "rest": "Yesu ni Mwana wa Mungu, alikufa kwa ajili yako, na akafufuka tena."
+        },
+        {
+          "key": "3",
+          "word": "Chagua:",
+          "rest": "Mtegemee Yesu na umfuate kila siku."
+        }
+      ],
+      "prayer": "“Mungu mpendwa, najua nimetenda dhambi, na samahani. Asante kwa kumtuma Yesu afe kwa ajili yangu na afufuke tena. Tafadhali nisamehe na unitakase. Nataka kukufuata. Kwa jina la Yesu, amina.”",
+      "note": "Zungumza na mzazi wako, mchungaji, au mtu mzima unayemwamini kuhusu sala uliyoomba.",
+      "ref": "Warumi 10:9–10"
+    },
+    "grownups": {
+      "title": "Kwa wazazi na walezi",
+      "intro": "Baada ya kusoma pamoja, jaribuni kuuliza maswali haya.",
+      "questions": [
+        "Ni sheria gani moja ambayo Mungu aliwapa Adamu na Hawa? Unadhani kwa nini aliitoa?",
+        "Kwa nini wale watoto hawakuweza kusugua madoa yao yakatoka?",
+        "Yesu alifanya nini ili tuweze kurudi kwa Mungu?",
+        "Tunajuaje kwamba Yesu yu hai?",
+        "Kumtegemea Yesu kunamaanisha nini? Je, hilo ni jambo ungependa kufanya?",
+        "Ni nani unayeweza kumwambia habari njema wiki hii?"
+      ],
+      "note": "Kila ukurasa unaonyesha vifungu vyake vya Biblia, ili mweze kusoma habari kamili pamoja."
+    }
+  },
   "cues": {}
 }

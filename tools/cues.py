@@ -32,7 +32,7 @@ def guided(inner, gaps, length, lines, lam=0.6, pad=6, stop=15):
     lead = gaps[0][1] if gaps and gaps[0][0] < 0.05 else 0.0
     tail = gaps[-1][0] if gaps and gaps[-1][1] > length - 0.05 else length
     n = len(lines)
-    sz = [len(l) + pad + stop * len(re.findall(r'[.!?。！？][”“»"]?\s+\S', l)) for l in lines]
+    sz = [len(l) + pad + stop * len(re.findall(r'[.!?。！？؟۔।][”“»«」』"]?\s*\S', l)) for l in lines]
     R, m = sum(sz) / max(0.1, tail - lead), sum(sz) / n
     G = [g for g in inner if lead < g[0] < tail]
     if len(G) < n - 1:

@@ -21,6 +21,276 @@
       "note": "Pais ou responsáveis, por favor escrevam em nome da criança."
     }
   },
-  "pages": {},
+  "pages": {
+    "cover": {
+      "title": "O caminho de volta para casa",
+      "subtitle": "Nossa história da Bíblia",
+      "cta": "Ler",
+      "listen": "Ouvir"
+    },
+    "garden": {
+      "text": [
+        [
+          "No princípio, Deus fez tudo: o céu, as árvores, as flores e os passarinhos."
+        ],
+        [
+          "Depois, ele fez o primeiro homem e a primeira mulher, Adão e Eva.",
+          "Deus estava com eles no jardim onde moravam, o Éden.",
+          "Eles adoravam estar com Deus, e Deus os amava.",
+          "Tudo era perfeito."
+        ]
+      ],
+      "ref": "Gênesis 1–2"
+    },
+    "rule": {
+      "text": [
+        [
+          "Deus deu a Adão e Eva todas as árvores do jardim para eles aproveitarem, menos uma."
+        ],
+        [
+          "“Não comam dessa árvore”, disse Deus. “Se comerem, certamente vão morrer.”",
+          "Adão apontou para a árvore para Eva não esquecer.",
+          "Era uma regra só, bem simples, de um Pai que os amava."
+        ]
+      ],
+      "ref": "Gênesis 2:16–17"
+    },
+    "serpent": {
+      "text": [
+        [
+          "Um dia, uma serpente sorrateira deslizou até perto de Eva.",
+          "“Foi isso mesmo que Deus disse?”, ela sibilou.",
+          "“Vocês não vão morrer! Essa fruta vai deixar vocês iguais a Deus!”"
+        ],
+        [
+          "Mas a serpente estava mentindo.",
+          "Ela queria que Eva parasse de confiar em Deus."
+        ]
+      ],
+      "ref": "Gênesis 3:1–5"
+    },
+    "fruit": {
+      "text": [
+        [
+          "Eva olhou para a fruta. Parecia tão gostosa que ela deu uma mordida.",
+          "Depois, deu um pedaço para Adão, e ele comeu também."
+        ],
+        [
+          "Ih!",
+          "Pela primeira vez, as pessoas tinham desobedecido a Deus.",
+          "A Bíblia chama isso de pecado."
+        ],
+        [
+          "E a serpente deu um sorriso malvado. O truque dela tinha dado certo."
+        ]
+      ],
+      "ref": "Gênesis 3:6"
+    },
+    "exile": {
+      "text": [
+        [
+          "O pecado mudou tudo. Agora Adão e Eva sentiam medo e vergonha."
+        ],
+        [
+          "Deus fez roupas de pele de animais para eles.",
+          "Mas, para fazer essas roupas, animais inocentes tiveram que morrer."
+        ],
+        [
+          "Mas Deus também fez uma promessa a eles.",
+          "Um dia, Alguém viria para esmagar a serpente e abrir o caminho de volta para casa."
+        ],
+        [
+          "Então Deus os mandou para fora do jardim, e um anjo passou a guardar o caminho de volta."
+        ]
+      ],
+      "ref": "Gênesis 3:15, 21–24"
+    },
+    "road": {
+      "text": [
+        [
+          "Adão e Eva tiveram filhos, e os filhos deles tiveram filhos, e assim por diante, até chegar a você e a mim."
+        ],
+        [
+          "Olha quanta gente!",
+          "Cada uma dessas pessoas tem marcas de pecado, igualzinho a Adão e Eva."
+        ],
+        [
+          "A Bíblia diz que todos nós pecamos, e o nosso pecado nos afasta de Deus."
+        ]
+      ],
+      "ref": "Romanos 3:23; Romanos 5:12; Isaías 59:2"
+    },
+    "test": {
+      "text": [
+        [
+          "Deus nos deu dez regras boas, chamadas os Dez Mandamentos."
+        ],
+        [
+          "Você já contou uma mentira? Nem que fosse uma vez só?",
+          "Você já pegou alguma coisa que não era sua?",
+          "Se a resposta é sim, isso faz de você um mentiroso e um ladrão.",
+          "Não é nada bom se sentir assim, né?"
+        ],
+        [
+          "E esses são só dois dos dez!",
+          "Assim como Adão e Eva, todos nós desobedecemos à lei de Deus, e o nosso pecado deixa marcas que não conseguimos esconder."
+        ]
+      ],
+      "ref": "Êxodo 20:1–17; Tiago 2:10; Romanos 3:19"
+    },
+    "locked": {
+      "text": [
+        [
+          "A lei de Deus é como um espelho. Ela mostra o nosso pecado, mas não consegue lavá-lo.",
+          "O pecado nos deixa trancados do lado de fora da casa de Deus, assim como Adão e Eva ficaram do lado de fora do jardim."
+        ],
+        [
+          "Deus é bom e justo, por isso ele não pode simplesmente fingir que o nosso pecado nunca aconteceu.",
+          "A Bíblia diz que, se morrermos com o nosso pecado, seremos castigados num lugar chamado inferno, longe de Deus para sempre."
+        ],
+        [
+          "Essa é uma notícia muito ruim."
+        ]
+      ],
+      "ref": "Romanos 3:20; Tiago 1:23–24; Habacuque 1:13; Romanos 6:23; Hebreus 9:27"
+    },
+    "scrub": {
+      "text": [
+        [
+          "Então, como podemos nos livrar do nosso pecado?",
+          "Talvez a gente tente tirar o pecado esfregando bem forte: sendo muito bonzinho, pedindo desculpas ou indo à igreja.",
+          "Mas, por mais que a gente esfregue, as marcas não saem."
+        ],
+        [
+          "Ser bom amanhã não apaga as coisas erradas que fizemos hoje.",
+          "Lembra dos animais que morreram para cobrir Adão e Eva?",
+          "Alguém também precisa ficar no nosso lugar.",
+          "Mas quem?"
+        ]
+      ],
+      "ref": "Isaías 64:6; Jeremias 2:22; Efésios 2:8–9; Hebreus 9:22"
+    },
+    "door": {
+      "text": [
+        [
+          "Agora vem a boa notícia! Esse Alguém é Jesus, o próprio Filho de Deus.",
+          "Ele estava lá no jardim com Adão e Eva, e é aquele que Deus tinha prometido."
+        ],
+        [
+          "Deus amou tanto o mundo que enviou Jesus para nos levar de volta para casa.",
+          "Jesus disse: “Eu sou a porta; quem entrar por mim será salvo.”"
+        ],
+        [
+          "Por isso, quem conhece Jesus adora contar para os outros: “Venham ver! Existe um caminho de volta para Deus!”"
+        ]
+      ],
+      "ref": "João 1:1–3; João 3:16; João 10:9; João 14:6"
+    },
+    "cross": {
+      "text": [
+        [
+          "Jesus nunca pecou, nem uma vezinha.",
+          "Mas ele morreu numa cruz no nosso lugar, como os animais que morreram por Adão e Eva."
+        ],
+        [
+          "Todo o nosso pecado foi colocado sobre ele, e ele levou o castigo que nós merecíamos.",
+          "Jesus fez isso porque ele nos ama."
+        ]
+      ],
+      "ref": "2 Coríntios 5:21; 1 Pedro 2:24; Isaías 53:6"
+    },
+    "choice": {
+      "text": [
+        [
+          "Agora, cada pessoa precisa fazer uma escolha.",
+          "Algumas dizem: “Não, obrigado”, e vão embora."
+        ],
+        [
+          "Outras dizem a Deus: “Sinto muito pelo meu pecado. Eu creio que Jesus morreu no meu lugar. Por favor, me perdoe e me salve!”",
+          "Isso quer dizer dar as costas para o pecado e confiar em Jesus."
+        ],
+        [
+          "Quando fazemos isso, Deus tira o nosso pecado e nos cobre com a bondade de Jesus.",
+          "Jesus ama você, e ele deixa você escolher."
+        ]
+      ],
+      "ref": "Marcos 1:15; Romanos 10:9, 13; João 3:18; Isaías 61:10"
+    },
+    "tomb": {
+      "text": [
+        [
+          "Três dias depois que Jesus morreu, os amigos dele encontraram o túmulo vazio.",
+          "Jesus estava vivo de novo! Ele tinha vencido o pecado e a morte!"
+        ],
+        [
+          "Todo mundo que confia nele fica limpo e branco como a neve.",
+          "O portão está aberto. Jesus abriu o caminho de volta para casa!"
+        ]
+      ],
+      "ref": "1 Coríntios 15:3–4; Isaías 1:18; Apocalipse 7:14"
+    },
+    "gates": {
+      "text": [
+        [
+          "Um dia, todos os que confiam em Jesus vão entrar correndo pelos portões abertos do céu.",
+          "E Jesus vai estar bem ali, de braços bem abertos."
+        ],
+        [
+          "O mesmo Jesus que mandou Adão e Eva para fora do jardim vai receber os seus filhos em casa.",
+          "Você ainda vai poder ver as cicatrizes nas mãos dele: as cicatrizes do seu amor."
+        ]
+      ],
+      "ref": "João 14:2–3; João 20:27"
+    },
+    "new-earth": {
+      "text": [
+        [
+          "E sabe de uma coisa?",
+          "Deus vai fazer tudo novo: um novo céu e uma nova terra, ainda melhores do que o Éden!"
+        ],
+        [
+          "Até esse dia chegar, Jesus pede que você conte a boa notícia para os outros, para que eles também encontrem o caminho de volta para casa."
+        ]
+      ],
+      "ref": "Apocalipse 21:1, 5; Mateus 28:19–20"
+    },
+    "prayer": {
+      "title": "Você quer seguir Jesus?",
+      "intro": "Veja o que isso significa, em três passos:",
+      "steps": [
+        {
+          "key": "1",
+          "word": "Reconheça",
+          "rest": "diante de Deus que você pecou e peça perdão a ele."
+        },
+        {
+          "key": "2",
+          "word": "Creia",
+          "rest": "que Jesus é o Filho de Deus, que ele morreu por você e que ressuscitou."
+        },
+        {
+          "key": "3",
+          "word": "Decida",
+          "rest": "confiar em Jesus e segui-lo todos os dias."
+        }
+      ],
+      "prayer": "“Querido Deus, eu sei que pequei e sinto muito. Obrigado por enviar Jesus para morrer por mim e ressuscitar. Por favor, me perdoe e me purifique. Eu quero te seguir. Em nome de Jesus, amém.”",
+      "note": "Converse com seus pais, com um pastor ou com um adulto de confiança sobre a oração que você fez.",
+      "ref": "Romanos 10:9–10"
+    },
+    "grownups": {
+      "title": "Para os adultos",
+      "intro": "Depois da leitura, que tal conversar com a criança sobre estas perguntas?",
+      "questions": [
+        "Qual foi a única regra que Deus deu a Adão e Eva? Por que você acha que ele deu essa regra?",
+        "Por que as crianças não conseguiam tirar as marcas esfregando?",
+        "O que Jesus fez para que a gente pudesse voltar para Deus?",
+        "Como sabemos que Jesus está vivo?",
+        "O que significa confiar em Jesus? É isso que você quer fazer?",
+        "Para quem você poderia contar a boa notícia esta semana?"
+      ],
+      "note": "Cada página traz as passagens bíblicas, para que vocês possam ler juntos a história completa."
+    }
+  },
   "cues": {}
 }

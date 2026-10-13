@@ -7,11 +7,11 @@ Pages are separated by <break time="3.0s" /> so tools/split.py can cut the recor
 Page numbers and Bible references are not read aloud.
 """
 import os, sys
-from common import path, story, lang, spoken
+from common import path, story, lang, spoken, CJK
 
 code = (sys.argv[1:] or sys.exit(__doc__))[0]
 st, t = story(), lang(code)
-fin = lambda s: s if s[-1:] in '.!?”“"»«。！？।۔' else s + '.'
+fin = lambda s: s if s[-1:] in '.!?”“"»«。！？।۔؟」』:：' else s + ('。' if code in CJK else '.')
 pages = [' '.join(fin(l.strip()) for l in spoken(p['kind'], t['pages'][p['id']], code)) for p in st['pages'] if t.get('pages', {}).get(p['id'])]
 os.makedirs(path('scripts'), exist_ok=True)
 out = path('scripts', f'The-Way-Back-Home_{code.upper()}_narration.txt')

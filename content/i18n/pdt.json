@@ -21,6 +21,276 @@
       "note": "Eltern oder Erziehungsberechtigte, bitte schreiben Sie im Namen Ihres Kindes."
     }
   },
-  "pages": {},
+  "pages": {
+    "cover": {
+      "title": "De Wajch no Hüs",
+      "subtitle": "Onse Jeschicht ut de Bibel",
+      "cta": "Läs",
+      "listen": "Hea too"
+    },
+    "garden": {
+      "text": [
+        [
+          "Em Aunfang muak Gott aules: dän Himmel, de Beem, de Blomen en de Vejel."
+        ],
+        [
+          "Dan muak hee dän ieschten Maun en de ieschte Fru, Odam en Eva.",
+          "Gott wia bie an em Goaden Eden, wua see tüs wieren.",
+          "See wieren soo jearn bie am, en hee haud an leef.",
+          "Aules wia vollkomen goot."
+        ]
+      ],
+      "ref": "1. Mose 1–2"
+    },
+    "rule": {
+      "text": [
+        [
+          "Gott jeef Odam en Eva aule Beem em Goaden, om von to äte – bloos eenen nich."
+        ],
+        [
+          "„Äte nich von dän Boom“, saed Gott. „Wan jie doavon äte, woare jie stoawe.“",
+          "Odam wees op dän Boom, soo daut Eva daut nich vejäte wurd.",
+          "Daut wia bloos eene eenfache Rejel von en Voda, dee an leef haud."
+        ]
+      ],
+      "ref": "1. Mose 2,16–17"
+    },
+    "serpent": {
+      "text": [
+        [
+          "Eenes Dachs schlängeld sikj eene listje Schlang no Eva runja.",
+          "„Haft Gott daut werkjlich jesajcht?“, zischt see.",
+          "„Jie woare nich stoawe! Dee Frucht woat junt soo moake aus Gott!“"
+        ],
+        [
+          "Oba de Schlang läajd.",
+          "See wull, daut Eva Gott nich mea vetrue sull."
+        ]
+      ],
+      "ref": "1. Mose 3,1–5"
+    },
+    "fruit": {
+      "text": [
+        [
+          "Eva kjikjt de Frucht aun. See sach soo goot ut, daut see nenbeet.",
+          "Dan jeef see Odam uk waut, en hee aut uk doavon."
+        ],
+        [
+          "Oh wee!",
+          "Toom aulaieschte Mol haude Menschen Gott nich jehorcht.",
+          "De Bibel nant daut Sind."
+        ],
+        [
+          "En de Schlang grinsd. Äa Plan haud jeklapt."
+        ]
+      ],
+      "ref": "1. Mose 3,6"
+    },
+    "exile": {
+      "text": [
+        [
+          "De Sind väanderd aules. Nu haude Odam en Eva Angst en schämden sikj."
+        ],
+        [
+          "Gott muak an Kjleeda ut Tierfale.",
+          "Oba doafäa mußten onschuldje Tieren stoawe."
+        ],
+        [
+          "Oba Gott jeef an uk en Vespräakj.",
+          "Eenes Dachs wurd Eena kome, dee de Schlang dän Kopp tertreede en dän Wajch no Hüs wada opmoake wurd."
+        ],
+        [
+          "Dan schekjt Gott an ut dän Goaden, en en Engel bewoakt dän Wajch trigj nenn."
+        ]
+      ],
+      "ref": "1. Mose 3,15.21–24"
+    },
+    "road": {
+      "text": [
+        [
+          "Odam en Eva kjreajen Kjinja, en äare Kjinja kjreajen wada Kjinja, emma wieda, bat to die en mie."
+        ],
+        [
+          "Kjikj mol, soo väle Menschen!",
+          "Jieda eena von an haft Sindflakje, jrod soo aus Odam en Eva."
+        ],
+        [
+          "De Bibel sajt: Wie habe aule jesindicht, en onse Sind trant ons von Gott."
+        ]
+      ],
+      "ref": "Römer 3,23; Römer 5,12; Jesaja 59,2"
+    },
+    "test": {
+      "text": [
+        [
+          "Gott jeef ons tieen goode Rejels: de Tieen Jebooten."
+        ],
+        [
+          "Hast du aul eemol jeloage? Uk bloos een eensjet Mol?",
+          "Hast du aul eemol waut jenome, waut die nich jehead?",
+          "Wan jo, dan best du en Läajna en en Deef.",
+          "Daut fält sikj nich goot, ooda?"
+        ],
+        [
+          "En daut sent bloos twee von de tieen!",
+          "Soo aus Odam en Eva habe wie aule Gott sien Jesats jebroake, en onse Sind lat Flakje, dee wie nich vestoppe kjenne."
+        ]
+      ],
+      "ref": "2. Mose 20,1–17; Jakobus 2,10; Römer 3,19"
+    },
+    "locked": {
+      "text": [
+        [
+          "Gott sien Jesats es soo aus en Spiejel. Daut wiest ons onse Sind, oba daut kaun dee nich auf wasche.",
+          "De Sind schlüt ons ut Gott sien Hüs ut, jrod soo aus Odam en Eva ut dän Goaden utjeschloote wurden."
+        ],
+        [
+          "Gott es goot en jerajcht, doarom kaun hee nich eenfach soo doone, aus wan onse Sind nie jeschehne wia.",
+          "De Bibel sajt: Wan wie met onse Sind stoawe, dan woare wie aun en Ort jestroft, dee Häl heet – fa emma wiet wajch von Gott."
+        ],
+        [
+          "Daut es eene sea schlajchte Norecht."
+        ]
+      ],
+      "ref": "Römer 3,20; Jakobus 1,23–24; Habakuk 1,13; Römer 6,23; Hebräer 9,27"
+    },
+    "scrub": {
+      "text": [
+        [
+          "Wo kjenne wie onse Sind dan loos woare?",
+          "Vleicht vesieekje wie, dee auftoschrubbe: wan wie extra goot sent, ons entschuldje, ooda Sinndach no de Kjoakj gone.",
+          "Oba eagaul wo doll wie schrubbe – de Flakje gone nich auf."
+        ],
+        [
+          "Wan wie morjen goot sent, moakt daut nich wajch, waut wie vondoag vekjeat jedone habe.",
+          "Weetst du noch de Tieren, dee stoawe mußten, om Odam en Eva totodatje?",
+          "Uk fa ons mott eena aun onse Städ stone.",
+          "Oba wäa?"
+        ]
+      ],
+      "ref": "Jesaja 64,5; Jeremia 2,22; Epheser 2,8–9; Hebräer 9,22"
+    },
+    "door": {
+      "text": [
+        [
+          "Nu kjemt de goode Norecht! Dee Eena es Jesus, Gott sien eajna Sän.",
+          "Hee wia aul em Goaden bie Odam en Eva, en hee es dee, dän Gott vesproake haud."
+        ],
+        [
+          "Gott haud de Welt soo leef, daut hee Jesus schekjt, om ons no Hüs to hole.",
+          "Jesus saed: „Etj sie de Däa. Wäa derch mie nenkjemt, dee woat jerat woare.“"
+        ],
+        [
+          "Doarom vetale Menschen, dee Jesus kjanne, soo jearn aundre: „Komt en kjikjt! Doa es en Wajch trigj no Gott!“"
+        ]
+      ],
+      "ref": "Johannes 1,1–3; Johannes 3,16; Johannes 10,9; Johannes 14,6"
+    },
+    "cross": {
+      "text": [
+        [
+          "Jesus haft nie jesindicht, nich een eensjet Mol.",
+          "Oba hee storf aun onse Städ aum Kjriez, soo aus de Tieren, dee fa Odam en Eva storwen."
+        ],
+        [
+          "Aul onse Sind wurd op am jelajcht, en hee druach de Strof, dee wie vedeent haude.",
+          "Daut deed Jesus, wiel hee ons leef haft."
+        ]
+      ],
+      "ref": "2. Korinther 5,21; 1. Petrus 2,24; Jesaja 53,6"
+    },
+    "choice": {
+      "text": [
+        [
+          "Nu mott jiedereena sikj entscheede.",
+          "Eenje sajen: „Nä, dankscheen“, en gone wajch."
+        ],
+        [
+          "Aundre sajen to Gott: „Mie deit miene Sind leed. Etj gleew, daut Jesus aun miene Städ jestorwe es. Bitte vejeff mie en raed mie!“",
+          "Daut heet: sikj von de Sind auftokjeare en Jesus to vetrue."
+        ],
+        [
+          "Wan wie daut doone, nemmt Gott onse Sind wajch en trakjt ons Jesus siene Jerajchtichkeit aun.",
+          "Jesus haft die leef, en hee lat die selfst wähle."
+        ]
+      ],
+      "ref": "Markus 1,15; Römer 10,9.13; Johannes 3,18; Jesaja 61,10"
+    },
+    "tomb": {
+      "text": [
+        [
+          "Dree Doag nodäm Jesus jestorwe wia, funge siene Frind sien Graf leddich.",
+          "Jesus läwd wada! Hee haud Sind en Doot besiejcht!"
+        ],
+        [
+          "Jiedereena, dee am vetrut, es soo rein en witt aus Schnee.",
+          "Daut Toa es op. Jesus haft dän Wajch no Hüs frie jemoakt!"
+        ]
+      ],
+      "ref": "1. Korinther 15,3–4; Jesaja 1,18; Offenbarung 7,14"
+    },
+    "gates": {
+      "text": [
+        [
+          "Eenes Dachs woare aul dee, dee Jesus vetrue, derch dem Himmel siene opne Toare lope.",
+          "En Jesus woat jrod doa stone, met wiet opjemoakte Oarms."
+        ],
+        [
+          "Dee selwja Jesus, dee Odam en Eva ut dän Goaden schekjt, woat siene Kjinja to Hüs welkom heete.",
+          "Du kaunst noch de Noabe en siene Henj seene – de Noabe von siene Leew."
+        ]
+      ],
+      "ref": "Johannes 14,2–3; Johannes 20,27"
+    },
+    "new-earth": {
+      "text": [
+        [
+          "En weetst du waut?",
+          "Gott woat aules nie moake: en niea Himmel en eene niee Ieed – noch scheena aus Eden!"
+        ],
+        [
+          "Bat to dän Dach bed Jesus die, aundre de goode Norecht to vetale, soo daut dee uk dän Wajch no Hüs finge."
+        ]
+      ],
+      "ref": "Offenbarung 21,1.5; Matthäus 28,19–20"
+    },
+    "prayer": {
+      "title": "Wullst du Jesus nofolje?",
+      "intro": "Soo jeit daut, en dree Schrett:",
+      "steps": [
+        {
+          "key": "1",
+          "word": "Bekjenn",
+          "rest": "Gott, daut du jesindicht hast, en saj am, daut die daut leed deit."
+        },
+        {
+          "key": "2",
+          "word": "Gleew,",
+          "rest": "daut Jesus Gott sien Sän es, daut hee fa die jestorwe es en daut hee wada opjestone es."
+        },
+        {
+          "key": "3",
+          "word": "Entscheed die,",
+          "rest": "Jesus to vetrue en am jieden Dach notofolje."
+        }
+      ],
+      "prayer": "„Leewa Gott, etj weet, daut etj jesindicht ha, en daut deit mie leed. Dank, daut du Jesus jeschekjt hast, dee fa mie jestorwe en wada opjestone es. Bitte vejeff mie en moak mie rein. Etj well die nofolje. En Jesus sienem Nome, Amen.“",
+      "note": "Räd met diene Elta, dem Prädja ooda en Groota, dän du vetrust, äwa daut, waut du jebät hast.",
+      "ref": "Römer 10,9–10"
+    },
+    "grownups": {
+      "title": "Fa Elta en Groote",
+      "intro": "Vesieekt nom Läse, dise Froagen tosaume to bespräakje.",
+      "questions": [
+        "Waut wia de eene Rejel, dee Gott Odam en Eva jeef? Wuarom, meenst du, jeef hee dee?",
+        "Wuarom kunne de Kjinja äare Flakje nich auf schrubbe?",
+        "Waut deed Jesus, daut wie trigj no Gott kome kjenne?",
+        "Wo weete wie, daut Jesus läwt?",
+        "Waut heet daut, Jesus to vetrue? Wullst du daut uk?",
+        "Wäm kunnst du dise Wäakj de goode Norecht vetale?"
+      ],
+      "note": "Op jieda Sied stone de Bibelstalen, soo daut Jie de gaunze Jeschicht tosaume nolase kjennt."
+    }
+  },
   "cues": {}
 }
