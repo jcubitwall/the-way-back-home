@@ -87,7 +87,7 @@
       "name": "Deutsch",
       "english": "German",
       "dir": "ltr",
-      "ready": false,
+      "ready": true,
       "narration": true,
       "video": false
     },
