@@ -10,16 +10,10 @@ old version from the `the-way-back-home` repository until this one is finished i
 
 ## Status (October 2026)
 
-- **English is finished:** 18 pages, the new narration recording, 15 animated scenes and 13 chapter music tracks.
-- **Next: every other language.** Translate from the final English in `content/i18n/en.json`, going for the meaning rather than word for word.
-  - Keep one caption per sentence, so each page has the same number of sentences as the English.
-  - Record each language with ElevenLabs, then time its captions and check the scene timings against the new recording.
-- **Still open:**
-  - the "Message us" email (a test sent from iCloud bounced)
-  - a scene for the prayer page and a picture for the grown-ups page
-  - page numbers that don't match
-  - checking the bottom edge on an iPhone
-  - remaking the downloadable videos
+- **English and German are finished** and public on the test site.
+- **The other 16 languages have their text and narration scripts**, and are waiting for recordings.
+  When a recording comes back: `python3 tools/split.py <code> recording.mp3`, then set `"ready": true` and run `tools/build.py`.
+- **Full status, decisions and open items are in [CLAUDE.md](CLAUDE.md).**
 
 ## Where things are
 
