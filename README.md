@@ -31,7 +31,7 @@ old version from the `the-way-back-home` repository until this one is finished i
 | Pictures (originals) | `art/src/<name>.jpg` |
 | Narration | `audio/<code>/<page id>.mp3` |
 | Animated scenes (optional) | `scenes/` and the `clips` list on a page in `story.json` |
-| Music (one piece per chapter; `mood` m01 … m13 on each page) | `music/cue_m01.mp3` … `cue_m13.mp3` |
+| Music (one piece per chapter; `mood` m01 … m14 on each page) | `music/cue_m01.mp3` … `cue_m14.mp3` |
 | Downloadable videos | `video/The-Way-Back-Home_<CODE>.mp4` |
 | Reader | `index.html`, `app.js`, `app.css` |
 | Language list page | `languages.html` |
