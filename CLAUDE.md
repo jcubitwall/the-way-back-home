@@ -101,3 +101,12 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
   - Check the bottom edge on an iPhone.
   - Rebuild the downloadable videos once languages are recorded (`video.py`).
 - **Decided:** the cover, prayer and grown-ups pages keep still pictures (no clips).
+
+## Future idea (decided 13 Oct 2026: keep the current timing for now)
+
+**Full-page clips with per-language time-stretch.** Rebuild later, not now.
+
+- **Idea:** each clip is about as long as its English page (15–25 s, two or three Grok pieces joined) and starts the instant the page opens.
+- **Anchors:** each clip gets 1–3 anchor points, for example "clip 6.4 s = start of 'Uh-oh'". The player sets `playbackRate` per section from each language's cues, so key moments land on their words.
+- **Speed limits:** keep each section within about ±15–25% of normal speed, and hold a frame rather than crawl. German runs 2–35% longer than English per page.
+- **Why it waits:** the current clips are 6–14 s against 13–25 s pages, so they can't simply be stretched.
