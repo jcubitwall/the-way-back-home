@@ -76,6 +76,10 @@ def main():
             t['cues'][pg['id']] = c
         else:
             print(f'  ! {pg["id"]}: could not find every sentence break; captions will be spaced by length')
+    from pauses import hold
+    for pg in pages:
+        for m in hold(code, pg, t):
+            print(f'  {m}')
     save(f'content/i18n/{code}.json', t)
     print(f'Saved {len(pages)} pages to audio/{code}/. Run tools/build.py to update the site.')
 
