@@ -88,11 +88,13 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 
 ## Open items
 
-- **Pages 7 and 8, the law scene redo.** Johnny has a new tablet image that sits in the same ivy wall and road as page 6.
-  - Plan discussed: page 7 the kids walk, stop and look up at the law; stains appear; George and Sally grow worried while Chase smiles, puzzled. Page 8 the stone turns into a mirror, then into golden bars with heaven behind; Chase finally sees his own stains.
-  - The tablets in his images use made-up Hebrew-looking letters, which Hebrew readers will notice. Use blank carved lines instead.
-  - Chase wears a black hoodie on page 8 but a T-shirt everywhere else; one of them needs to change to match.
-  - Not decided yet: wait for his pick before writing the prompts.
+- **Page 7 (law, page id `test`): DONE 14 Oct 2026.** New 14 s clip: the ivy-wall tablets show the short Ten Commandments in real Hebrew (checked letter by letter); the lower stone is a mirror; the kids keep their backs to the camera and only their reflected faces change from happy to shocked; the stone cracks loudly.
+  - The clip is anchored to the last sentence ("Like Adam and Eve…", offset −8.35 s), and `pauses` holds at least 1.4 s before it. So in every language the crack lands in silence right after "only two of the ten", and the narrator then says "we have all broken God's law".
+  - The crack sound was made louder on purpose (peak −1 dB, about 7 dB louder than the other scene sounds), and the music hushes from the crack onward.
+  - Grok tip: never write "turn around" in a prompt. Describe the backs as fixed, put every emotion on the reflections, and put turning words only in the negative prompt.
+- **Page 8 (locked): next.** Johnny decided to drop the golden-bars / heaven view. The plan: same tablets and mirror as page 7; the light dims; a soft red glow (hell) rises only inside the mirror, behind the reflections; reactions; Chase finally understands.
+  - New text agreed in principle: "God's law is like a mirror. It shows us our sin, but it can't clean us up. / God is a good and fair judge, so He can't just pretend our sin never happened. The Bible says that if we die with our sin… forever. / That is very bad news." (the "locked out" line is dropped).
+  - When the clip arrives: update en + all 17 languages, rebuild the narration scripts, and have Johnny re-record this one page in English and German.
 - **Pages 5, 6 and 7, check the music by ear.** Page 6's track may be too bright for "our sin keeps us far from God"; page 7 could use more tension; page 5's opening could be sadder.
 - **Scene timing in other languages.** Clip offsets were tuned to the English. Spot-check pages 6–8 in each new language.
 - **"Message us" email** (hello@thewaybackhome.net, Cloudflare routing): a test sent from iCloud bounced. A test from a non-iCloud account is still pending. An in-book form is an option.
