@@ -120,11 +120,13 @@ function pageHTML(pg, i) {
   } else if (pg.kind === 'grownups') {
     body = `<h2 class="big">${esc(d.title)}</h2><p class="intro">${esc(d.intro)}</p><ol class="qs">${d.questions.map(q => `<li>${esc(q)}</li>`).join('')}</ol><p class="note">${esc(d.note)}</p>`;
   }
+  // a page with a scene only shows its picture until the 720-wide clip takes over, so on a phone the 720 picture is enough
+  const vid = !NOCLIPS && !BIG && (pg.clips || []).length > 0;
   const chip = pg.kind === 'cover' ? `<a class="chip" href="${ROOT}languages.html">${esc(META.name)}</a>` : '';
   const sh = mix(pg.tint, 0.42), sm = mix(pg.tint, 0.5), lazy = i > 1 ? 'loading="lazy"' : '';
   return `<section class="pg ${pg.kind}" data-i="${i}" aria-label="${pg.kind === 'cover' ? esc(pg.kind) : esc(UI.page || 'Page') + ' ' + (i + 1 - OFF)}" style="--tint:${pg.tint};--shade:${rgb(sh, .72)};--shade-mid:${rgb(sm, .5)}">
 <img class="bg" alt="" aria-hidden="true" decoding="async" ${lazy} src="${url(art + '-soft.webp')}">
-<div class="stage"><div class="art"><img class="pic" alt="" draggable="false" decoding="async" ${lazy} sizes="(min-width:520px) 942px, 100vw" srcset="${url(art + '-720.webp')} 720w, ${url(art + '.webp')} 942w" src="${url(art + '-720.webp')}"></div>
+<div class="stage"><div class="art"><img class="pic" alt="" draggable="false" decoding="async" ${lazy} ${vid ? '' : `sizes="(min-width:520px) 942px, 100vw" srcset="${url(art + '-720.webp')} 720w, ${url(art + '.webp')} 942w"`} src="${url(art + '-720.webp')}"></div>
 <div class="soft" aria-hidden="true"><img class="ext" alt="" decoding="async" ${lazy} src="${url(art + '-soft.webp')}"><img class="top" alt="" decoding="async" ${lazy} src="${url(art + '-soft.webp')}"></div><div class="shade"></div>${chip}
 <div class="txt${fb && L !== 'en' ? ' untranslated' : ''}">${body}</div></div></section>`;
 }
@@ -208,21 +210,43 @@ addEventListener('keydown', e => {
   if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); goTo(cur - 1); }
   if (e.key === 'Escape') closeMenus();
 });
+// clips downloaded ahead of time: url -> { p: promise of a blob url, got, total, stop }
 const clipMem = {};
 function fetchClip(v) {
   if (v.src || v._fetching) return; v._fetching = true;
   const u = v.dataset.src;
-  (clipMem[u] || (clipMem[u] = fetch(u).then(r => { if (!r.ok) throw 0; return r.blob(); }).then(b => URL.createObjectURL(b))))
-    .then(b => { if (!v.src) { v.preload = 'auto'; v.src = b; } })
-    .catch(() => { delete clipMem[u]; if (!v.src) { v.preload = 'auto'; v.src = u; } });
+  let m = clipMem[u];
+  if (!m) {
+    const ctl = window.AbortController ? new AbortController() : null;
+    m = clipMem[u] = { got: 0, total: 0, stop: () => ctl && ctl.abort() };
+    m.p = fetch(u, ctl ? { signal: ctl.signal } : {}).then(async r => {
+      if (!r.ok) throw 0;
+      m.total = +r.headers.get('content-length') || 0;
+      if (!r.body || !r.body.getReader) return URL.createObjectURL(await r.blob());
+      const rd = r.body.getReader(), parts = [];
+      for (;;) { const { done, value } = await rd.read(); if (done) break; parts.push(value); m.got += value.length; }
+      return URL.createObjectURL(new Blob(parts, { type: 'video/mp4' }));
+    });
+    m.p.catch(() => { if (clipMem[u] === m) delete clipMem[u]; });
+  }
+  m.p.then(b => { if (!v.src) { v.preload = 'auto'; v.src = b; } }, () => {}).finally(() => { v._fetching = false; });
+}
+// when a scene has to play now: use the download if it is done or nearly done; otherwise stop it and stream the
+// file instead, so it is never downloaded twice
+function clipReady(v) {
+  if (v.src) return Promise.resolve();
+  const u = v.dataset.src, m = clipMem[u], direct = () => { if (!v.src) { v.preload = 'auto'; v.src = u; } };
+  if (m && (!m.total || m.got / m.total > 0.5)) return m.p.then(b => { if (!v.src) { v.preload = 'auto'; v.src = b; } }, direct);
+  if (m) { m.stop(); delete clipMem[u]; }
+  direct(); return Promise.resolve();
 }
 function preload() {
   [cur + 1, cur + 2].forEach(i => secs[i] && secs[i].querySelectorAll('img[loading=lazy]').forEach(im => { im.loading = 'eager'; }));
   // decode the next page's pictures now, so the slide to it never waits on them
   secs[cur + 1] && secs[cur + 1].querySelectorAll('img').forEach(im => { if (im.decode) im.decode().catch(() => {}); });
-  // this page's scene starts downloading now; the next page's waits until this page's pictures have had their turn
   // iPhones ignore preload="auto" and only start fetching a video when it is told to play, so a scene could miss its
-  // moment on a slow connection. Instead the whole file is downloaded ahead of time and played from memory.
+  // moment on a slow connection. So the next page's scenes are downloaded whole while this page is open (after its
+  // pictures have had their turn) and played from memory. This page's own scene streams if it is not there yet.
   const load = i => secs[i] && secs[i].querySelectorAll('video').forEach(fetchClip);
   load(cur); const at = cur; setTimeout(() => { if (cur === at) load(at + 1); }, 1500);
   [cur, cur + 1].forEach(i => secs[i] && (S.pages[i].clips || []).forEach(c => { if (c.end && !NOCLIPS) new Image().src = url(`art/${c.end}-soft.webp`); }));
@@ -452,7 +476,6 @@ function playClip(i, j, withSound) {
   if (!v || sec._skip) return Promise.resolve(false);
   return new Promise(res => {
     const gen = v._gen = (v._gen || 0) + 1, stale = () => v._gen !== gen;
-    if (!v.src) { v.preload = 'auto'; v.src = v.dataset.src; }
     let done = false, started = false, giveUp = 0, cap = 0;
     const end = ok => {
       if (done) return; done = true; clearTimeout(giveUp); clearTimeout(cap);
@@ -476,9 +499,12 @@ function playClip(i, j, withSound) {
       }).catch(() => {});
     };
     v.onended = () => { if (!stale()) end(true); };
-    try { v.currentTime = 0; } catch (e) {}
-    const p = v.play(); if (p && p.catch) p.catch(() => end(false));
     giveUp = setTimeout(() => { if (!started) end(false); }, reading ? WAIT_READ : WAIT);
+    clipReady(v).then(() => {
+      if (stale() || done) return;
+      try { v.currentTime = 0; } catch (e) {}
+      const p = v.play(); if (p && p.catch) p.catch(() => end(false));
+    });
   });
 }
 function autoClips(i) {

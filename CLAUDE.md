@@ -106,6 +106,12 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
   - Tested in a browser: tomb → gates handover, and the German prayer pages running past 85 s.
   - Page 7 → 8 (changed again 15 Oct 2026; Johnny disliked a silent turn): the music hushes at the crack (`hush`), then swells back from 4 s into clip 2 (`rise`, over `riseFor` s, default 4) under "we have all broken God's law", and m07 crossfades into m08 across the turn like every other page. A page still hushed when its narration ends swells back anyway.
 - **Scenes that didn't start (fixed 15 Oct 2026).** Page 7's first scene sometimes stayed a still picture; replaying fixed it. Cause: iPhones ignore preload, so a clip only began downloading when it had to play, and if it took more than 2.5 s the page gave up on *all* its scenes. Now each next page's clips are downloaded whole in advance (fetch → blob) and played from memory; while reading aloud a clip may take 7 s to start; and a slow clip only skips itself (only a broken file skips the page's later scenes).
+- **Loading sweep (15 Oct 2026).** Johnny is happy with the pictures and music, so nothing was re-compressed (the clips are already at CRF 28 and re-encoding only grew them or lost quality; the music has no lossless originals). Changes:
+  - A scene that must play while its download is under half done stops the download and streams instead, so no clip is fetched twice.
+  - On phones, pages with a scene use the 720-wide picture, the same width as the clip that replaces it (tablets still get 942).
+  - The browser-tab icon is a 7 KB 48 px file instead of the 75 KB app icon.
+  - The service worker now keeps downloaded clips, so a second read is instant and works offline.
+  - Measured: the cover opens on about 0.35 MB (picture, fonts, code); a full read is about 26 MB, of which the clips are 23 MB.
 - **Pages 5, 6 and 7, check the music by ear.** Page 6's track may be too bright for "our sin keeps us far from God"; page 7 could use more tension; page 5's opening could be sadder.
 - **Scene timing in other languages.** Clip offsets were tuned to the English. Spot-check pages 6–8 in each new language.
 - **"Message us" email** (hello@thewaybackhome.net, Cloudflare routing): a test sent from iCloud bounced. A test from a non-iCloud account is still pending. An in-book form is an option.
