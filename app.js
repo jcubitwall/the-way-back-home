@@ -166,9 +166,7 @@ function fitAll() {
       const max = st.clientHeight * (sec.classList.contains('story') ? 0.56 : 0.82);
       while (t.offsetHeight > max && k > 0.62) { k -= 0.04; sec.style.setProperty('--k', k.toFixed(2)); }
     };
-    // text tall enough to reach the buttons down the right edge (middle of the screen) wraps clear of them
-    sec.classList.remove('narrow'); fit();
-    if (!sec.classList.contains('cover') && t.offsetHeight > st.clientHeight / 2 - 92) { sec.classList.add('narrow'); fit(); }
+    fit();
   });
 }
 
