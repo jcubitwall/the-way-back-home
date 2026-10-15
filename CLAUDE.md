@@ -49,7 +49,7 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
   script and republish the page.
 - **Translation choices:**
   - Prayer page: A-B-C only in German (Anerkennen, Bekennen, Christus folgen). Every other language uses steps 1-2-3.
-  - Hebrew uses ישוע (Yeshua).
+  - Hebrew uses ישוע (Yeshua). Reviewed 15 Oct 2026 for plain modern Israeli Hebrew: no archaic Bible phrasing (e.g. "אם תאכלו ממנו, תמותו", "אלוהים באמת אמר את זה?"); "Bible" = כתבי הקודש (not הכתובים, which also means the Writings section); "goodness" = הטוב של ישוע (not צדקה, which now means charity); "church" = בית הכנסת או כנסייה; "bad news" = בשורה רעה, to mirror הבשורה הטובה; grown-ups page = למבוגרים.
   - The Hindi, Punjabi and Urdu titles avoid "ghar wapsi" (the name of a political reconversion campaign) and say "the way to return home" instead.
 - **Need a native speaker's read before recording:** Kikuyu and Plautdietsch are careful drafts. Urdu,
   Punjabi and Swahili would also benefit from one. Record one Kikuyu page as a test first, because
