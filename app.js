@@ -537,8 +537,14 @@ function qrSVG(text) {
   for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (q.isDark(y, x)) d += `M${x + m} ${y + m}h1v1h-1z`;
   return `<svg viewBox="0 0 ${n + 2 * m} ${n + 2 * m}" shape-rendering="crispEdges" aria-hidden="true"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#1d1a24"/></svg>`;
 }
+function sizeQR() {  // the QR code is exactly as tall as the stack of buttons beside it (capped so it never crowds them)
+  const b = $('#qr'), c = document.querySelector('.cfoot .ctas'); if (!b || !c || !c.offsetHeight) return;
+  b.style.width = Math.min(c.offsetHeight, innerWidth * 0.45) + 'px';
+}
+addEventListener('resize', sizeQR);
 function setupQR() {
   const b = $('#qr'); if (!b) return;
+  sizeQR(); if (document.fonts) document.fonts.ready.then(sizeQR);
   const draw = () => { b.innerHTML = qrSVG(qrLink()); };
   if (window.qrcode) draw();
   else { const sc = document.createElement('script'); sc.src = url('qr.js'); sc.onload = draw; sc.onerror = () => { b.hidden = true; }; document.head.appendChild(sc); }
