@@ -123,7 +123,7 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 
 ## Cover layout (15 Oct 2026)
 
-- Everything is in thumb reach at the bottom: Listen and Read stacked on the right, with the language name and the ⋯ menu below them (the menu opens upward). The sound button appears there only while the book is reading aloud (as the pause button).
+- Everything is in thumb reach at the bottom right: the ⋯ menu beside the subtitle (it opens upward), then Listen and Read stacked, then the language name. These are part of the cover page itself (app.js moves the menu into `.mslot` on the cover and back to the top bar on story pages), so they can never overlap on phones whose bottom edge differs. The top bar shows only the pause button while the cover is read aloud.
 - Bottom left is a QR code for the same language's link (`<site>/<code>/`, plus `?preview=1` for a language not yet listed). Tapping it shows it large for a friend to scan. It is drawn on the phone from `qr.js` (qrcode-generator 1.4.4, MIT), so it is right on the test site and on the real domain.
 - When reading or listening starts, the cover buttons and QR fade away as before. Story pages keep their buttons at the top.
 

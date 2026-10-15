@@ -82,10 +82,10 @@ button{font:inherit}
 .cta:active{transform:translateY(3px);box-shadow:0 1px 0 #C99A1E}
 .cta.alt{background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.7);box-shadow:0 8px 22px rgba(0,0,0,.2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .cta.alt:active{box-shadow:none;background:rgba(255,255,255,.28)}
-.listening .ctas,.listening .qr{visibility:hidden}
+.listening .ctas,.listening .qr,.listening .mslot{visibility:hidden}
 /* cover footer: QR code bottom left; Listen and Read stacked on the right, above the round buttons (thumb reach) */
 .cfoot{display:flex;gap:14px;align-items:flex-end;direction:ltr;max-width:440px;margin:0 auto}
-.cfoot .ctas{flex:1 1 auto;flex-direction:column;gap:10px;max-width:none;margin:0 0 58px}
+.cfoot .ctas{flex:1 1 auto;flex-direction:column;gap:10px;max-width:none;margin:0}
 [dir=rtl] .cfoot .ctas{direction:rtl}
 .cfoot .cta{max-width:none;width:100%}
 .qr{flex:none;width:min(132px,35vw);aspect-ratio:1;padding:6px;border:0;border-radius:14px;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.28);cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -97,12 +97,14 @@ button{font:inherit}
 .qrbig p{margin:6px 0 0;text-align:center;font:700 18px var(--body);color:#2B2233}
 @keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
 .chip{font:700 15px var(--body);white-space:nowrap;background:rgba(255,255,255,.94);color:#2B2233;border-radius:999px;padding:9px 15px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);text-shadow:none}
-body:not(.at-cover) .bar .chip{display:none}
-/* on the cover all the buttons sit bottom right */
-.at-cover .bar{top:auto;left:auto;right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px) + var(--gap));direction:ltr}
-.at-cover .bar .count,.at-cover .bar .sp{display:none}
+/* on the cover the round buttons live in the page itself: the menu beside the subtitle, the language under Read.
+   The top bar then only shows the pause button while the cover is being read aloud. */
 .at-cover #read:not([aria-pressed=true]){display:none}
-.at-cover .menu{top:auto;bottom:56px}
+.subrow{position:relative;direction:ltr}
+.subrow .sub{padding:0 54px}
+.mslot{position:absolute;right:0;top:50%;transform:translateY(-50%)}
+.mslot .menu{top:auto;bottom:56px;text-align:start;text-shadow:none}
+.cfoot .chip{align-self:flex-end;margin-top:2px}
 
 /* prayer and grown-ups pages */
 .pg.prayer .txt,.pg.grownups .txt{font-size:calc(var(--k) * clamp(15px,4vw,20px))}

@@ -110,7 +110,7 @@ function pageHTML(pg, i) {
   const art = `art/${pg.art}`;
   let body = '';
   if (pg.kind === 'cover') {
-    body = `<h1>${esc(T.pages.cover ? T.pages.cover.title : T.title)}</h1><p class="sub">${esc(d.subtitle)}</p><div class="cfoot"><button class="qr" id="qr" aria-label="${esc(UI.share || 'Share')}"></button><div class="ctas">${META.narration || DEMO ? `<button class="cta" data-listen>${ICON.speaker}<span>${esc(d.listen || UI.read)}</span></button>` : ''}<button class="cta${META.narration || DEMO ? ' alt' : ''}" data-go="1">${BOOK}<span>${esc(d.cta)}</span></button></div></div>`;
+    body = `<h1>${esc(T.pages.cover ? T.pages.cover.title : T.title)}</h1><div class="subrow"><p class="sub">${esc(d.subtitle)}</p><span class="mslot"></span></div><div class="cfoot"><button class="qr" id="qr" aria-label="${esc(UI.share || 'Share')}"></button><div class="ctas">${META.narration || DEMO ? `<button class="cta" data-listen>${ICON.speaker}<span>${esc(d.listen || UI.read)}</span></button>` : ''}<button class="cta${META.narration || DEMO ? ' alt' : ''}" data-go="1">${BOOK}<span>${esc(d.cta)}</span></button></div></div>`;
   } else if (pg.kind === 'story') {
     const lines = d.text.flat();
     body = `<div class="full"><p class="num">${i + 1 - OFF}</p>${d.text.map(p => `<p class="para">${p.map(esc).join(J())}</p>`).join('')}<p class="ref">${esc(d.ref)}</p></div>` +
@@ -274,6 +274,9 @@ function edgeColor(i) {
 function paintEdge() { const at = cur; edgeColor(at).then(c => { if (c && cur === at) document.documentElement.style.setProperty('--edge', c); }); }
 function setCount() {
   paintEdge(); document.body.classList.toggle('at-cover', cur === 0);
+  // on the cover the menu button sits beside the subtitle, in thumb reach; on the story pages it is back in the top bar
+  const mw = $('.mwrap'), slot = document.querySelector('.mslot');
+  if (mw && slot) { const to = cur === 0 ? slot : $('.bar'); if (mw.parentNode !== to) { closeMenus(); to.appendChild(mw); } }
   const c = $('#count'); c.textContent = `${cur + 1 - OFF} / ${N - OFF}`; c.classList.toggle('hide', cur === 0); $('#homeBtn').hidden = cur === 0;
   if (TRACK) { const p = `${ROOT.pathname}${L}/` + (cur < OFF ? '' : `p${cur + 1 - OFF}`); if (location.pathname !== p) history.pushState({ p: cur }, '', p); }
 }
@@ -561,7 +564,7 @@ function setupControls() {
   $('#mLangs').href = ROOT + 'languages.html';
   // on the cover the language name sits with the other buttons, bottom right, where the thumb is
   const chip = document.createElement('a'); chip.className = 'chip'; chip.href = ROOT + 'languages.html'; chip.textContent = META.name;
-  read.before(chip);
+  const ctas = document.querySelector('.cfoot .ctas'); if (ctas) ctas.appendChild(chip);
   setupQR();
 
   const U = L.toUpperCase(), mv = $('#mVideo');
