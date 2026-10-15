@@ -208,12 +208,22 @@ addEventListener('keydown', e => {
   if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); goTo(cur - 1); }
   if (e.key === 'Escape') closeMenus();
 });
+const clipMem = {};
+function fetchClip(v) {
+  if (v.src || v._fetching) return; v._fetching = true;
+  const u = v.dataset.src;
+  (clipMem[u] || (clipMem[u] = fetch(u).then(r => { if (!r.ok) throw 0; return r.blob(); }).then(b => URL.createObjectURL(b))))
+    .then(b => { if (!v.src) { v.preload = 'auto'; v.src = b; } })
+    .catch(() => { delete clipMem[u]; if (!v.src) { v.preload = 'auto'; v.src = u; } });
+}
 function preload() {
   [cur + 1, cur + 2].forEach(i => secs[i] && secs[i].querySelectorAll('img[loading=lazy]').forEach(im => { im.loading = 'eager'; }));
   // decode the next page's pictures now, so the slide to it never waits on them
   secs[cur + 1] && secs[cur + 1].querySelectorAll('img').forEach(im => { if (im.decode) im.decode().catch(() => {}); });
   // this page's scene starts downloading now; the next page's waits until this page's pictures have had their turn
-  const load = i => secs[i] && secs[i].querySelectorAll('video').forEach(v => { if (!v.src) { v.preload = 'auto'; v.src = v.dataset.src; } });
+  // iPhones ignore preload="auto" and only start fetching a video when it is told to play, so a scene could miss its
+  // moment on a slow connection. Instead the whole file is downloaded ahead of time and played from memory.
+  const load = i => secs[i] && secs[i].querySelectorAll('video').forEach(fetchClip);
   load(cur); const at = cur; setTimeout(() => { if (cur === at) load(at + 1); }, 1500);
   [cur, cur + 1].forEach(i => secs[i] && (S.pages[i].clips || []).forEach(c => { if (c.end && !NOCLIPS) new Image().src = url(`art/${c.end}-soft.webp`); }));
   // while reading aloud, the next page's music loads too, so it is ready when the page turns
@@ -435,7 +445,8 @@ function resetClips(i) {
   vs.forEach(v => { v._gen = (v._gen || 0) + 1; v.pause(); v.classList.remove('on'); try { v.currentTime = 0; } catch (e) {} });
   setSoft(sec, null);
 }
-const WAIT = 2500;  // how long a clip may take to start before the page carries on with the still picture
+const WAIT = 2500, WAIT_READ = 7000;  // how long a clip may take to start before the page carries on with the still picture
+// (longer while reading aloud: the narration carries on regardless, and a scene that starts a little late is better than none)
 function playClip(i, j, withSound) {
   const sec = secs[i], v = sec && sec.querySelectorAll('video')[j], c = S.pages[i].clips[j];
   if (!v || sec._skip) return Promise.resolve(false);
@@ -445,7 +456,8 @@ function playClip(i, j, withSound) {
     let done = false, started = false, giveUp = 0, cap = 0;
     const end = ok => {
       if (done) return; done = true; clearTimeout(giveUp); clearTimeout(cap);
-      if (!ok) { sec._skip = true; if (!started) { v.pause(); v.classList.remove('on'); } }
+      // a broken file skips the page's other scenes too; a slow one only gives up on itself
+      if (!ok) { if (v.error || !reading) sec._skip = true; if (!started) { v.pause(); v.classList.remove('on'); } }
       else if (!stale() && c.end) setSoft(sec, c.end);
       res(ok);
     };
@@ -466,7 +478,7 @@ function playClip(i, j, withSound) {
     v.onended = () => { if (!stale()) end(true); };
     try { v.currentTime = 0; } catch (e) {}
     const p = v.play(); if (p && p.catch) p.catch(() => end(false));
-    giveUp = setTimeout(() => { if (!started) end(false); }, WAIT);
+    giveUp = setTimeout(() => { if (!started) end(false); }, reading ? WAIT_READ : WAIT);
   });
 }
 function autoClips(i) {
