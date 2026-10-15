@@ -121,6 +121,12 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
   - Rebuild the downloadable videos once languages are recorded (`video.py`).
 - **Decided:** the cover, prayer and grown-ups pages keep still pictures (no clips).
 
+## Cover layout (15 Oct 2026)
+
+- Everything is in thumb reach at the bottom: Listen and Read stacked on the right, with the language name and the ⋯ menu below them (the menu opens upward). The sound button appears there only while the book is reading aloud (as the pause button).
+- Bottom left is a QR code for the same language's link (`<site>/<code>/`, plus `?preview=1` for a language not yet listed). Tapping it shows it large for a friend to scan. It is drawn on the phone from `qr.js` (qrcode-generator 1.4.4, MIT), so it is right on the test site and on the real domain.
+- When reading or listening starts, the cover buttons and QR fade away as before. Story pages keep their buttons at the top.
+
 ## Future idea (decided 13 Oct 2026: keep the current timing for now)
 
 **Full-page clips with per-language time-stretch.** Rebuild later, not now.

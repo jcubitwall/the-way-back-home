@@ -110,7 +110,7 @@ function pageHTML(pg, i) {
   const art = `art/${pg.art}`;
   let body = '';
   if (pg.kind === 'cover') {
-    body = `<h1>${esc(T.pages.cover ? T.pages.cover.title : T.title)}</h1><p class="sub">${esc(d.subtitle)}</p><div class="ctas">${META.narration || DEMO ? `<button class="cta" data-listen>${ICON.speaker}<span>${esc(d.listen || UI.read)}</span></button>` : ''}<button class="cta${META.narration || DEMO ? ' alt' : ''}" data-go="1">${BOOK}<span>${esc(d.cta)}</span></button></div>`;
+    body = `<h1>${esc(T.pages.cover ? T.pages.cover.title : T.title)}</h1><p class="sub">${esc(d.subtitle)}</p><div class="cfoot"><button class="qr" id="qr" aria-label="${esc(UI.share || 'Share')}"></button><div class="ctas">${META.narration || DEMO ? `<button class="cta" data-listen>${ICON.speaker}<span>${esc(d.listen || UI.read)}</span></button>` : ''}<button class="cta${META.narration || DEMO ? ' alt' : ''}" data-go="1">${BOOK}<span>${esc(d.cta)}</span></button></div></div>`;
   } else if (pg.kind === 'story') {
     const lines = d.text.flat();
     body = `<div class="full"><p class="num">${i + 1 - OFF}</p>${d.text.map(p => `<p class="para">${p.map(esc).join(J())}</p>`).join('')}<p class="ref">${esc(d.ref)}</p></div>` +
@@ -122,7 +122,7 @@ function pageHTML(pg, i) {
   }
   // a page with a scene only shows its picture until the 720-wide clip takes over, so on a phone the 720 picture is enough
   const vid = !NOCLIPS && !BIG && (pg.clips || []).length > 0;
-  const chip = pg.kind === 'cover' ? `<a class="chip" href="${ROOT}languages.html">${esc(META.name)}</a>` : '';
+  const chip = '';
   const sh = mix(pg.tint, 0.42), sm = mix(pg.tint, 0.5), lazy = i > 1 ? 'loading="lazy"' : '';
   return `<section class="pg ${pg.kind}" data-i="${i}" aria-label="${pg.kind === 'cover' ? esc(pg.kind) : esc(UI.page || 'Page') + ' ' + (i + 1 - OFF)}" style="--tint:${pg.tint};--shade:${rgb(sh, .72)};--shade-mid:${rgb(sm, .5)}">
 <img class="bg" alt="" aria-hidden="true" decoding="async" ${lazy} src="${url(art + '-soft.webp')}">
@@ -273,7 +273,7 @@ function edgeColor(i) {
 }
 function paintEdge() { const at = cur; edgeColor(at).then(c => { if (c && cur === at) document.documentElement.style.setProperty('--edge', c); }); }
 function setCount() {
-  paintEdge();
+  paintEdge(); document.body.classList.toggle('at-cover', cur === 0);
   const c = $('#count'); c.textContent = `${cur + 1 - OFF} / ${N - OFF}`; c.classList.toggle('hide', cur === 0); $('#homeBtn').hidden = cur === 0;
   if (TRACK) { const p = `${ROOT.pathname}${L}/` + (cur < OFF ? '' : `p${cur + 1 - OFF}`); if (location.pathname !== p) history.pushState({ p: cur }, '', p); }
 }
@@ -523,6 +523,28 @@ function closeMenus() { $('#menu').hidden = true; $('#msgMenu').hidden = true; $
 // count a tap as a visit to a made-up address, so it shows up in the anonymous visitor stats
 function count(what) { if (!TRACK) return; try { const b = location.pathname; history.pushState(null, '', `${ROOT.pathname}dl/${L}-${what}`); history.replaceState(null, '', b); } catch (e) {} }
 
+/* the cover's QR code opens this same language on a friend's phone; a tap shows it large for easy scanning */
+function qrLink() {
+  const u = new URL(L + '/', ROOT); if (!META.ready) u.searchParams.set('preview', '1');
+  return u.href;
+}
+function qrSVG(text) {
+  const q = qrcode(0, 'M'); q.addData(text); q.make();
+  const n = q.getModuleCount(), m = 2; let d = '';
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (q.isDark(y, x)) d += `M${x + m} ${y + m}h1v1h-1z`;
+  return `<svg viewBox="0 0 ${n + 2 * m} ${n + 2 * m}" shape-rendering="crispEdges" aria-hidden="true"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#1d1a24"/></svg>`;
+}
+function setupQR() {
+  const b = $('#qr'); if (!b) return;
+  const draw = () => { b.innerHTML = qrSVG(qrLink()); };
+  if (window.qrcode) draw();
+  else { const sc = document.createElement('script'); sc.src = url('qr.js'); sc.onload = draw; sc.onerror = () => { b.hidden = true; }; document.head.appendChild(sc); }
+  b.onclick = e => {
+    e.stopPropagation(); if (!b.firstChild) return;
+    const o = document.createElement('div'); o.className = 'qrbig'; o.innerHTML = `<div>${b.innerHTML}<p>${esc(META.name)}</p></div>`;
+    o.onclick = () => o.remove(); document.body.appendChild(o);
+  };
+}
 function setupControls() {
   const read = $('#read');
   read.hidden = !(META.narration || DEMO);
@@ -537,6 +559,10 @@ function setupControls() {
   mb.onclick = e => { e.stopPropagation(); const o = menu.hidden; closeMenus(); menu.hidden = !o; mb.setAttribute('aria-expanded', o); };
   document.addEventListener('click', e => { if (!e.target.closest('.menu') && !e.target.closest('#menuBtn')) closeMenus(); });
   $('#mLangs').href = ROOT + 'languages.html';
+  // on the cover the language name sits with the other buttons, bottom right, where the thumb is
+  const chip = document.createElement('a'); chip.className = 'chip'; chip.href = ROOT + 'languages.html'; chip.textContent = META.name;
+  read.before(chip);
+  setupQR();
 
   const U = L.toUpperCase(), mv = $('#mVideo');
   if (META.video) { mv.href = ROOT + `video/The-Way-Back-Home_${U}.mp4`; mv.setAttribute('download', `The-Way-Back-Home_${U}.mp4`); }

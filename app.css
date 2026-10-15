@@ -73,7 +73,7 @@ button{font:inherit}
 .render .caps .cap{transition:none}
 
 /* cover */
-.pg.cover .txt{text-align:center;padding-bottom:calc(48px + env(safe-area-inset-bottom,0px) + var(--gap))}
+.pg.cover .txt{text-align:center;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px) + var(--gap))}
 .cover h1{font-family:var(--display);font-weight:900;font-size:calc(var(--k) * clamp(48px,14vw,84px));line-height:.98;margin:0;text-shadow:0 4px 0 rgba(0,0,0,.18),0 2px 18px rgba(0,0,0,.35)}
 .cover .sub{font-size:1.08em;margin:.6em 0 1.1em;opacity:.96}
 .ctas{display:flex;justify-content:center;gap:12px;max-width:360px;margin:0 auto}
@@ -82,10 +82,27 @@ button{font:inherit}
 .cta:active{transform:translateY(3px);box-shadow:0 1px 0 #C99A1E}
 .cta.alt{background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.7);box-shadow:0 8px 22px rgba(0,0,0,.2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .cta.alt:active{box-shadow:none;background:rgba(255,255,255,.28)}
-.listening .ctas{visibility:hidden}
+.listening .ctas,.listening .qr{visibility:hidden}
+/* cover footer: QR code bottom left; Listen and Read stacked on the right, above the round buttons (thumb reach) */
+.cfoot{display:flex;gap:14px;align-items:flex-end;direction:ltr;max-width:440px;margin:0 auto}
+.cfoot .ctas{flex:1 1 auto;flex-direction:column;gap:10px;max-width:none;margin:0 0 58px}
+[dir=rtl] .cfoot .ctas{direction:rtl}
+.cfoot .cta{max-width:none;width:100%}
+.qr{flex:none;width:min(132px,35vw);aspect-ratio:1;padding:6px;border:0;border-radius:14px;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.28);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.qr svg{display:block;width:100%;height:100%;border-radius:8px}
+.qr:empty{visibility:hidden}
+.qrbig{position:fixed;inset:0;z-index:30;background:rgba(20,16,30,.62);display:grid;place-items:center;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.qrbig>div{width:min(82vw,420px);background:#fff;border-radius:24px;padding:16px 16px 10px;box-shadow:0 18px 50px rgba(0,0,0,.4)}
+.qrbig svg{display:block;width:100%;height:auto}
+.qrbig p{margin:6px 0 0;text-align:center;font:700 18px var(--body);color:#2B2233}
 @keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
-.chip{position:absolute;z-index:4;top:calc(14px + env(safe-area-inset-top,0px));left:14px;font:700 15px var(--body);background:rgba(255,255,255,.94);color:#2B2233;border-radius:999px;padding:9px 15px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);text-shadow:none}
-[dir=rtl] .chip{left:auto;right:14px}
+.chip{font:700 15px var(--body);white-space:nowrap;background:rgba(255,255,255,.94);color:#2B2233;border-radius:999px;padding:9px 15px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);text-shadow:none}
+body:not(.at-cover) .bar .chip{display:none}
+/* on the cover all the buttons sit bottom right */
+.at-cover .bar{top:auto;left:auto;right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px) + var(--gap));direction:ltr}
+.at-cover .bar .count,.at-cover .bar .sp{display:none}
+.at-cover #read:not([aria-pressed=true]){display:none}
+.at-cover .menu{top:auto;bottom:56px}
 
 /* prayer and grown-ups pages */
 .pg.prayer .txt,.pg.grownups .txt{font-size:calc(var(--k) * clamp(15px,4vw,20px))}
