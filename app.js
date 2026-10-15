@@ -110,7 +110,7 @@ function pageHTML(pg, i) {
   const art = `art/${pg.art}`;
   let body = '';
   if (pg.kind === 'cover') {
-    body = `<h1>${esc(T.pages.cover ? T.pages.cover.title : T.title)}</h1><div class="subrow"><p class="sub">${esc(d.subtitle)}</p><span class="mslot"></span></div><div class="cfoot"><button class="qr" id="qr" aria-label="${esc(UI.share || 'Share')}"></button><div class="ctas">${META.narration || DEMO ? `<button class="cta" data-listen>${ICON.speaker}<span>${esc(d.listen || UI.read)}</span></button>` : ''}<button class="cta${META.narration || DEMO ? ' alt' : ''}" data-go="1">${BOOK}<span>${esc(d.cta)}</span></button></div></div>`;
+    body = `<h1>${esc(T.pages.cover ? T.pages.cover.title : T.title)}</h1><div class="subrow"><p class="sub">${esc(d.subtitle)}</p><span class="mslot"></span></div><div class="cfoot"><button class="qr" id="qr" aria-label="${esc(UI.share || 'Share')}"></button><div class="ctas">${META.narration || DEMO ? `<button class="cta alt" data-listen>${ICON.speaker}<span>${esc(d.listen || UI.read)}</span></button>` : ''}<button class="cta alt" data-go="1">${BOOK}<span>${esc(d.cta)}</span></button></div></div>`;
   } else if (pg.kind === 'story') {
     const lines = d.text.flat();
     body = `<div class="full"><p class="num">${i + 1 - OFF}</p>${d.text.map(p => `<p class="para">${p.map(esc).join(J())}</p>`).join('')}<p class="ref">${esc(d.ref)}</p></div>` +
@@ -548,6 +548,7 @@ function setupQR() {
     o.onclick = () => o.remove(); document.body.appendChild(o);
   };
 }
+const GLOBE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg>';
 function setupControls() {
   const read = $('#read');
   read.hidden = !(META.narration || DEMO);
@@ -561,9 +562,9 @@ function setupControls() {
   const menu = $('#menu'), mb = $('#menuBtn');
   mb.onclick = e => { e.stopPropagation(); const o = menu.hidden; closeMenus(); menu.hidden = !o; mb.setAttribute('aria-expanded', o); };
   document.addEventListener('click', e => { if (!e.target.closest('.menu') && !e.target.closest('#menuBtn')) closeMenus(); });
-  $('#mLangs').href = ROOT + 'languages.html';
   // on the cover the language name sits with the other buttons, bottom right, where the thumb is
-  const chip = document.createElement('a'); chip.className = 'chip'; chip.href = ROOT + 'languages.html'; chip.textContent = META.name;
+  const chip = document.createElement('a'); chip.className = 'cta alt lang'; chip.href = ROOT + 'languages.html';
+  chip.innerHTML = `${GLOBE}<span>${esc(META.name)}</span>`; chip.setAttribute('aria-label', `${UI.langs || 'Languages'}: ${META.name}`);
   const ctas = document.querySelector('.cfoot .ctas'); if (ctas) ctas.appendChild(chip);
   setupQR();
 

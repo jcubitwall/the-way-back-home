@@ -104,7 +104,7 @@ button{font:inherit}
 .subrow .sub{padding:0 54px}
 .mslot{position:absolute;right:0;top:50%;transform:translateY(-50%)}
 .mslot .menu{top:auto;bottom:56px;text-align:start;text-shadow:none}
-.cfoot .chip{align-self:flex-end;margin-top:2px}
+.cfoot .lang{text-decoration:none}
 
 /* prayer and grown-ups pages */
 .pg.prayer .txt,.pg.grownups .txt{font-size:calc(var(--k) * clamp(15px,4vw,20px))}
