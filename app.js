@@ -168,6 +168,7 @@ function fitAll() {
     };
     fit();
   });
+  placeBar();
 }
 
 
@@ -275,7 +276,18 @@ function edgeColor(i) {
   });
 }
 function paintEdge() { const at = cur; edgeColor(at).then(c => { if (c && cur === at) document.documentElement.style.setProperty('--edge', c); }); }
+// the round buttons float just above where this page's text starts (home lowest), never over the words
+function placeBar() {
+  const sec = secs[cur]; if (!sec) return;
+  const t = sec.querySelector('.txt'), st = sec.querySelector('.stage'); if (!t || !st) return;
+  const gap = Math.max(0, book.clientHeight - innerHeight);       // the part of the page hidden behind the browser's bar
+  let b = st.clientHeight - t.offsetTop - gap + 12;
+  b = Math.max(12, Math.min(b, innerHeight - 158 - 64));            // keep the whole stack on screen, below the page count
+  document.documentElement.style.setProperty('--bb', Math.round(b) + 'px');
+}
+addEventListener('resize', () => setTimeout(placeBar, 50));
 function setCount() {
+  placeBar();
   paintEdge(); document.body.classList.toggle('at-cover', cur === 0);
   // on the cover the menu button sits beside the subtitle, in thumb reach; on the story pages it is back in the top bar
   const mw = $('.mwrap'), slot = document.querySelector('.mslot');
