@@ -299,21 +299,38 @@ function warmMood() {
   Object.keys(moods).forEach(k => { if (!keep.includes(k) && !(mPlaying && mPlaying.name === k)) { delete moods[k]; bufs.delete(url(`music/cue_${k}.mp3`)); } });
   keep.forEach(n => { if (n && !moods[n]) { moods[n] = loadBuf(url(`music/cue_${n}.mp3`)); moods[n].catch(() => delete moods[n]); } });
 }
-async function setMood(n) {
+async function setMood(n, early) {
   if (!actx || !n || (mPlaying && mPlaying.name === n)) return;
   let buf; try { buf = await (moods[n] || (moods[n] = loadBuf(url(`music/cue_${n}.mp3`)))); } catch (e) { return; }
-  if (!reading || S.pages[cur].mood !== n || (mPlaying && mPlaying.name === n)) return;
-  const now = actx.currentTime, src = actx.createBufferSource(), g = actx.createGain();
-  src.buffer = buf; src.loop = true;
-  src.connect(g); g.connect(mBus); src.start(now);
+  // "early": the handover to the next page's piece, started during the page turn
+  const want = early ? [S.pages[cur].mood, S.pages[cur + 1] && S.pages[cur + 1].mood] : [S.pages[cur].mood];
+  if (!reading || !want.includes(n) || (mPlaying && mPlaying.name === n)) return;
+  const now = actx.currentTime, g = actx.createGain();
+  g.connect(mBus);
   // equal-power crossfade: the two pieces overlap without a dip or a bump in loudness
   fadeCurve(g.gain, 0, 1, XFADE, now);
-  if (mPlaying) { const o = mPlaying; fadeCurve(o.g.gain, o.g.gain.value, 0, XFADE, now); try { o.src.stop(now + XFADE + 0.2); } catch (e) {} }
-  mPlaying = { name: n, src, g };
+  if (mPlaying) { const o = mPlaying; fadeCurve(o.g.gain, o.g.gain.value, 0, XFADE, now); stopTrack(o, now + XFADE + 0.2); }
+  const mp = { name: n, g, srcs: [], timer: 0 };
+  mPlaying = mp;
+  playCopy(mp, buf, now, false);
 }
+// a long page (or a slow language) can outlast its piece: instead of jumping from the piece's soft ending back
+// to its start, a fresh copy fades in under the ending, so the music carries on without a seam
+const LOOP_OVERLAP = 5, LOOP_FADE = 3;
+function playCopy(mp, buf, at, fadeIn) {
+  const s = actx.createBufferSource(), sg = actx.createGain();
+  s.buffer = buf; s.connect(sg); sg.connect(mp.g);
+  if (fadeIn) fadeCurve(sg.gain, 0, 1, LOOP_FADE, at); else sg.gain.value = 1;
+  s.start(at); mp.srcs.push(s);
+  s.onended = () => { mp.srcs = mp.srcs.filter(x => x !== s); };
+  const next = at + Math.max(LOOP_OVERLAP + 1, buf.duration - LOOP_OVERLAP);
+  mp.timer = setTimeout(() => { if (mPlaying === mp) playCopy(mp, buf, Math.max(next, actx.currentTime + 0.05), true); },
+    Math.max(0, next - actx.currentTime - 0.4) * 1000);
+}
+function stopTrack(mp, when) { clearTimeout(mp.timer); mp.srcs.forEach(s => { try { s.stop(when); } catch (e) {} }); }
 if (Q.has('debug')) window.__twbh = { get music() { return mPlaying && { name: mPlaying.name, gain: mPlaying.g.gain.value, hushed: !!mPlaying.hushed }; }, get sfx() { return !!sfxNow; } };
 function hushMusic() { if (mPlaying) { glide(mPlaying.g.gain, 0, 2.5); mPlaying.hushed = true; } }
-function musicStop() { musicLevel(0, 1.5); const p = mPlaying; mPlaying = null; if (p) setTimeout(() => { try { p.src.stop(); } catch (e) {} }, 1700); }
+function musicStop() { musicLevel(0, 1.5); const p = mPlaying; mPlaying = null; if (p) { clearTimeout(p.timer); setTimeout(() => stopTrack(p, 0), 1700); } }
 function stopNarr() { if (narr) { try { narr.onended = null; narr.stop(); } catch (e) {} narr = null; } }
 
 // when no cues were recorded, spread the sentences over the narration by their length
@@ -351,7 +368,13 @@ async function speak() {
     musicLevel(MUSIC_UP, 1.2);
     clips.forEach(c => { if (!c.done) scene(c); });
     const t = performance.now();
-    scenes.then(() => setTimeout(() => { if (live()) { if (cur < N - 1) goTo(cur + 1); else setRead(false); } }, Math.max(900, 1600 - (performance.now() - t))));
+    scenes.then(() => {
+      // the next page's music starts fading in now, while this page holds and slides away, so the change of piece
+      // happens across the page turn instead of at the first word of the next page
+      const nx = S.pages[cur + 1];
+      if (live() && nx && nx.mood && nx.mood !== pg.mood) setMood(nx.mood, true);
+      setTimeout(() => { if (live()) { if (cur < N - 1) goTo(cur + 1); else setRead(false); } }, Math.max(900, 1600 - (performance.now() - t)));
+    });
   };
   const tick = () => {
     if (!live()) return;

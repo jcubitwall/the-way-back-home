@@ -97,6 +97,10 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
   - Two clips cut from one take at 6.75 s. Clip 1 is anchored to "Sin locks us out" (sentence 1, offset −1.2 s, so the bars appear on those words) and freezes on the bars. Clip 2 is anchored to "The Bible says that if we die…" (sentence 3, offset −1.2 s), and `pauses` holds ≥1.4 s before it, so the boom lands in silence.
   - The boom peaks at −1 dB; the rumble and the heaven-reveal sound sit about 8–10 dB under the narration.
   - Known flaw in Johnny's take: between about 3 and 8 s, two Hebrew words on the tablet warp (כבד → "כב״", תחמד → "תוזמד"), and a few red spots appear on the stone. If he re-rolls it, ask for the lettering to stay unchanged.
+- **Music between pages (fixed 15 Oct 2026).** In app.js:
+  - When the next page has a different piece, the crossfade (3.5 s) starts while the current page holds and slides away, instead of at the next page's first word.
+  - When a page outlasts its piece (long or slow languages; German prayer + grown-ups already do), a fresh copy fades in 5 s before the end instead of jumping back to the loud start.
+  - Tested in a browser: tomb → gates handover, and the German prayer pages running past 85 s.
 - **Pages 5, 6 and 7, check the music by ear.** Page 6's track may be too bright for "our sin keeps us far from God"; page 7 could use more tension; page 5's opening could be sadder.
 - **Scene timing in other languages.** Clip offsets were tuned to the English. Spot-check pages 6–8 in each new language.
 - **"Message us" email** (hello@thewaybackhome.net, Cloudflare routing): a test sent from iCloud bounced. A test from a non-iCloud account is still pending. An in-book form is an option.
