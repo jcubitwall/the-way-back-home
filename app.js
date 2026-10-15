@@ -284,7 +284,7 @@ function glide(p, to, secs) {
   if (p.cancelAndHoldAtTime) p.cancelAndHoldAtTime(now); else { p.cancelScheduledValues(now); p.setValueAtTime(p._lvl != null ? p._lvl : p.value, now); }
   p.setTargetAtTime(to, now, Math.max(0.05, secs / 3)); p._lvl = to;
 }
-const MUSIC_UP = 0.63, MUSIC_DUCK = 0.294, XFADE = 3.5;
+const MUSIC_UP = 0.63, MUSIC_DUCK = 0.294, XFADE = 3.5, FROM_HUSH = 9;
 function fadeCurve(p, from, to, secs, at) {
   const n = 64, c = new Float32Array(n);
   for (let k = 0; k < n; k++) { const x = k / (n - 1); c[k] = from + (to - from) * (to > from ? Math.sin(x * Math.PI / 2) : 1 - Math.cos(x * Math.PI / 2)); }
@@ -307,8 +307,10 @@ async function setMood(n, early) {
   if (!reading || !want.includes(n) || (mPlaying && mPlaying.name === n)) return;
   const now = actx.currentTime, g = actx.createGain();
   g.connect(mBus);
-  // equal-power crossfade: the two pieces overlap without a dip or a bump in loudness
-  fadeCurve(g.gain, 0, 1, XFADE, now);
+  // equal-power crossfade: the two pieces overlap without a dip or a bump in loudness;
+  // out of a hushed silence the new piece creeps in slowly instead
+  const fromHush = mPlaying && mPlaying.hushed;
+  fadeCurve(g.gain, 0, 1, fromHush ? FROM_HUSH : XFADE, now);
   if (mPlaying) { const o = mPlaying; fadeCurve(o.g.gain, o.g.gain.value, 0, XFADE, now); stopTrack(o, now + XFADE + 0.2); }
   const mp = { name: n, g, srcs: [], timer: 0 };
   mPlaying = mp;
@@ -365,14 +367,15 @@ async function speak() {
   };
   // the page turns once the narration has finished and the last scene has frozen on its final frame
   const finish = () => {
-    musicLevel(MUSIC_UP, 1.2);
+    const hushed = mPlaying && mPlaying.hushed;   // a scene hushed the music: keep the silence through the turn
+    if (!hushed) musicLevel(MUSIC_UP, 1.2);
     clips.forEach(c => { if (!c.done) scene(c); });
     const t = performance.now();
     scenes.then(() => {
       // the next page's music starts fading in now, while this page holds and slides away, so the change of piece
       // happens across the page turn instead of at the first word of the next page
       const nx = S.pages[cur + 1];
-      if (live() && nx && nx.mood && nx.mood !== pg.mood) setMood(nx.mood, true);
+      if (live() && nx && nx.mood && nx.mood !== pg.mood && !hushed) setMood(nx.mood, true);
       setTimeout(() => { if (live()) { if (cur < N - 1) goTo(cur + 1); else setRead(false); } }, Math.max(900, 1600 - (performance.now() - t)));
     });
   };

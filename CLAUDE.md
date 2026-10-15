@@ -103,6 +103,7 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
   - When the next page has a different piece, the crossfade (3.5 s) starts while the current page holds and slides away, instead of at the next page's first word.
   - When a page outlasts its piece (long or slow languages; German prayer + grown-ups already do), a fresh copy fades in 5 s before the end instead of jumping back to the loud start.
   - Tested in a browser: tomb → gates handover, and the German prayer pages running past 85 s.
+  - After a page whose scene hushed the music (page 7, from the crack onward), there is no swell and no early handover: the silence carries across the turn, and the next piece fades in over 9 s (FROM_HUSH) under the narration. Johnny wanted the 7 → 8 change less abrupt and the hush kept.
 - **Pages 5, 6 and 7, check the music by ear.** Page 6's track may be too bright for "our sin keeps us far from God"; page 7 could use more tension; page 5's opening could be sadder.
 - **Scene timing in other languages.** Clip offsets were tuned to the English. Spot-check pages 6–8 in each new language.
 - **"Message us" email** (hello@thewaybackhome.net, Cloudflare routing): a test sent from iCloud bounced. A test from a non-iCloud account is still pending. An in-book form is an option.
