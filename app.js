@@ -539,12 +539,14 @@ function qrSVG(text) {
 }
 function sizeQR() {  // the QR code is exactly as tall as the stack of buttons beside it (capped so it never crowds them)
   const b = $('#qr'), c = document.querySelector('.cfoot .ctas'); if (!b || !c || !c.offsetHeight) return;
-  b.style.width = Math.min(c.offsetHeight, innerWidth * 0.45) + 'px';
+  const h = Math.min(c.getBoundingClientRect().height, innerWidth * 0.45) + 'px';
+  b.style.width = h; b.style.height = h;
 }
 addEventListener('resize', sizeQR);
 function setupQR() {
   const b = $('#qr'); if (!b) return;
   sizeQR(); if (document.fonts) document.fonts.ready.then(sizeQR);
+  if (window.ResizeObserver) new ResizeObserver(sizeQR).observe(document.querySelector('.cfoot .ctas'));
   const draw = () => { b.innerHTML = qrSVG(qrLink()); };
   if (window.qrcode) draw();
   else { const sc = document.createElement('script'); sc.src = url('qr.js'); sc.onload = draw; sc.onerror = () => { b.hidden = true; }; document.head.appendChild(sc); }

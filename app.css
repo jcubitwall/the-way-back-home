@@ -88,7 +88,7 @@ button{font:inherit}
 .cfoot .ctas{flex:1 1 auto;flex-direction:column;gap:10px;max-width:none;margin:0}
 [dir=rtl] .cfoot .ctas{direction:rtl}
 .cfoot .cta{max-width:none;width:100%}
-.qr{flex:none;width:min(132px,35vw);aspect-ratio:1;padding:6px;border:0;border-radius:14px;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.28);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.qr{flex:none;box-sizing:border-box;width:min(132px,35vw);aspect-ratio:1;padding:6px;border:0;border-radius:14px;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.28);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .qr svg{display:block;width:100%;height:100%;border-radius:8px}
 .qr:empty{visibility:hidden}
 .qrbig{position:fixed;inset:0;z-index:30;background:rgba(20,16,30,.62);display:grid;place-items:center;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
