@@ -93,10 +93,12 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
   - The crack sound was made louder on purpose (peak −1 dB, about 7 dB louder than the other scene sounds), and the music hushes from the crack onward.
   - Grok tip: never write "turn around" in a prompt. Describe the backs as fixed, put every emotion on the reflections, and put turning words only in the negative prompt.
 - **Page 6 (road): new clip 14 Oct 2026.** Same story, from Adam and Eve to a growing crowd, but it ends with the three kids walking up the road toward the law stones, which leads into page 7. It is anchored to "Look at all these people!" (sentence 1, offset −6.6 s), so the busy road appears on those words in every language; in English the kids appear about 0.4 s before "we have all sinned".
-- **Page 8 (locked): DONE 14 Oct 2026.** New clip from Johnny that continues from page 7: shocked reflections, then the mirror shows heaven behind golden bars, a boom, and the mirror turns to fire (hell). It matches the CURRENT text, including "Sin locks us out of God's home…", so the text was NOT changed and nothing needs re-recording.
-  - Two clips cut from one take at 6.75 s. Clip 1 is anchored to "Sin locks us out" (sentence 1, offset −1.2 s, so the bars appear on those words) and freezes on the bars. Clip 2 is anchored to "The Bible says that if we die…" (sentence 3, offset −1.2 s), and `pauses` holds ≥1.4 s before it, so the boom lands in silence.
-  - The boom peaks at −1 dB; the rumble and the heaven-reveal sound sit about 8–10 dB under the narration.
-  - Known flaw in Johnny's take: between about 3 and 8 s, two Hebrew words on the tablet warp (כבד → "כב״", תחמד → "תוזמד"), and a few red spots appear on the stone. If he re-rolls it, ask for the lettering to stay unchanged.
+- **Page 8 (locked): replaced 15 Oct 2026 with Johnny's second take.** The take runs: shocked reflections, then heaven appears in the mirror, then a boom (3.6 s) as golden bars slam shut, then it darkens (7.25 s) and fire rises (8 s). The text is unchanged.
+  - Two clips cut at 7.0 s. Clip 1 is anchored to "Sin locks us out…" (sentence 1, offset −4.69 s), and `pauses` holds ≥1.4 s before sentence 1, so the boom lands in silence right before those words. It then freezes on the bars.
+  - Clip 2 is anchored to "The Bible says that if we die…" (sentence 3, offset +2.5 s), so the fire is full around "punished in a place called hell".
+  - The earlier pause before sentence 3 was removed: the en/de recordings were restored from git and re-paused.
+  - Sound: the opening ring sits at 12%; the boom is at full volume (−1 dB peak) and drops to 12% when the narrator resumes; clip 2's rumble is −12 dB.
+  - Still in this take: two Hebrew words warp briefly around 4–7 s, and red spots flicker around 3.75–4.5 s.
 - **Music between pages (fixed 15 Oct 2026).** In app.js:
   - When the next page has a different piece, the crossfade (3.5 s) starts while the current page holds and slides away, instead of at the next page's first word.
   - When a page outlasts its piece (long or slow languages; German prayer + grown-ups already do), a fresh copy fades in 5 s before the end instead of jumping back to the loud start.
