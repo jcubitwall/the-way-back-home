@@ -125,7 +125,8 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 
 - Everything is in thumb reach at the bottom right: the ⋯ menu beside the subtitle (it opens upward), then Listen, Read and the language (globe icon + name, opens languages.html) stacked, all three in the same glassy outline style Johnny chose (`.cta.alt`). Languages is no longer in the ⋯ menu. These are part of the cover page itself (app.js moves the menu into `.mslot` on the cover and back to the top bar on story pages), so they can never overlap on phones whose bottom edge differs. The top bar shows only the pause button while the cover is read aloud.
 - Bottom left is a QR code for the same language's link (`<site>/<code>/`, plus `?preview=1` for a language not yet listed). Tapping it shows it large for a friend to scan. It is drawn on the phone from `qr.js` (qrcode-generator 1.4.4, MIT), so it is right on the test site and on the real domain.
-- When reading or listening starts, the cover buttons and QR fade away as before. Story pages keep their buttons at the top.
+- When reading or listening starts, the cover buttons and QR fade away as before.
+- Story pages (15 Oct 2026): home, sound and ⋯ menu are stacked down the right edge in the middle of the screen (thumb side); the menu opens to their left. The page count stays small at top left. A page whose text is tall enough to reach the buttons gets the `narrow` class (set in fitAll), so its text wraps clear of them (e.g. prayer, grown-ups).
 
 ## Future idea (decided 13 Oct 2026: keep the current timing for now)
 

@@ -151,3 +151,10 @@ button{font:inherit}
 
 /* text grows with the page itself, so an iPad's wider page gets bigger words, not just more empty space */
 @supports (width:1cqw){.txt{font-size:calc(var(--k) * clamp(16px,4.3cqw,30px))}.pg.prayer .txt,.pg.grownups .txt{font-size:calc(var(--k) * clamp(15px,4cqw,28px))}.cover h1{font-size:calc(var(--k) * clamp(48px,14cqw,110px))}}
+/* story pages: home, sound and menu stacked down the right edge, middle of the screen (thumb side);
+   the page count stays small at the top */
+.bar{left:auto;right:calc(12px + env(safe-area-inset-right,0px));top:calc(50% - 79px);flex-direction:column;direction:ltr}
+.bar .sp{display:none}
+.bar .count{position:fixed;left:calc(12px + env(safe-area-inset-left,0px));top:calc(12px + env(safe-area-inset-top,0px))}
+.bar .menu{top:auto;bottom:0;right:58px}
+.pg.narrow .txt{padding-right:calc(74px + env(safe-area-inset-right,0px))}
