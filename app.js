@@ -284,7 +284,7 @@ function glide(p, to, secs) {
   if (p.cancelAndHoldAtTime) p.cancelAndHoldAtTime(now); else { p.cancelScheduledValues(now); p.setValueAtTime(p._lvl != null ? p._lvl : p.value, now); }
   p.setTargetAtTime(to, now, Math.max(0.05, secs / 3)); p._lvl = to;
 }
-const MUSIC_UP = 0.63, MUSIC_DUCK = 0.294, XFADE = 3.5, FROM_HUSH = 9;
+const MUSIC_UP = 0.63, MUSIC_DUCK = 0.294, XFADE = 3.5;
 function fadeCurve(p, from, to, secs, at) {
   const n = 64, c = new Float32Array(n);
   for (let k = 0; k < n; k++) { const x = k / (n - 1); c[k] = from + (to - from) * (to > from ? Math.sin(x * Math.PI / 2) : 1 - Math.cos(x * Math.PI / 2)); }
@@ -308,9 +308,7 @@ async function setMood(n, early) {
   const now = actx.currentTime, g = actx.createGain();
   g.connect(mBus);
   // equal-power crossfade: the two pieces overlap without a dip or a bump in loudness;
-  // out of a hushed silence the new piece creeps in slowly instead
-  const fromHush = mPlaying && mPlaying.hushed;
-  fadeCurve(g.gain, 0, 1, fromHush ? FROM_HUSH : XFADE, now);
+  fadeCurve(g.gain, 0, 1, XFADE, now);
   if (mPlaying) { const o = mPlaying; fadeCurve(o.g.gain, o.g.gain.value, 0, XFADE, now); stopTrack(o, now + XFADE + 0.2); }
   const mp = { name: n, g, srcs: [], timer: 0 };
   mPlaying = mp;
@@ -332,6 +330,7 @@ function playCopy(mp, buf, at, fadeIn) {
 function stopTrack(mp, when) { clearTimeout(mp.timer); mp.srcs.forEach(s => { try { s.stop(when); } catch (e) {} }); }
 if (Q.has('debug')) window.__twbh = { get music() { return mPlaying && { name: mPlaying.name, gain: mPlaying.g.gain.value, hushed: !!mPlaying.hushed }; }, get sfx() { return !!sfxNow; } };
 function hushMusic() { if (mPlaying) { glide(mPlaying.g.gain, 0, 2.5); mPlaying.hushed = true; } }
+function riseMusic(t) { if (mPlaying && mPlaying.hushed) { glide(mPlaying.g.gain, 1, t); mPlaying.hushed = false; } }
 function musicStop() { musicLevel(0, 1.5); const p = mPlaying; mPlaying = null; if (p) { clearTimeout(p.timer); setTimeout(() => stopTrack(p, 0), 1700); } }
 function stopNarr() { if (narr) { try { narr.onended = null; narr.stop(); } catch (e) {} narr = null; } }
 
@@ -367,15 +366,15 @@ async function speak() {
   };
   // the page turns once the narration has finished and the last scene has frozen on its final frame
   const finish = () => {
-    const hushed = mPlaying && mPlaying.hushed;   // a scene hushed the music: keep the silence through the turn
-    if (!hushed) musicLevel(MUSIC_UP, 1.2);
+    riseMusic(2.5);   // a hushed page still swells back before the turn
+    musicLevel(MUSIC_UP, 1.2);
     clips.forEach(c => { if (!c.done) scene(c); });
     const t = performance.now();
     scenes.then(() => {
       // the next page's music starts fading in now, while this page holds and slides away, so the change of piece
       // happens across the page turn instead of at the first word of the next page
       const nx = S.pages[cur + 1];
-      if (live() && nx && nx.mood && nx.mood !== pg.mood && !hushed) setMood(nx.mood, true);
+      if (live() && nx && nx.mood && nx.mood !== pg.mood) setMood(nx.mood, true);
       setTimeout(() => { if (live()) { if (cur < N - 1) goTo(cur + 1); else setRead(false); } }, Math.max(900, 1600 - (performance.now() - t)));
     });
   };
@@ -455,6 +454,8 @@ function playClip(i, j, withSound) {
       if (started) return; started = true; clearTimeout(giveUp);
       v.classList.add('on');
       // "hush": seconds into the clip when the book's music fades away for the rest of the page (the scene's own sounds carry it)
+      // "rise": seconds into the clip when the music swells back (over "riseFor" seconds, default 4) to carry into the next page
+      if (reading && c.rise != null) setTimeout(() => { if (!stale() && reading && cur === i) riseMusic(c.riseFor || 4); }, Math.max(0, c.rise - (v.currentTime || 0)) * 1000);
       if (reading && c.hush != null) setTimeout(() => { if (!stale() && reading && cur === i) hushMusic(); }, Math.max(0, c.hush - (v.currentTime || 0)) * 1000);
       cap = setTimeout(() => end(true), ((v.duration || 12) + 6) * 1000);  // a clip that stalls part-way just stops there
       if (withSound && reading && c.sound && actx) loadBuf(url(c.sound)).then(b => {
