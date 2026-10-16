@@ -49,7 +49,9 @@
       "name": "Español",
       "english": "Spanish",
       "dir": "ltr",
-      "ready": false
+      "ready": true,
+      "narration": true,
+      "video": false
     },
     "fr": {
       "name": "Français",
