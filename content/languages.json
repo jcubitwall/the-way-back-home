@@ -121,7 +121,9 @@
       "name": "Kiswahili",
       "english": "Swahili",
       "dir": "ltr",
-      "ready": false
+      "ready": true,
+      "narration": true,
+      "video": false
     },
     "pa": {
       "name": "ਪੰਜਾਬੀ",
