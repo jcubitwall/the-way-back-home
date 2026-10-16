@@ -8,9 +8,14 @@ sentence by sentence with the narration, music underneath.
 
 Writes video/The-Way-Back-Home_ES.mp4 (1080×1920, H.264). Pages are photographed from the real
 reader (the same layout people see), so the video always matches the site.
-Not yet included: the animated scenes. They will play in the site; the video shows the picture still.
+
+Animated scenes play as in the book: each starts on its sentence (cue + offset, one after another),
+then holds on the sharp still of its last frame. A scene page is built from three layers: the picture
+(bottom), the clip laid into the picture's frame, and everything above the picture (soft blur, shade,
+caption) photographed with a see-through background. Scene sounds, and the music hush/rise of a scene,
+are mixed in as in the reader.
 """
-import http.server, os, shutil, subprocess, sys, tempfile, threading
+import http.server, json, os, shutil, subprocess, sys, tempfile, threading
 from common import path, story, lang, spoken, ROOT
 
 W, H, FPS = 1080, 1920, 25
@@ -18,6 +23,9 @@ FADE = 0.35      # crossfade between captions
 TURN = 0.6       # crossfade between pages
 GAP = 0.9        # quiet moment after each page's narration
 MUSIC = 0.21     # music level under the narrator
+SFX = 0.75       # scene sounds, as in the reader
+HOLD = 1.2       # a scene page holds this long after its last scene ends
+SOFTX = 0.15     # crossfade when the blur behind the text switches to a scene's last frame
 
 
 def run(cmd):
@@ -39,8 +47,20 @@ class Quiet(http.server.SimpleHTTPRequestHandler):
         pass
 
 
+BOTTOM_CSS = '.pg .soft,.pg .shade,.pg .txt{visibility:hidden!important}'
+TOP_CSS = ('.pg>.bg,.pg .art{visibility:hidden!important}'
+           'html,body,.book,.track,.pg,.stage{background:transparent!important}')
+JS_LAYER = "css => { let s = document.getElementById('vlayer'); if (!s) { s = document.createElement('style'); s.id = 'vlayer'; document.head.appendChild(s); } s.textContent = css; }"
+JS_SOFT = """([i, name]) => { const sec = document.querySelectorAll('section.pg')[i];
+  const ims = [...sec.querySelectorAll('.soft img')];
+  ims.forEach(im => { if (!im.dataset.orig0) im.dataset.orig0 = im.src; im.src = name ? 'art/' + name + '-soft.webp' : im.dataset.orig0; });
+  return Promise.all(ims.map(im => im.complete && im.naturalWidth ? 1 : new Promise(r => { im.onload = r; im.onerror = r; }))); }"""
+JS_RECT = "i => { const r = document.querySelectorAll('section.pg')[i].querySelector('.art').getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; }"
+
+
 def photograph(code, plan, tmp):
-    """Open the real reader once and photograph every page and caption at 1080×1920."""
+    """Open the real reader once and photograph every page and caption at 1080×1920. Scene pages get a bottom
+    layer (the picture) and see-through top layers (blur, shade, caption) for every caption and blur variant."""
     from playwright.sync_api import sync_playwright
     srv = http.server.ThreadingHTTPServer(('127.0.0.1', 0), Quiet)
     threading.Thread(target=srv.serve_forever, daemon=True).start()
@@ -52,26 +72,47 @@ def photograph(code, plan, tmp):
         pg.route('**/*', lambda r: r.continue_() if r.request.url.startswith(base) or 'fonts.g' in r.request.url else r.abort())
         pg.goto(f'{base}index.html?lang={code}&render=1&p=0')
         pg.wait_for_selector('body[data-ready]', timeout=30000)
+        show = lambda i, k, kind: pg.evaluate('([p, s]) => window.__show(p, s)', [i, k if kind == 'story' else None])
         for i, page in enumerate(plan):
-            for k, st in enumerate(page['states']):
-                pg.evaluate('([p, s]) => window.__show(p, s)', [i, k if page['kind'] == 'story' else None])
-                st['png'] = os.path.join(tmp, f'{i:02d}-{k:02d}.png')
-                pg.screenshot(path=st['png'])
+            if not page.get('clips'):
+                for k, st in enumerate(page['states']):
+                    show(i, k, page['kind'])
+                    st['png'] = os.path.join(tmp, f'{i:02d}-{k:02d}.png')
+                    pg.screenshot(path=st['png'])
+            else:
+                show(i, 0, page['kind'])
+                pg.evaluate(JS_LAYER, BOTTOM_CSS)
+                page['bottom'] = os.path.join(tmp, f'{i:02d}-bottom.png')
+                pg.screenshot(path=page['bottom'])
+                x, y, w, h = pg.evaluate(JS_RECT, i)
+                page['rect'] = [round(v * 3) for v in (x, y, w, h)]
+                pg.evaluate(JS_LAYER, TOP_CSS)
+                page['tops'] = {}
+                for v, name in enumerate(page['softs']):
+                    pg.evaluate(JS_SOFT, [i, name])
+                    for k in range(len(page['states'])):
+                        show(i, k, page['kind'])
+                        out = os.path.join(tmp, f'{i:02d}-top-{v}-{k:02d}.png')
+                        pg.screenshot(path=out, omit_background=True)
+                        page['tops'][(v, k)] = out
+                pg.evaluate(JS_SOFT, [i, None])
+                pg.evaluate(JS_LAYER, '')
             print(f'  photographed page {i + 1}/{len(plan)}', end='\r', flush=True)
         b.close()
     srv.shutdown()
     print()
 
 
-def assemble(stills, out):
+def assemble(stills, out, alpha=False):
     """One pass: every still shows for its time, then crossfades into the next.
-    stills = [(png, seconds shown, crossfade into the next)]."""
+    stills = [(png, seconds shown, crossfade into the next)]. alpha=True keeps transparency (for a top layer)."""
     cmd, fc = ['ffmpeg', '-y', '-hide_banner'], []
+    pix = 'rgba' if alpha else 'yuv420p'
     for k, (f, d, fade) in enumerate(stills):
         cmd += ['-i', f]
         L = d + (fade if k < len(stills) - 1 else 0)
         # the picture is read once and repeated (reading it again for every frame is very slow)
-        fc.append(f'[{k}:v]format=yuv420p,setsar=1,fps={FPS},tpad=stop_mode=clone:stop_duration={L:.3f},trim=duration={L:.3f},setpts=PTS-STARTPTS[s{k}]')
+        fc.append(f'[{k}:v]format={pix},setsar=1,fps={FPS},tpad=stop_mode=clone:stop_duration={L:.3f},trim=duration={L:.3f},setpts=PTS-STARTPTS[s{k}]')
     prev, t = '[s0]', 0.0
     for k in range(1, len(stills)):
         t += stills[k - 1][1]
@@ -79,8 +120,77 @@ def assemble(stills, out):
         prev = f'[x{k}]'
     script = out + '.filter'
     open(script, 'w').write(';\n'.join(fc))
-    run(cmd + ['-filter_complex_script', script, '-map', prev, '-c:v', 'libx264', '-preset', 'fast', '-tune', 'stillimage',
+    enc = ['-c:v', 'qtrle', '-pix_fmt', 'argb'] if alpha else ['-c:v', 'libx264', '-preset', 'fast', '-tune', 'stillimage', '-crf', '20', '-pix_fmt', 'yuv420p']
+    run(cmd + ['-filter_complex_script', script, '-map', prev, *enc, '-r', str(FPS), out])
+
+
+def scene_page(i, page, tmp):
+    """A page with scenes: picture, clips laid into the picture's frame (then their sharp last frame), top layer."""
+    T = page['len'] + TURN
+    # the top layer: caption changes (and the blur switching to a scene's last frame) over the page's time
+    cuts = sorted({0.0, *[c['end'] for c in page['clips']]})
+    starts = [st['at'] for st in page['states']] + [T]
+    pieces = []  # (from, to, soft variant, caption state)
+    for k in range(len(page['states'])):
+        a, b_ = starts[k], starts[k + 1]
+        inner = [c for c in cuts if a < c < b_]
+        for x, y in zip([a] + inner, inner + [b_]):
+            v = sum(1 for c in page['clips'] if c['end'] <= x + 1e-6)
+            pieces.append((x, y, v, k))
+    stills = []
+    for n, (x, y, v, k) in enumerate(pieces):
+        nxt = pieces[n + 1] if n + 1 < len(pieces) else None
+        fade = 0 if not nxt else (FADE if nxt[3] != k else SOFTX)
+        stills.append((page['tops'][(v, k)], y - x, fade))
+    top = os.path.join(tmp, f'{i:02d}-top.mov')
+    assemble(stills, top, alpha=True)
+
+    x0, y0, w, h = page['rect']
+    cmd = ['ffmpeg', '-y', '-hide_banner', '-loop', '1', '-t', f'{T:.3f}', '-i', page['bottom']]
+    fc, n_in, cur = [f'[0:v]format=rgba,fps={FPS},setsar=1[b0]'], 1, '[b0]'
+    for j, c in enumerate(page['clips']):
+        cmd += ['-i', path(c['src'])]
+        fc.append(f'[{n_in}:v]fps={FPS},scale={w}:{h},format=rgba,setpts=PTS-STARTPTS+{c["start"]:.3f}/TB[c{j}]')
+        fc.append(f"{cur}[c{j}]overlay={x0}:{y0}:eof_action=pass:enable='between(t,{c['start']:.3f},{c['end'] - 0.02:.3f})'[o{j}]")
+        n_in += 1; cur = f'[o{j}]'
+        nxt_start = page['clips'][j + 1]['start'] if j + 1 < len(page['clips']) else T
+        if c.get('hold'):
+            cmd += ['-loop', '1', '-t', f'{T:.3f}', '-i', c['hold']]
+            fc.append(f'[{n_in}:v]scale={w}:{h},format=rgba,fps={FPS}[h{j}]')
+            fc.append(f"{cur}[h{j}]overlay={x0}:{y0}:enable='between(t,{c['end'] - 0.02:.3f},{nxt_start:.3f})'[g{j}]")
+            n_in += 1; cur = f'[g{j}]'
+    cmd += ['-i', top]
+    fc.append(f'[{n_in}:v]format=rgba,fps={FPS}[top]')
+    fc.append(f'{cur}[top]overlay=0:0,format=yuv420p,trim=duration={T:.3f},setpts=PTS-STARTPTS[out]')
+    script = os.path.join(tmp, f'{i:02d}-scene.filter'); open(script, 'w').write(';\n'.join(fc))
+    out = os.path.join(tmp, f'{i:02d}.mp4')
+    run(cmd + ['-filter_complex_script', script, '-map', '[out]', '-c:v', 'libx264', '-preset', 'fast', '-crf', '20',
+               '-pix_fmt', 'yuv420p', '-r', str(FPS), out])
+    return out
+
+
+def join(videos, lens, out):
+    """Crossfade the pages into one picture track (each page video runs TURN seconds past its time)."""
+    cmd, fc = ['ffmpeg', '-y', '-hide_banner'], []
+    for k, v in enumerate(videos):
+        cmd += ['-i', v]; fc.append(f'[{k}:v]fps={FPS},setsar=1,format=yuv420p,setpts=PTS-STARTPTS[p{k}]')
+    prev, t = '[p0]', 0.0
+    for k in range(1, len(videos)):
+        t += lens[k - 1]
+        fc.append(f'{prev}[p{k}]xfade=transition=fade:duration={TURN}:offset={t:.3f}[j{k}]'); prev = f'[j{k}]'
+    fc.append(f'{prev}trim=duration={sum(lens):.3f}[v]')
+    script = out + '.filter'; open(script, 'w').write(';\n'.join(fc))
+    run(cmd + ['-filter_complex_script', script, '-map', '[v]', '-c:v', 'libx264', '-preset', 'medium', '-tune', 'stillimage',
                '-crf', '21', '-pix_fmt', 'yuv420p', '-r', str(FPS), out])
+
+
+def envelope(events):
+    """ffmpeg volume expression for the music: 1, except where a scene hushes it (to 0 over 2.5 s) and lets it rise again."""
+    e = '1'
+    for a, b, r in sorted(events, reverse=True):   # hush at a, rise at b over r seconds
+        e = (f"if(lt(t,{a:.3f}),{e},if(lt(t,{a + 2.5:.3f}),1-(t-{a:.3f})/2.5,if(lt(t,{b:.3f}),0,"
+             f"if(lt(t,{b + r:.3f}),(t-{b:.3f})/{r},1))))")
+    return e
 
 
 def main():
@@ -88,7 +198,7 @@ def main():
     if not args:
         sys.exit(__doc__)
     code, silent, music = args[0], '--silent' in sys.argv, '--no-music' not in sys.argv
-    st, t, en = story(), lang(code), lang('en')
+    st, t = story(), lang(code)
     plan = []
     for pg in st['pages']:
         d = t.get('pages', {}).get(pg['id'])
@@ -107,25 +217,40 @@ def main():
             w = [len(s) + 10 for s in lines]; tot = sum(w); acc = 0; cues = []
             for x in w:
                 cues.append(a * acc / tot); acc += x
+        # scenes one after another, each from its sentence's cue + offset (as the reader plays them)
+        clips, prev = [], 0.0
+        for c in pg.get('clips') or []:
+            dur = duration(path(c['src']))
+            start = max(0.0, (cues[c.get('sentence', 0)] if cues else 0) + c.get('offset', 0), prev)
+            hold = path('art', 'src', c['end'] + '.jpg') if c.get('end') else None
+            clips.append({**c, 'start': start, 'end': start + dur, 'hold': hold if hold and os.path.exists(hold) else None})
+            prev = start + dur
         total = a + GAP
+        if clips:
+            total = max(total, clips[-1]['end'] + HOLD)
         if pg['kind'] == 'story':
             starts = cues + [total]
-            states = [{'len': max(0.5, starts[k + 1] - starts[k])} for k in range(len(lines))]
+            states = [{'at': starts[k], 'len': max(0.5, starts[k + 1] - starts[k])} for k in range(len(lines))]
         else:
-            states = [{'len': total}]
-        plan.append({'id': pg['id'], 'kind': pg['kind'], 'mood': pg['mood'], 'mp3': mp3, 'len': total, 'states': states})
+            states = [{'at': 0.0, 'len': total}]
+        plan.append({'id': pg['id'], 'kind': pg['kind'], 'mood': pg['mood'], 'mp3': mp3, 'len': total, 'states': states,
+                     'clips': clips, 'softs': [None] + [c['end'] for c in clips]})
     tmp = tempfile.mkdtemp(prefix='twbh-video-')
     try:
-        print(f'Making the {code} video ({sum(p["len"] for p in plan) / 60:.1f} minutes)')
+        print(f'Making the {code} video ({sum(p["len"] for p in plan) / 60:.1f} minutes, {sum(len(p["clips"]) for p in plan)} scenes)')
         photograph(code, plan, tmp)
-        stills = []
+        videos = []
         for i, p in enumerate(plan):
-            for k, st_ in enumerate(p['states']):
-                last_on_page = k == len(p['states']) - 1
-                stills.append((st_['png'], st_['len'], TURN if last_on_page else FADE))
+            print(f'  building page {i + 1}/{len(plan)}', end='\r', flush=True)
+            if p['clips']:
+                videos.append(scene_page(i, p, tmp))
+            else:
+                stills = [(s_['png'], s_['len'] + (TURN if k == len(p['states']) - 1 else 0), FADE) for k, s_ in enumerate(p['states'])]
+                out = os.path.join(tmp, f'{i:02d}.mp4'); assemble(stills, out); videos.append(out)
+        print()
         picture = os.path.join(tmp, 'picture.mp4')
-        print('  joining pictures…', flush=True)
-        assemble(stills, picture)
+        print('  joining pages…', flush=True)
+        join(videos, [p['len'] for p in plan], picture)
 
         # narration: each page's recording followed by its quiet moment
         voice = os.path.join(tmp, 'voice.wav')
@@ -138,7 +263,18 @@ def main():
         lst = os.path.join(tmp, 'v.txt'); open(lst, 'w').write(''.join(f"file '{x}'\n" for x in parts))
         run(['ffmpeg', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', voice])
 
-        audio = voice
+        # scene sounds and music hushes, at their place in the whole video
+        sfx, hush, at = [], [], 0.0
+        for p in plan:
+            for c in p['clips']:
+                if c.get('sound'):
+                    sfx.append((path(c['sound']), at + c['start']))
+                if c.get('hush') is not None:
+                    rise = c['start'] + (c['rise'] if c.get('rise') is not None else (p['len'] - c['start'] - 3))
+                    hush.append((at + c['start'] + c['hush'], at + rise, c.get('riseFor', 4)))
+            at += p['len']
+
+        mus = None
         if music:   # one continuous piece per run of pages with the same mood, faded at the joins
             groups = []
             for p in plan:
@@ -155,16 +291,33 @@ def main():
             ml = os.path.join(tmp, 'm.txt'); open(ml, 'w').write(''.join(f"file '{x}'\n" for x in mparts))
             mus = os.path.join(tmp, 'music.wav')
             run(['ffmpeg', '-y', '-f', 'concat', '-safe', '0', '-i', ml, '-c', 'copy', mus])
-            audio = os.path.join(tmp, 'mix.wav')
-            run(['ffmpeg', '-y', '-i', voice, '-i', mus, '-filter_complex', 'amix=inputs=2:duration=first:normalize=0', audio])
+            if hush:
+                m2 = os.path.join(tmp, 'music2.wav')
+                run(['ffmpeg', '-y', '-i', mus, '-af', f"volume='{envelope(hush)}':eval=frame", m2]); mus = m2
+
+        ins, fc, mix = ['-i', voice], [], ['[0:a]']
+        if mus:
+            ins += ['-i', mus]; mix.append('[1:a]')
+        for k, (f, when) in enumerate(sfx):
+            n = len(ins) // 2; ins += ['-i', f]; ms = int(when * 1000)
+            fc.append(f'[{n}:a]aresample=44100,aformat=channel_layouts=stereo,volume={SFX},adelay={ms}|{ms}[s{k}]'); mix.append(f'[s{k}]')
+        audio = os.path.join(tmp, 'mix.wav')
+        if len(mix) > 1:
+            fc.append(f"{''.join(mix)}amix=inputs={len(mix)}:duration=first:normalize=0[a]")
+            run(['ffmpeg', '-y', *ins, '-filter_complex', ';'.join(fc), '-map', '[a]', audio])
+        else:
+            audio = voice
 
         os.makedirs(path('video'), exist_ok=True)
         out = path('video', f'The-Way-Back-Home_{code.upper()}.mp4')
         run(['ffmpeg', '-y', '-i', picture, '-i', audio, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '160k',
              '-shortest', '-movflags', '+faststart', out])
-        print(f'Saved video/{os.path.basename(out)} ({os.path.getsize(out) / 1e6:.0f} MB). Run tools/build.py so the menu offers it.')
+        print(f'Saved video/{os.path.basename(out)} ({os.path.getsize(out) / 1e6:.0f} MB). Set "video": true for {code} in content/languages.json and run tools/build.py so the menu offers it.')
     finally:
-        shutil.rmtree(tmp, ignore_errors=True)
+        if '--keep' not in sys.argv:
+            shutil.rmtree(tmp, ignore_errors=True)
+        else:
+            print('kept', tmp)
 
 
 if __name__ == '__main__':
