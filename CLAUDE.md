@@ -41,7 +41,8 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 | English | Finished and public: 18 pages, v3 narration, 15 clips, 14 music tracks |
 | German (de) | Finished and public: text, ElevenLabs v3 recording, captions timed |
 | Hebrew (he) | Finished and public 15 Oct 2026: reviewed modern text, ElevenLabs v3 recording (6:51), captions timed, pace even (10–12 chars/s) |
-| zh hi es fr ar bn pt ru ur ja | Text reviewed for meaning 15 Oct 2026; v3 scripts sent to Johnny; **waiting for his ElevenLabs recordings** |
+| Chinese (zh) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (6:48), captions timed, pace even (about 4–5 chars/s). Page 7 caption 2 moved by hand to 4.2 s (the auto break landed on the comma inside sentence 1) |
+| hi es fr ar bn pt ru ur ja | Text reviewed for meaning 15 Oct 2026; v3 scripts sent to Johnny; **waiting for his ElevenLabs recordings** |
 | sw pa ko ki | Text and v3 narration scripts written; **waiting for Johnny's ElevenLabs recordings** |
 | Plautdietsch (pdt) | Text written; plain script for his human narrator (no v3 tags) |
 
@@ -61,6 +62,8 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
   Prayer and grown-ups use m12b. Tracks are level-matched to about −21.5 LUFS.
 
 ## When a recording comes back (the usual job)
+
+Tip: after `split.py`, check each caption break against the real pauses (`ffmpeg -af silencedetect=n=-32dB:d=0.15`). Short languages like Chinese can let the auto timing pick a comma pause inside a sentence; fix that cue by hand in `content/i18n/<code>.json`.
 
 1. Save the upload, then cut it: `python3 tools/split.py <code> recording.mp3`. This finds the page
    breaks, saves `audio/<code>/<page>.mp3`, times every caption and adds the fruit-page hush.
