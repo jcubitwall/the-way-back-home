@@ -253,7 +253,7 @@ function preload() {
   // pictures have had their turn) and played from memory. This page's own scene streams if it is not there yet.
   const load = i => secs[i] && secs[i].querySelectorAll('video').forEach(fetchClip);
   load(cur); const at = cur; setTimeout(() => { if (cur === at) load(at + 1); }, 1500);
-  [cur, cur + 1].forEach(i => secs[i] && (S.pages[i].clips || []).forEach(c => { if (c.end && !NOCLIPS) new Image().src = url(`art/${c.end}-soft.webp`); }));
+  [cur, cur + 1].forEach(i => secs[i] && (S.pages[i].clips || []).forEach(c => { if (c.end && !NOCLIPS) { new Image().src = url(`art/${c.end}-soft.webp`); new Image().src = url(`art/${c.end}-720.webp`); } }));
   // while reading aloud, the next page's music loads too, so it is ready when the page turns
   setTimeout(() => { if (cur === at && reading && actx) warmMood(); }, 2500);
 }
@@ -480,8 +480,20 @@ function setSoft(sec, name) {
     if (im.src !== to) im.src = to;  // setting the same picture again would make it flicker
   });
 }
+// when a scene ends, the page holds on a sharp still of its last frame instead of the softer frozen video frame
+function showHold(sec, name) {
+  const art = sec.querySelector('.art'); if (!art) return;
+  let im = art.querySelector('img.hold');
+  if (!im) { im = document.createElement('img'); im.className = 'hold'; im.alt = ''; im.decoding = 'async'; art.appendChild(im); }
+  const src = url(`art/${name}-720.webp`);
+  if (im.getAttribute('src') === src && im.classList.contains('on')) return;
+  im.classList.remove('on'); im.onload = () => im.classList.add('on'); im.src = src;
+  if (im.complete && im.naturalWidth) im.classList.add('on');
+}
+function hideHold(sec) { const im = sec && sec.querySelector('.art img.hold'); if (im) { im.onload = null; im.classList.remove('on'); } }
 function resetClips(i) {
   const sec = secs[i]; if (!sec) return;
+  hideHold(sec);
   sec._skip = false; stopSfx();
   const vs = sec.querySelectorAll('video'); if (!vs.length) return;
   vs.forEach(v => { v._gen = (v._gen || 0) + 1; v.pause(); v.classList.remove('on'); try { v.currentTime = 0; } catch (e) {} });
@@ -499,13 +511,13 @@ function playClip(i, j, withSound) {
       if (done) return; done = true; clearTimeout(giveUp); clearTimeout(cap);
       // a broken file skips the page's other scenes too; a slow one only gives up on itself
       if (!ok) { if (v.error || !reading) sec._skip = true; if (!started) { v.pause(); v.classList.remove('on'); } }
-      else if (!stale() && c.end) setSoft(sec, c.end);
+      else if (!stale() && c.end) { setSoft(sec, c.end); showHold(sec, c.end); }
       res(ok);
     };
     v.onplaying = () => {
       if (stale()) { v.pause(); return; }
       if (started) return; started = true; clearTimeout(giveUp);
-      v.classList.add('on');
+      v.classList.add('on'); hideHold(sec);
       // "hush": seconds into the clip when the book's music fades away for the rest of the page (the scene's own sounds carry it)
       // "rise": seconds into the clip when the music swells back (over "riseFor" seconds, default 4) to carry into the next page
       if (reading && c.rise != null) setTimeout(() => { if (!stale() && reading && cur === i) riseMusic(c.riseFor || 4); }, Math.max(0, c.rise - (v.currentTime || 0)) * 1000);

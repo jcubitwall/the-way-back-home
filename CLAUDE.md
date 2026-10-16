@@ -114,6 +114,7 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
   - The browser-tab icon is a 7 KB 48 px file instead of the 75 KB app icon.
   - The service worker now keeps downloaded clips, so a second read is instant and works offline.
   - Measured: the cover opens on about 0.35 MB (picture, fonts, code); a full read is about 26 MB, of which the clips are 23 MB.
+- **Sharp hold frame (15 Oct 2026).** Johnny saw page 4 (fruit) settle on a soft last frame. Cause: the clips are compressed (CRF 28), which costs about 25–30% of the fine detail; the frozen last video frame showed it. Now every clip's last frame is also kept as a sharp still (`art/<end>-720.webp`, made by build.py from `art/src/<end>.jpg`, which clips.py takes from the original upload), and app.js lays it over the video the moment the clip ends (hidden again when the next clip on the page starts, or the page resets). Checked: every end still is exactly the video's last frame, so there is no jump. Costs about 150 KB per clip page.
 - **Pages 5, 6 and 7, check the music by ear.** Page 6's track may be too bright for "our sin keeps us far from God"; page 7 could use more tension; page 5's opening could be sadder.
 - **Scene timing in other languages.** Clip offsets were tuned to the English. Spot-check pages 6–8 in each new language.
 - **"Message us" email** (hello@thewaybackhome.net, Cloudflare routing): a test sent from iCloud bounced. A test from a non-iCloud account is still pending. An in-book form is an option.

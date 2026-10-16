@@ -29,7 +29,9 @@ def build_art(st):
             print(f'  ! missing picture art/src/{name}.jpg')
             continue
         sizes = (('-720', 720, 80), ('', None, 84), ('-soft', 300, 72))
-        for suffix, width, q in (sizes[2:] if name in ends else sizes):  # a clip's last frame is only needed for the blur
+        # a clip's last frame: the blur, and a sharp copy the page holds on when the clip ends (the frozen video frame
+        # is softer, because the clip is compressed for phones)
+        for suffix, width, q in ((('-720', 720, 80),) + sizes[2:] if name in ends else sizes):
             out = path('art', f'{name}{suffix}.webp')
             if os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(src):
                 continue

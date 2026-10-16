@@ -35,6 +35,7 @@ button{font:inherit}
 .art img,.art video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .art video{opacity:0;transition:opacity .4s}
 .art video.on{opacity:1}
+.art img.hold{z-index:1;opacity:0;transition:opacity .15s;pointer-events:none}.art img.hold.on{opacity:1}
 
 /* the progressive blur: a softened copy of the whole page, revealed toward the bottom.
    --th is the height of the text block, measured per page, so short pages show more picture */
