@@ -161,7 +161,7 @@ function build() {
   });
   book.addEventListener('click', e => {
     const g = e.target.closest('[data-go]'); if (g) goTo(+g.dataset.go);
-    if (e.target.closest('[data-listen]') && !reading) setRead(true);   // the cover's Listen button: read the book aloud from the start
+    if (e.target.closest('[data-listen]')) setRead(!reading);   // the cover's Listen button: read the book aloud from the start (tap again to stop)
   });
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(fitAll);
   fitBook();
@@ -316,6 +316,7 @@ addEventListener('resize', () => setTimeout(placeBar, 50));
 function setCount() {
   placeBar();
   paintEdge(); document.body.classList.toggle('at-cover', cur === 0);
+  if (reading) { if (cur === 0) { clearTimeout(hudT); document.body.classList.remove('hud-off'); } else if (!document.body.classList.contains('hud-off')) hud(false); }
   // on the cover the menu button sits beside the subtitle, in thumb reach; on the story pages it is back in the top bar
   const mw = $('.mwrap'), slot = document.querySelector('.mslot');
   if (mw && slot) { const to = cur === 0 ? slot : $('.bar'); if (mw.parentNode !== to) { closeMenus(); to.appendChild(mw); } }
@@ -478,6 +479,7 @@ function setRead(on) {
   reading = on; book.classList.toggle('listening', on);
   const b = $('#read'); b.setAttribute('aria-pressed', on); b.setAttribute('aria-label', on ? UI.stop : UI.read); b.title = on ? UI.stop : UI.read;
   b.innerHTML = on ? ICON.pause : ICON.speaker;
+  document.querySelectorAll('[data-listen]').forEach(l => { l.setAttribute('aria-pressed', on); const ic = l.querySelector('svg'); if (ic) ic.outerHTML = on ? ICON.pause : ICON.speaker; });
   if (on) { ensureAudio(); speak(); setTimeout(() => reading && warmMood(), 2500); } else { run++; stopNarr(); stopSfx(); musicStop(); setCap(cur, -1); }
   hud(!on); fitAll();
 }
@@ -486,7 +488,7 @@ let hudT = 0;
 function hud(touched) {
   clearTimeout(hudT); document.body.classList.remove('hud-off');
   if (reading) hudT = setTimeout(() => {
-    if (!reading) return;
+    if (!reading || cur === 0) return;   // the cover keeps its buttons in view
     if ($('#menu').hidden && $('#msgMenu').hidden) document.body.classList.add('hud-off'); else hud(true);
   }, touched ? 3500 : 1500);
 }
