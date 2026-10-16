@@ -73,7 +73,9 @@
       "name": "বাংলা",
       "english": "Bengali",
       "dir": "ltr",
-      "ready": false
+      "ready": true,
+      "narration": true,
+      "video": false
     },
     "pt": {
       "name": "Português",
