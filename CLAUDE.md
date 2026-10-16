@@ -11,12 +11,12 @@ An illustrated, narrated children's Bible story (ages 6–12) by Johnny Wall, fr
 earth. It is read full screen on a phone: each page is a picture or a short animated clip, the words
 appear one sentence at a time with the narrator, and each chapter has its own music.
 
-- **Test site:** https://jcubitwall.github.io/the-way-back-home-v2/ (this repo, branch `main`, GitHub Pages).
-- **Public site:** thewaybackhome.net. **16 Oct 2026: Johnny decided to go live with v2** (16 languages; Kikuyu and
-  Plautdietsch stay unlisted until recorded). Prep is pushed (old-address `/assets/` copies, sw.js clears the old cache).
-  The switch itself is two GitHub Pages settings Johnny makes by hand (the Pages API is blocked from this environment):
-  remove the custom domain from `jcubitwall/the-way-back-home`, then set it on this repo and tick Enforce HTTPS.
-  Keep the old repo (archive it, don't delete it). See "Going live" in README.md.
+- **Test site:** https://jcubitwall.github.io/the-way-back-home-v2/ now redirects to thewaybackhome.net (same repo, branch `main`).
+- **Public site:** https://thewaybackhome.net — **LIVE with v2 since 16 Oct 2026** (16 languages; Kikuyu and Plautdietsch
+  stay unlisted until recorded). The domain was moved by hand in GitHub Pages settings from `jcubitwall/the-way-back-home`
+  (old version, keep it; archive rather than delete) to this repo. Every push to `main` now goes straight to the public site,
+  so preview risky changes with `?preview=1` / a branch first. Old addresses: `/xx/pN` links, `/assets/` icons and share
+  picture still work, and sw.js deletes the old site's offline cache (`twbh-v1`).
 - **Characters:** three kids, Sally (red top, jeans, long red-brown wavy hair, glasses),
   George (yellow polo, curly black hair), Chase (black T-shirt, spiky black hair). They are never named
   in the text. Johnny makes the stills with ChatGPT (it knows the characters and art style) and the
