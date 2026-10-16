@@ -52,7 +52,8 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 | Urdu (ur) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (8:58), clean page gaps, captions timed, pace even (about 7–10 letters/s), every caption break on a real pause, no hand fixes needed. A native speaker's read of the text is still worth having |
 | ja | Text reviewed for meaning 15 Oct 2026; v3 scripts sent to Johnny; **waiting for his ElevenLabs recordings** |
 | Swahili (sw) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (8:22), captions timed, pace even (about 9–11 letters/s). The tomb/gates page break was a short gap, so it was forced with `split.py --at=tomb:373.0`; checked by phrase alignment. A native speaker's read of the text is still worth having |
-| pa ko ki | Text and v3 narration scripts written; **waiting for Johnny's ElevenLabs recordings** |
+| Punjabi (pa) | First recording (15 Oct 2026, 6:31) NOT used: only pages 1–4 are clean. From about page 5 on, ElevenLabs ran sentences together with no pauses (25–32 s stretches with no sentence gap) and dropped page breaks; the second half is ~90 s shorter than Hindi's for the same text. Asked Johnny to regenerate from page 5 (exile) on, in smaller pieces. Not listed |
+| ko ki | Text and v3 narration scripts written; **waiting for Johnny's ElevenLabs recordings** |
 | Plautdietsch (pdt) | Text written; plain script for his human narrator (no v3 tags) |
 
 - The narration scripts, with a Copy button per language, are on the artifact page
