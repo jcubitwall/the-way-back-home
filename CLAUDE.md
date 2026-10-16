@@ -140,7 +140,7 @@ Tip: after `split.py`, check each caption break against the real pauses (`ffmpeg
 - **Buttons over long pages (fixed 16 Oct 2026).** On small phones the button stack covered the first lines of the prayer and grown-ups pages (de fr ko ur pa, and ja on every phone once furigana was added). fitAll() in app.js now keeps those pages' text below ~236 px from the top, shrinking it a little more where needed. Checked 16 languages at 390×844, 375×667 and 360×640: no overlap.
 - **Smaller items:**
   - Page numbers don't match.
-  - Check the bottom edge on an iPhone.
+  - iPhone bottom edge (16 Oct 2026): Johnny saw a coloured strip under the page (iPhone reports a 100lvh about one status-bar height short, seen as a home-screen app or with Safari's bar tucked away). `fitBook()` in app.js now stretches the book to the real bottom (largest of 100lvh, innerHeight, and the screen height when installed as an app). Confirm on his phone.
   - Rebuild the downloadable videos once languages are recorded (`video.py`).
 - **Decided:** the cover, prayer and grown-ups pages keep still pictures (no clips).
 

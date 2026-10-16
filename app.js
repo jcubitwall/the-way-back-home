@@ -164,9 +164,20 @@ function build() {
     if (e.target.closest('[data-listen]') && !reading) setRead(true);   // the cover's Listen button: read the book aloud from the start
   });
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(fitAll);
-  addEventListener('resize', () => { if (trk) setY(-cur * H(), false); fitAll(); });
+  fitBook();
+  addEventListener('resize', () => { fitBook(); if (trk) setY(-cur * H(), false); fitAll(); });
 }
 
+/* some iPhones (home-screen app, and Safari with its bar tucked away) report a screen height that stops short of the
+   bottom edge, which left a coloured strip under the page. The book is stretched to the real bottom of the screen. */
+const STANDALONE = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+function fitBook() {
+  book.style.height = '';
+  const h = book.offsetHeight, port = innerHeight >= innerWidth;
+  const scr = STANDALONE ? (port ? Math.max(screen.width, screen.height) : Math.min(screen.width, screen.height)) : 0;
+  const want = Math.max(h, innerHeight, document.documentElement.clientHeight, scr);
+  if (want > h + 1) book.style.height = want + 'px';
+}
 // the blur and colour start just above the text, however tall the text is on this page and screen
 const measure = new ResizeObserver(es => es.forEach(e => {
   const sec = e.target.closest('.pg'); sec.style.setProperty('--th', e.target.offsetHeight + 'px');
