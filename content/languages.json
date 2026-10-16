@@ -65,7 +65,9 @@
       "name": "العربية",
       "english": "Arabic",
       "dir": "rtl",
-      "ready": false
+      "ready": true,
+      "narration": true,
+      "video": false
     },
     "bn": {
       "name": "বাংলা",

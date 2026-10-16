@@ -54,6 +54,18 @@ def main():
     if len(gaps) < len(pages) - 1:
         sys.exit(f'Found only {len(gaps)} long pauses but there are {len(pages)} pages. Check the recording has a 2–3 second pause between pages.')
     cuts = guided_cuts(gaps, pages, t, code, total)
+    # --at=locked:189.8,new-earth:334.5 forces the break after a page to the pause at that time
+    # (use when ElevenLabs made some page gaps as short as sentence gaps and the guess went wrong)
+    at = next((a[5:] for a in sys.argv if a.startswith('--at=')), '')
+    if at:
+        fine = silences(mp3, dur=0.2)
+        ids = [p['id'] for p in pages]
+        for item in at.split(','):
+            pid, sec = item.split(':')
+            sec = float(sec)
+            g = min(fine, key=lambda g: 0 if g[0] <= sec <= g[1] else min(abs(g[0] - sec), abs(g[1] - sec)))
+            cuts[ids.index(pid)] = g
+        cuts.sort()
     bounds, start = [], 0.0
     for s, e in cuts:
         bounds.append((start, s + 0.25))

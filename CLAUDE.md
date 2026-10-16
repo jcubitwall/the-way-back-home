@@ -45,7 +45,8 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 | Hindi (hi) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (7:47), captions timed, pace even (about 6–7 letters/s), no hand fixes needed |
 | Spanish (es) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (6:55), captions timed, pace even (about 10–12 letters/s), no hand fixes needed |
 | French (fr) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (6:48), captions timed, pace even (about 10–14 letters/s), every caption break checked against a real pause, no hand fixes needed |
-| ar bn pt ru ur ja | Text reviewed for meaning 15 Oct 2026; v3 scripts sent to Johnny; **waiting for his ElevenLabs recordings** |
+| Arabic (ar) | Finished and public 15 Oct 2026: ElevenLabs v3 recording, Jordanian voice (6:51), captions timed, pace even (about 8–9 letters/s). From page 8 on, ElevenLabs made the page gaps only ~0.5 s (same as sentence gaps), so the auto cut slipped; the breaks were found by lining up every phrase with the speech and forced with `split.py --at=locked:189.8,scrub:215.5,door:239.6,cross:256.2,choice:282.4,tomb:298.6,gates:317.9,new-earth:334.6,prayer:373.0`. Page 11 caption 3 moved by hand to 8.8 s |
+| bn pt ru ur ja | Text reviewed for meaning 15 Oct 2026; v3 scripts sent to Johnny; **waiting for his ElevenLabs recordings** |
 | sw pa ko ki | Text and v3 narration scripts written; **waiting for Johnny's ElevenLabs recordings** |
 | Plautdietsch (pdt) | Text written; plain script for his human narrator (no v3 tags) |
 
@@ -66,7 +67,7 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 
 ## When a recording comes back (the usual job)
 
-Tip: after `split.py`, check each caption break against the real pauses (`ffmpeg -af silencedetect=n=-32dB:d=0.15`). Short languages like Chinese can let the auto timing pick a comma pause inside a sentence; fix that cue by hand in `content/i18n/<code>.json`.
+Tip: after `split.py`, check each caption break against the real pauses (`ffmpeg -af silencedetect=n=-32dB:d=0.15`). Short languages like Chinese can let the auto timing pick a comma pause inside a sentence; fix that cue by hand in `content/i18n/<code>.json`. If a page comes out far too long or short (ElevenLabs sometimes shortens the [long pause] to a sentence-sized gap), find the real breaks and pass them with `split.py <code> file.mp3 --at=<page>:<seconds>,…` (seconds = inside the pause that ends that page).
 
 1. Save the upload, then cut it: `python3 tools/split.py <code> recording.mp3`. This finds the page
    breaks, saves `audio/<code>/<page>.mp3`, times every caption and adds the fruit-page hush.
