@@ -159,3 +159,11 @@ button{font:inherit}
 .bar .sp{display:none}
 .bar .count{position:fixed;left:calc(12px + env(safe-area-inset-left,0px));top:calc(12px + env(safe-area-inset-top,0px))}
 .bar .menu{top:auto;bottom:0;right:58px}
+/* Furigana (Japanese): small readings above the kanji; a little extra line height so they never touch the line above */
+ruby rt{font-size:.5em;font-weight:600;letter-spacing:0;line-height:1;text-transform:none}
+.cover h1 ruby rt{font-size:.3em;font-weight:700}
+.big ruby rt{font-size:.4em}
+html[lang=ja] .txt{line-height:1.72}
+html[lang=ja] .para,html[lang=ja] .caps .cap{line-height:1.8}
+html[lang=ja] .cover h1{line-height:1.22}
+html[lang=ja] .big{line-height:1.3}

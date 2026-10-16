@@ -64,6 +64,7 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 - **Translation choices:**
   - Prayer page: A-B-C only in German (Anerkennen, Bekennen, Christus folgen). Every other language uses steps 1-2-3.
   - Hebrew uses ישוע (Yeshua). Reviewed 15 Oct 2026 for plain modern Israeli Hebrew: no archaic Bible phrasing (e.g. "אם תאכלו ממנו, תמותו", "אלוהים באמת אמר את זה?"); "Bible" = כתבי הקודש (not הכתובים, which also means the Writings section); "goodness" = הטוב של ישוע (not צדקה, which now means charity); "church" = בית הכנסת או כנסייה; "bad news" = בשורה רעה, to mirror הבשורה הטובה; grown-ups page = למבוגרים.
+  - Japanese has furigana (16 Oct 2026, suggested by Johnny's Japanese friend): small hiragana above every kanji, as in Japanese picture books. The text in ja.json is unchanged (so scripts, cues and narration are unaffected); the readings live in `"ruby"` in ja.json as [kanji run, kana that must follow, reading] rules, e.g. 大+すき=だい, 大+き=おお, 来+る=く, 来=き, 生+まれ=う, 生+き=い, 出+エジプト=しゅつ, 何+だ=なん. app.js `tx()` draws them as `<ruby>` on every book page (cover, story, captions, prayer, grown-ups). If the Japanese text changes, check every kanji still has a rule (any language can use the same mechanism).
   - The Hindi, Punjabi and Urdu titles avoid "ghar wapsi" (the name of a political reconversion campaign) and say "the way to return home" instead.
 - **Meaning review (15 Oct 2026):** es fr pt ru zh hi ar bn ur ja were each re-checked line by line against the English for meaning, archaic Bible phrasing and words with a misleading modern sense, and the v3 scripts updated to match. Notable choices: Arabic and Urdu say "God's commands" (وصايا الله / خدا کے حکم) not شريعة/شریعت (heard as Islamic sharia); Urdu uses جنت for heaven's gates; Bengali "Jesus' goodness" = নিখুঁত পবিত্রতা (ধার্মিকতা reads as "religiosity"); Hindi भलाई → अच्छाई; Japanese 方 → お方 so TTS reads かた; Portuguese avoids "seu" (could mean "your").
 - **Need a native speaker's read before recording:** Kikuyu and Plautdietsch are careful drafts. Urdu,
@@ -133,6 +134,7 @@ Tip: after `split.py`, check each caption break against the real pauses (`ffmpeg
 - **Pages 5, 6 and 7, check the music by ear.** Page 6's track may be too bright for "our sin keeps us far from God"; page 7 could use more tension; page 5's opening could be sadder.
 - **Scene timing in other languages.** Clip offsets were tuned to the English. Spot-check pages 6–8 in each new language.
 - **"Message us" email** (hello@thewaybackhome.net, Cloudflare routing): a test sent from iCloud bounced. A test from a non-iCloud account is still pending. An in-book form is an option.
+- **Buttons over long pages (fixed 16 Oct 2026).** On small phones the button stack covered the first lines of the prayer and grown-ups pages (de fr ko ur pa, and ja on every phone once furigana was added). fitAll() in app.js now keeps those pages' text below ~236 px from the top, shrinking it a little more where needed. Checked 16 languages at 390×844, 375×667 and 360×640: no overlap.
 - **Smaller items:**
   - Page numbers don't match.
   - Check the bottom edge on an iPhone.

@@ -84,6 +84,20 @@ function setupLanguage() {
 /* ---------------- text ---------------- */
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const J = () => CJK.has(L) ? '' : ' ';
+// Furigana: a language file may carry "ruby": [[kanji run ('|' splits groups), kana that must follow ('' = any), reading ('|' per group)], …].
+// Book text is then drawn with the reading above each kanji (<ruby>); the words themselves, and so the narration, are unchanged.
+let RUBY = null;
+function tx(s) {
+  const h = esc(s);
+  if (!T.ruby) return h;
+  if (!RUBY) { RUBY = {}; T.ruby.forEach(([k, after, r]) => { const w = k.replace(/\|/g, ''); (RUBY[w] = RUBY[w] || []).push({ k, after, r }); }); }
+  return h.replace(/[一-鿿々]+/g, (w, at, all) => {
+    const rest = all.slice(at + w.length), rule = (RUBY[w] || []).find(x => !x.after || rest.startsWith(x.after));
+    if (!rule) return w;
+    const ks = rule.k.split('|'), rs = rule.r.split('|');
+    return ks.map((k, i) => `<ruby>${k}<rt>${rs[i]}</rt></ruby>`).join('');
+  });
+}
 function text(id) { const a = T.pages && T.pages[id]; return a ? { d: a, fb: false } : { d: EN.pages[id], fb: true }; }
 // every line the narrator says on a page, in order: one caption each, one cue each
 function spoken(pg, d) {
@@ -110,15 +124,15 @@ function pageHTML(pg, i) {
   const art = `art/${pg.art}`;
   let body = '';
   if (pg.kind === 'cover') {
-    body = `<h1>${esc(T.pages.cover ? T.pages.cover.title : T.title)}</h1><div class="subrow"><p class="sub">${esc(d.subtitle)}</p><span class="mslot"></span></div><div class="cfoot"><button class="qr" id="qr" aria-label="${esc(UI.share || 'Share')}"></button><div class="ctas">${META.narration || DEMO ? `<button class="cta alt" data-listen>${ICON.speaker}<span>${esc(d.listen || UI.read)}</span></button>` : ''}<button class="cta alt" data-go="1">${BOOK}<span>${esc(d.cta)}</span></button></div></div>`;
+    body = `<h1>${tx(T.pages.cover ? T.pages.cover.title : T.title)}</h1><div class="subrow"><p class="sub">${tx(d.subtitle)}</p><span class="mslot"></span></div><div class="cfoot"><button class="qr" id="qr" aria-label="${esc(UI.share || 'Share')}"></button><div class="ctas">${META.narration || DEMO ? `<button class="cta alt" data-listen>${ICON.speaker}<span>${esc(d.listen || UI.read)}</span></button>` : ''}<button class="cta alt" data-go="1">${BOOK}<span>${esc(d.cta)}</span></button></div></div>`;
   } else if (pg.kind === 'story') {
     const lines = d.text.flat();
-    body = `<div class="full"><p class="num">${i + 1 - OFF}</p>${d.text.map(p => `<p class="para">${p.map(esc).join(J())}</p>`).join('')}<p class="ref">${esc(d.ref)}</p></div>` +
-      `<div class="caps" aria-hidden="true">${lines.map((s, k) => `<p class="cap" data-k="${k}">${esc(s)}</p>`).join('')}</div>`;
+    body = `<div class="full"><p class="num">${i + 1 - OFF}</p>${d.text.map(p => `<p class="para">${p.map(tx).join(J())}</p>`).join('')}<p class="ref">${tx(d.ref)}</p></div>` +
+      `<div class="caps" aria-hidden="true">${lines.map((s, k) => `<p class="cap" data-k="${k}">${tx(s)}</p>`).join('')}</div>`;
   } else if (pg.kind === 'prayer') {
-    body = `<h2 class="big">${esc(d.title)}</h2><p class="intro">${esc(d.intro)}</p><ol class="steps">${d.steps.map(s => `<li><span class="key">${esc(s.key)}</span><span><b>${esc(s.word)}</b>${J()}${esc(s.rest)}</span></li>`).join('')}</ol><p class="pray">${esc(d.prayer)}</p><p class="note">${esc(d.note)} ${esc(d.ref || '')}</p>`;
+    body = `<h2 class="big">${tx(d.title)}</h2><p class="intro">${tx(d.intro)}</p><ol class="steps">${d.steps.map(s => `<li><span class="key">${esc(s.key)}</span><span><b>${tx(s.word)}</b>${J()}${tx(s.rest)}</span></li>`).join('')}</ol><p class="pray">${tx(d.prayer)}</p><p class="note">${tx(d.note)} ${tx(d.ref || '')}</p>`;
   } else if (pg.kind === 'grownups') {
-    body = `<h2 class="big">${esc(d.title)}</h2><p class="intro">${esc(d.intro)}</p><ol class="qs">${d.questions.map(q => `<li>${esc(q)}</li>`).join('')}</ol><p class="note">${esc(d.note)}</p>`;
+    body = `<h2 class="big">${tx(d.title)}</h2><p class="intro">${tx(d.intro)}</p><ol class="qs">${d.questions.map(q => `<li>${tx(q)}</li>`).join('')}</ol><p class="note">${tx(d.note)}</p>`;
   }
   // a page with a scene only shows its picture until the 720-wide clip takes over, so on a phone the 720 picture is enough
   const vid = !NOCLIPS && !BIG && (pg.clips || []).length > 0;
@@ -163,7 +177,9 @@ function fitAll() {
     const t = sec.querySelector('.txt'), st = sec.querySelector('.stage');
     const fit = () => {
       let k = 1; sec.style.setProperty('--k', k);
-      const max = st.clientHeight * (sec.classList.contains('story') ? 0.56 : 0.82);
+      // a story page keeps its picture; prayer and grown-ups pages may fill the screen, but stop below the button stack
+      // (page count + three buttons, about 236 px from the top) so the buttons never cover their first lines
+      const max = sec.classList.contains('story') ? st.clientHeight * 0.56 : Math.min(st.clientHeight * 0.82, st.clientHeight - 236);
       while (t.offsetHeight > max && k > 0.62) { k -= 0.04; sec.style.setProperty('--k', k.toFixed(2)); }
     };
     fit();
