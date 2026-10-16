@@ -57,7 +57,9 @@
       "name": "Français",
       "english": "French",
       "dir": "ltr",
-      "ready": false
+      "ready": true,
+      "narration": true,
+      "video": false
     },
     "ar": {
       "name": "العربية",

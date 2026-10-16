@@ -44,7 +44,8 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 | Chinese (zh) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (6:48), captions timed, pace even (about 4–5 chars/s). Page 7 caption 2 moved by hand to 4.2 s (the auto break landed on the comma inside sentence 1) |
 | Hindi (hi) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (7:47), captions timed, pace even (about 6–7 letters/s), no hand fixes needed |
 | Spanish (es) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (6:55), captions timed, pace even (about 10–12 letters/s), no hand fixes needed |
-| fr ar bn pt ru ur ja | Text reviewed for meaning 15 Oct 2026; v3 scripts sent to Johnny; **waiting for his ElevenLabs recordings** |
+| French (fr) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (6:48), captions timed, pace even (about 10–14 letters/s), every caption break checked against a real pause, no hand fixes needed |
+| ar bn pt ru ur ja | Text reviewed for meaning 15 Oct 2026; v3 scripts sent to Johnny; **waiting for his ElevenLabs recordings** |
 | sw pa ko ki | Text and v3 narration scripts written; **waiting for Johnny's ElevenLabs recordings** |
 | Plautdietsch (pdt) | Text written; plain script for his human narrator (no v3 tags) |
 
