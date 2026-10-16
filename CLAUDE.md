@@ -49,7 +49,8 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 | Bengali (bn) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (8:39), clean page gaps, captions timed, pace even (about 5–6 letters/s), every caption break on a real pause, no hand fixes needed |
 | Portuguese (pt) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (7:16), clean page gaps, captions timed, pace even (about 9–12 letters/s), every caption break on a real pause, no hand fixes needed |
 | Russian (ru) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (7:45), clean page gaps, captions timed, pace even (about 8–10 letters/s). New-earth caption 2 moved by hand to 1.2 s (auto put it after the first phrase of sentence 2) |
-| ur ja | Text reviewed for meaning 15 Oct 2026; v3 scripts sent to Johnny; **waiting for his ElevenLabs recordings** |
+| Urdu (ur) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (8:58), clean page gaps, captions timed, pace even (about 7–10 letters/s), every caption break on a real pause, no hand fixes needed. A native speaker's read of the text is still worth having |
+| ja | Text reviewed for meaning 15 Oct 2026; v3 scripts sent to Johnny; **waiting for his ElevenLabs recordings** |
 | sw pa ko ki | Text and v3 narration scripts written; **waiting for Johnny's ElevenLabs recordings** |
 | Plautdietsch (pdt) | Text written; plain script for his human narrator (no v3 tags) |
 

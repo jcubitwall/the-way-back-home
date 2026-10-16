@@ -97,7 +97,9 @@
       "name": "اردو",
       "english": "Urdu",
       "dir": "rtl",
-      "ready": false
+      "ready": true,
+      "narration": true,
+      "video": false
     },
     "de": {
       "name": "Deutsch",
