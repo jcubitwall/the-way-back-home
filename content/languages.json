@@ -95,7 +95,9 @@
       "name": "עברית",
       "english": "Hebrew",
       "dir": "rtl",
-      "ready": false
+      "ready": true,
+      "narration": true,
+      "video": false
     },
     "sw": {
       "name": "Kiswahili",

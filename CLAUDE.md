@@ -40,7 +40,8 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 |---|---|
 | English | Finished and public: 18 pages, v3 narration, 15 clips, 14 music tracks |
 | German (de) | Finished and public: text, ElevenLabs v3 recording, captions timed |
-| zh hi es fr ar bn pt ru ur he sw pa ko ja ki | Text and v3 narration scripts written; **waiting for Johnny's ElevenLabs recordings** |
+| Hebrew (he) | Finished and public 15 Oct 2026: reviewed modern text, ElevenLabs v3 recording (6:51), captions timed, pace even (10–12 chars/s) |
+| zh hi es fr ar bn pt ru ur sw pa ko ja ki | Text and v3 narration scripts written; **waiting for Johnny's ElevenLabs recordings** |
 | Plautdietsch (pdt) | Text written; plain script for his human narrator (no v3 tags) |
 
 - The narration scripts, with a Copy button per language, are on the artifact page
