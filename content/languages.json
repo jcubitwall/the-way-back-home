@@ -129,7 +129,9 @@
       "name": "ਪੰਜਾਬੀ",
       "english": "Punjabi",
       "dir": "ltr",
-      "ready": false
+      "ready": true,
+      "narration": true,
+      "video": false
     },
     "ko": {
       "name": "한국어",
