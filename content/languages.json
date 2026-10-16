@@ -89,7 +89,9 @@
       "name": "Русский",
       "english": "Russian",
       "dir": "ltr",
-      "ready": false
+      "ready": true,
+      "narration": true,
+      "video": false
     },
     "ur": {
       "name": "اردو",
