@@ -12,8 +12,11 @@ earth. It is read full screen on a phone: each page is a picture or a short anim
 appear one sentence at a time with the narrator, and each chapter has its own music.
 
 - **Test site:** https://jcubitwall.github.io/the-way-back-home-v2/ (this repo, branch `main`, GitHub Pages).
-- **Public site:** thewaybackhome.net still serves the OLD version from `jcubitwall/the-way-back-home`.
-  Switch the domain only when every language is finished (see "Going live" in README.md).
+- **Public site:** thewaybackhome.net. **16 Oct 2026: Johnny decided to go live with v2** (16 languages; Kikuyu and
+  Plautdietsch stay unlisted until recorded). Prep is pushed (old-address `/assets/` copies, sw.js clears the old cache).
+  The switch itself is two GitHub Pages settings Johnny makes by hand (the Pages API is blocked from this environment):
+  remove the custom domain from `jcubitwall/the-way-back-home`, then set it on this repo and tick Enforce HTTPS.
+  Keep the old repo (archive it, don't delete it). See "Going live" in README.md.
 - **Characters:** three kids, Sally (red top, jeans, long red-brown wavy hair, glasses),
   George (yellow polo, curly black hair), Chase (black T-shirt, spiky black hair). They are never named
   in the text. Johnny makes the stills with ChatGPT (it knows the characters and art style) and the

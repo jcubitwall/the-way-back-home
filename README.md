@@ -96,4 +96,6 @@ When every language is done:
 3. In this repository → Settings → Pages, enter `thewaybackhome.net` as the custom domain and tick "Enforce HTTPS"
    (GitHub adds a `CNAME` file). Cloudflare needs no change: the domain already points at GitHub Pages.
 
-Old links like `thewaybackhome.net/es/p7` keep working.
+Old links like `thewaybackhome.net/es/p7` keep working, other old addresses (`read.html`, `/pages/…`) land on the
+language list, `/assets/` still holds the share picture and icons the old site's links and home-screen app point to,
+and `sw.js` deletes the old site's offline cache (`twbh-v1`) from phones the first time they open the new book.
