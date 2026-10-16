@@ -41,7 +41,9 @@
       "name": "हिन्दी",
       "english": "Hindi",
       "dir": "ltr",
-      "ready": false
+      "ready": true,
+      "narration": true,
+      "video": false
     },
     "es": {
       "name": "Español",
