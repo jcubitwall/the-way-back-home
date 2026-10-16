@@ -47,7 +47,8 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 | French (fr) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (6:48), captions timed, pace even (about 10–14 letters/s), every caption break checked against a real pause, no hand fixes needed |
 | Arabic (ar) | Finished and public 15 Oct 2026: ElevenLabs v3 recording, Jordanian voice (6:51), captions timed, pace even (about 8–9 letters/s). From page 8 on, ElevenLabs made the page gaps only ~0.5 s (same as sentence gaps), so the auto cut slipped; the breaks were found by lining up every phrase with the speech and forced with `split.py --at=locked:189.8,scrub:215.5,door:239.6,cross:256.2,choice:282.4,tomb:298.6,gates:317.9,new-earth:334.6,prayer:373.0`. Page 11 caption 3 moved by hand to 8.8 s |
 | Bengali (bn) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (8:39), clean page gaps, captions timed, pace even (about 5–6 letters/s), every caption break on a real pause, no hand fixes needed |
-| pt ru ur ja | Text reviewed for meaning 15 Oct 2026; v3 scripts sent to Johnny; **waiting for his ElevenLabs recordings** |
+| Portuguese (pt) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (7:16), clean page gaps, captions timed, pace even (about 9–12 letters/s), every caption break on a real pause, no hand fixes needed |
+| ru ur ja | Text reviewed for meaning 15 Oct 2026; v3 scripts sent to Johnny; **waiting for his ElevenLabs recordings** |
 | sw pa ko ki | Text and v3 narration scripts written; **waiting for Johnny's ElevenLabs recordings** |
 | Plautdietsch (pdt) | Text written; plain script for his human narrator (no v3 tags) |
 

@@ -81,7 +81,9 @@
       "name": "Português",
       "english": "Portuguese",
       "dir": "ltr",
-      "ready": false
+      "ready": true,
+      "narration": true,
+      "video": false
     },
     "ru": {
       "name": "Русский",
