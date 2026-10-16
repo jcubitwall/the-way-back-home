@@ -53,7 +53,8 @@ appear one sentence at a time with the narrator, and each chapter has its own mu
 | ja | Text reviewed for meaning 15 Oct 2026; v3 scripts sent to Johnny; **waiting for his ElevenLabs recordings** |
 | Swahili (sw) | Finished and public 15 Oct 2026: ElevenLabs v3 recording (8:22), captions timed, pace even (about 9–11 letters/s). The tomb/gates page break was a short gap, so it was forced with `split.py --at=tomb:373.0`; checked by phrase alignment. A native speaker's read of the text is still worth having |
 | Punjabi (pa) | Finished and public 16 Oct 2026: new narrator, recorded in four ElevenLabs v3 pieces (`scripts/The-Way-Back-Home_PA_narration_v3_part0..3.txt`), joined with 2.5 s gaps (7:51 total). Page gaps inside the pieces were short, so breaks were found by phrase alignment and forced with `split.py pa joined.mp3 --at=fruit:103.5,exile:135.97,road:152.07,test:179.07,locked:208.57,scrub:229.4,door:265.97,cross:291.07,choice:325.17,tomb:342.17,gates:360.8,new-earth:378.31,prayer:432.11`. Captions on road, test, scrub, choice, gates and prayer set by hand from the Hindi sentence pattern (auto timing is unreliable here because Gurmukhi vowel signs throw off letter counts). Law page re-cut so the crack hush sits before "Like Adam and Eve…". A native speaker's read is still worth having |
-| ko ki | Text and v3 narration scripts written; **waiting for Johnny's ElevenLabs recordings** |
+| Korean (ko) | Finished and public 16 Oct 2026: ElevenLabs v3 recording (7:52), clean page gaps, captions timed, pace even (about 5–6 syllables/s), every caption break on a real pause, no hand fixes needed |
+| ki | Text and v3 narration scripts written; **waiting for Johnny's ElevenLabs recordings** |
 | Plautdietsch (pdt) | Text written; plain script for his human narrator (no v3 tags) |
 
 - The narration scripts, with a Copy button per language, are on the artifact page
