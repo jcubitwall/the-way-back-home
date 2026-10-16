@@ -6,7 +6,7 @@
 
 [long pause]
 
-[gently] Dios les dio a Adán y Eva todos los árboles del jardín para que los disfrutaran, menos uno. [serious] “No coman de ese árbol”, dijo Dios. “Si comen de él, de seguro morirán”. [gently] Adán señaló el árbol para que Eva no lo olvidara. [warmly] Era una sola regla, muy sencilla, de un Padre que los amaba.
+[gently] Dios les dio a Adán y Eva todos los árboles del jardín para que los disfrutaran, menos uno. [serious] “No coman de ese árbol”, dijo Dios. “Si lo hacen, morirán”. [gently] Adán señaló el árbol para que Eva no lo olvidara. [warmly] Era una sola regla, muy sencilla, de un Padre que los amaba.
 
 [long pause]
 
@@ -14,7 +14,7 @@
 
 [long pause]
 
-[hesitant] Eva miró la fruta. Se veía tan rica que le dio una mordida. Luego le dio un poco a Adán, y él también comió. [worried] ¡Uy! [sad] Por primera vez, las personas habían desobedecido a Dios. La Biblia llama a esto pecado. [ominous] Y la serpiente sonrió con malicia. Su trampa había funcionado.
+[hesitant] Eva miró la fruta. Se veía tan rica que le dio una mordida. Luego le dio un poco a Adán, y él también comió. [worried] ¡Oh, oh! [sad] Por primera vez, las personas habían desobedecido a Dios. La Biblia llama a esto pecado. [ominous] Y la serpiente sonrió con malicia. Su trampa había funcionado.
 
 [long pause]
 
